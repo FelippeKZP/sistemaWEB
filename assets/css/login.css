@@ -1,0 +1,82 @@
+* {
+    font-family: arial;
+}
+body {
+    background: url(http://www.designbolts.com/wp-content/uploads/2014/03/Blue-Blur-Background1.jpg);
+    background-repeat: no-repeat;
+    margin: 0;
+    background-color: #f1f7fc;
+}
+
+.login {
+    padding: 80px 0;
+}
+
+.login form {
+    max-width: 320px;
+    width: 90%;
+    background-color: #FFF;
+    margin: auto;
+    height: 300px;
+}
+
+.login .icone {
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.login form .form-group {
+    margin-left:  30px;
+}
+
+.login form .form-control {
+    background-color: #f7f9fc;
+    border: none;
+    border-bottom: 1px solid #dfe7f1;
+    outline: none;
+    color: inherit;
+    text-indent: 8px;
+    width: 90%;
+    height: 40px;
+}
+
+.login form .enviar {
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #5858FA;
+    border: none;
+    border-radius: 4px;
+    margin-top: 26px;
+    margin-bottom: 26px;
+    outline: none;
+    text-indent: 8px;
+    width: 90%;
+    height: 40px;
+    cursor: pointer;
+
+    background-position: center;
+    background-size: 35px;
+    background-repeat: no-repeat;
+}
+
+.login form .enviar:hover {
+    transition: 1s ease;
+
+    background-position: right;
+    background-size: 22px;
+    background-repeat: no-repeat;
+    background-color: #8258FA;
+}
+
+.msg{
+    border: 2px solid #FFF;
+    padding: 10px;
+    background-color: #ff0000;
+    border-radius: 5px;
+    color: #FFF;
+    margin-top: 10px;
+    width: 73%;
+    margin-bottom: 20px;
+    margin-left: 35px;
+}
