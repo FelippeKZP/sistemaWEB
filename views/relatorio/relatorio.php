@@ -1,7 +1,7 @@
 <h1>Relatórios</h1>
 
 <br/> 
-<fieldset style=" border: 1px solid #CCC;">
+<fieldset>
 
     <legend>Relatórios Cadastrais</legend>
 
@@ -66,7 +66,7 @@
 
 <br/>
 
-<fieldset style=" border: 1px solid #CCC;">
+<fieldset>
     <legend>Relatório Gerenciais</legend>
     <div class="relatorio_item">
         <a href="<?php echo BASE_URL; ?>relatorio/relatorio_estoqueBaixo">

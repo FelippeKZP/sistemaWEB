@@ -36,27 +36,28 @@
 
     <h4>Produtos</h4>
 
-    <input type="text" class="form-control" id="add_prod" name="add_prod" data-type="pesquisar_loteProdutos"/>
+    <input type="text" class="form-control" id="add_prod"  name="add_prod" data-type="pesquisar_loteProdutos"/>
 
+    <br/>    <br/>    <br/>    <br/>
 
-    <br/>
-
-    <table id="tabela_produtos" class="table-responsive" border="0;" width="100%">
-        <tr>
-            <th>Lote</th>
-            <th>Produto</th>
-            <th>Quant.</th>
-            <th>Preço Unit.</th>
-            <th>Sub Total</th>
-            <th>Ação</th>
-        </tr>
-    </table>
-
+    <div class="table-responsive">
+        <table id="tabela_produtos" class="table">
+            <tr>
+                <th>Lote</th>
+                <th>Produto</th>
+                <th>Quant.</th>
+                <th>Preço Unit.</th>
+                <th>Sub Total</th>
+                <th>Ação</th>
+            </tr>
+        </table>
+    </div>
     <hr style="border: 1px solid #CCC;"/>
 
-    <input type="submit" class="btn btn-success" value="Finalizar a Venda"  />
-    <a class="btn btn-warning" href="<?php echo BASE_URL; ?>venda">Voltar</a>
-
+    <div class="col-sm-12">
+        <input type="submit" class="btn btn-success" value="Salvar"  />
+        <a class="btn btn-warning" href="<?php echo BASE_URL; ?>venda">Voltar</a>
+    </div>
 </form>
 
 <script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/venda/script_venda_add.js"></script>

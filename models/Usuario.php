@@ -5,7 +5,7 @@ class Usuario extends model {
     private $permissions;
     private $userInfo;
 
-    public function getList($s = null,$offset,$limit) {
+    public function getList($s = null, $offset, $limit) {
         $array = array();
 
         if (!empty($s)) {
@@ -300,18 +300,57 @@ class Usuario extends model {
     public function hasPermission($name) {
         $this->permissions->hasPermission($name);
     }
-    
-    public function getCombo(){
+
+    public function getCombo() {
         $array = array();
-        
+
         $sql = $this->db->prepare("SELECT * FROM usuario");
         $sql->execute();
-        
-        if($sql->rowCount() > 0){
+
+        if ($sql->rowCount() > 0) {
             $array = $sql->fetchAll();
         }
-        
+
         return $array;
+    }
+
+    public function esqueciSenha($email) {
+
+        $sql = $this->db->prepare("SELECT id FROM usuario WHERE email = :email");
+        $sql->bindValue(":email", $email);
+        $sql->execute();
+
+        if ($sql->rowCount() > 0) {
+
+            $row = $sql->fetch();
+            $id_usuario = $row['id'];
+
+            $token = md5(time() . rand(0, 99999) . rand(0, 99999));
+
+            $sql = $this->db->prepare("INSERT INTO usuario_token(id_usuario,hash,data,status)
+                   VALUES(:id_usuario,:hash,:data,0)");
+            $sql->bindValue(":id_usuario", $id_usuario);
+            $sql->bindValue(":hash", $token);
+            $sql->bindValue(":data", date('Y-m-d H:i', strtotime('+2 months')));
+            $sql->execute();
+
+            //$link = "http://localhost/fuzafarma/redefinir.php?token=" . $token;
+
+           // $email_remetente = "felipekzp0@gmail.com";
+            //$quebra_linha = "\n";
+            //$assunto = "Redefinição De Senha";
+            //$mensagem = "Click no link para redefinir sua senha:<br/>" . $link;
+            //$headers = "MIME-Version: 1.1" . $quebra_linha;
+            //$headers .= "Content-type: text/plain; UTF-8" . $quebra_linha; // ou UTF-8, como queira
+            //$headers .= "From: $email_remetente" . $quebra_linha; // remetente
+            //$headers .= "Return-Path: $email_remetente" . $quebra_linha; // return-path
+
+            //mail($email, $assunto, $mensagem, $headers, "-r" . $email_remetente);
+
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

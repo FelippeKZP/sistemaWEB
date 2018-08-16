@@ -20,6 +20,12 @@ class balancoMesController extends controller{
         $data['usuario_foto'] = $u->getFoto();
         $data['notificacao'] = $n->verificarNotificacao($u->getId());
         
+        $b = new BalancoMes();
+        
+        $data['atual_list'] = $b->getAtualList(date('Y-m-01'), date('Y-m-t'));
+        $data['anterior_list'] = $b->getAnteriorList(date('Y-m-01', strtotime('-1 month')), date('Y-m-t', strtotime('-1 month')));
+    
+        
         $this->loadTemplate('balancoMes/balanco_mes', $data);
     }
 }

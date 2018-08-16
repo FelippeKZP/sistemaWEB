@@ -2,49 +2,49 @@
 
 <br/><br/>
 
-<div class="col-sm-4">
-    <div class="panel panel-primary" style="width: 100%;">
+<div class="col-sm-6">
+    <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">Mês Atual</h3>
         </div>
-        <div class="panel-body" style="height: 300px;">
+        <div class="panel-body">
             <label>Receita:</label>
-            <input type="text" class="form-control" disabled="true" id="receita"  name="receita" style="color:blue; width: 60%; margin-top: -30px; margin-left: 60px; margin-bottom: 20px;" value="R$ 570,98" />
+            <input type="text" class="form-control" disabled="true" id="receita"  name="receita" style="color:blue;" value="<?php echo number_format($atual_list['venda'], 2, ',', '.'); ?>" />
             <label>Compra:</label>
-            <input type="text" class="form-control" disabled="true" id="compra" name="compra" style="color:red; width: 60%; margin-top: -30px; margin-left: 60px; margin-bottom: 20px;" value="R$ -170,98" />
+            <input type="text" class="form-control" disabled="true" id="compra" name="compra" style="color:red;" value="<?php echo number_format($atual_list['compra'], 2, ',', '.'); ?>" />
             <label>Perda:</label>
-            <input type="text" class="form-control" disabled="true" id="perda" name="perda" style="color:red; width: 63%; margin-top: -30px; margin-left: 47px; margin-bottom: 20px;" value="R$ -10,98" />
+            <input type="text" class="form-control" disabled="true" id="perda" name="perda" style="color:red;" value="<?php echo number_format($atual_list['perda'], 2, ',', '.'); ?>" />
             <label>Outras Desp:</label>
-            <input type="text" class="form-control" disabled="true" id="outraDespesas" name="outraDespesas" style="color:red; width: 50%; margin-top: -30px; margin-left: 93px; margin-bottom: 20px;" value="R$ -130,98" />
+            <input type="text" class="form-control" disabled="true" id="outraDespesas" name="outraDespesas" style="color:red;" value="<?php echo number_format($atual_list['outras'], 2, ',', '.'); ?>" />
 
             <hr style="border: 4px solid #444; border-radius: 2px;"/>
 
             <label>Lucro Líq:</label>
-            <input type="text" class="form-control" disabled="true" id="lucro" name="lucro" style="color:blue; width: 55%; margin-top: -30px; margin-left: 72px; margin-bottom: 20px;" value="R$ 80,98" />
+            <input type="text" class="form-control" disabled="true" id="lucro" name="lucro" style="color:blue;" value="<?php echo number_format($atual_list['venda'] - $atual_list['compra'] - $atual_list['perda'] - $atual_list['outras'], 2, ',', '.'); ?>" />
         </div>
     </div>
-</div>
-<div class="col-sm-1"></div>
 
-<div class="col-sm-4">
-    <div class="panel panel-primary" style="width: 100%;">
+</div>
+
+<div class="col-sm-6">
+    <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title">Mês Atual</h3>
+            <h3 class="panel-title">Mês Anterior</h3>
         </div>
-        <div class="panel-body" style="height: 301px;">
+        <div class="panel-body">
             <label>Receita:</label>
-            <input type="text" class="form-control" disabled="true" id="receita"  name="receita" style="color:blue; width: 60%; margin-top: -30px; margin-left: 60px; margin-bottom: 20px;" value="R$ 570,98" />
+            <input type="text" class="form-control" disabled="true" id="receita"  name="receita" style="color:blue;" value="<?php echo number_format($anterior_list['venda'],2,',','.'); ?>" />
             <label>Compra:</label>
-            <input type="text" class="form-control" disabled="true" id="compra" name="compra" style="color:red; width: 60%; margin-top: -30px; margin-left: 60px; margin-bottom: 20px;" value="R$ -170,98" />
+            <input type="text" class="form-control" disabled="true" id="compra" name="compra" style="color:red;" value="<?php echo number_format($anterior_list['compra'],2,',','.'); ?>" />
             <label>Perda:</label>
-            <input type="text" class="form-control" disabled="true" id="perda" name="perda" style="color:red; width: 63%; margin-top: -30px; margin-left: 47px; margin-bottom: 20px;" value="R$ -10,98" />
+            <input type="text" class="form-control" disabled="true" id="perda" name="perda" style="color:red;" value="<?php echo number_format($anterior_list['perda'],2,',','.'); ?>" />
             <label>Outras Desp:</label>
-            <input type="text" class="form-control" disabled="true" id="outraDespesas" name="outraDespesas" style="color:red; width: 50%; margin-top: -30px; margin-left: 93px; margin-bottom: 20px;" value="R$ -130,98" />
+            <input type="text" class="form-control" disabled="true" id="outraDespesas" name="outraDespesas" style="color:red;" value="<?php echo number_format($anterior_list['outras'],2,',','.'); ?>" />
 
             <hr style="border: 4px solid #444; border-radius: 2px;"/>
 
             <label>Lucro Líq:</label>
-            <input type="text" class="form-control" disabled="true" id="lucro" name="lucro" style="color:blue; width: 55%; margin-top: -30px; margin-left: 72px; margin-bottom: 20px;" value="R$ 80,98" />
+            <input type="text" class="form-control" disabled="true" id="lucro" name="lucro" style="color:blue;" value="<?php echo number_format($anterior_list['venda'] - $atual_list['compra'] - $atual_list['perda'] - $atual_list['outras'], 2, ',', '.'); ?>" />
         </div>
     </div>
 </div>

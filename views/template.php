@@ -15,24 +15,7 @@
         <script type="text/javascript">var BASE_URL = '<?php echo BASE_URL; ?>';</script>
         <script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/javascript.js" ></script>
 
-        <script>
-            $(document).ready(function () {
-                $('#tabela').DataTable({
-                    scrollY: '50vh',
-                    scrollCollapse: true,
-                    paging: false,
-                    "ordering": false,
-                    "info": false,
-                    "searching": false,
-                    "row": false,
-                    "lengthChange": false,
-                    "language": {
-                        "zeroRecords": "Nenhum Registro Encontrado."
-                    }
-                });
-            });
 
-        </script>
 
     </head>
 

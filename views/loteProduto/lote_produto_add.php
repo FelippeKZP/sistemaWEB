@@ -18,21 +18,22 @@
 
 <form method="POST" id="form">
 
+
     <label>Número de Lote:</label>
-    <input type="text" class="form-control" id="numero_lote" style="width: 30%;" name="numero_lote" placeholder="Digite o Número do Lote."/>
+    <input type="text" class="form-control" id="numero_lote"  name="numero_lote" placeholder="Digite o Número do Lote."/>
 
     <br/>
 
     <label>Produto:</label>
     <input type="hidden" name="id_produto"/>
-    <input type="text" class="form-control  autocomplete" style="width: 40%;" id="produto" name="produto" data-type="pesquisar_produtos" required="true"/>
+    <input type="text" class="form-control  autocomplete" id="produto" name="produto" data-type="pesquisar_produtos" required="true"/>
     <div style="clear: both"></div>
 
     <br/>
 
     <label>Fornecedor:</label>
     <input type="hidden" name="id_fornecedor"/>
-    <input type="text" class="form-control autocomplete" style="width: 40%;" id="fornecedor" name="fornecedor" data-type="pesquisar_fornecedores" required="true"/>
+    <input type="text" class="form-control autocomplete" id="fornecedor" name="fornecedor" data-type="pesquisar_fornecedores" required="true"/>
     <div style="clear: both"></div>
 
     <br/>

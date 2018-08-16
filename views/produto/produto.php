@@ -24,8 +24,8 @@
     </div>
 <?php endif; ?>
 
-<table id="tabela" class="table-responsive table-hover">
-    <div class="table">
+<div class="table-responsive">
+    <table id="tabela" class="table table-hover">
         <thead>
             <tr>
                 <th>Imagem</th>
@@ -63,10 +63,10 @@
                     <td><?php echo number_format($p['preco'], 2, ',', '.'); ?></td>
                     <td>
                         <?php
-                        if($p['status'] == 0){
-                            echo '<span style="color:red">'.($status[$p['status']]).'</span>';
-                        }else{
-                            echo '<span style="color:green">'.($status[$p['status']]).'</span>';
+                        if ($p['status'] == 0) {
+                            echo '<span style="color:red">' . ($status[$p['status']]) . '</span>';
+                        } else {
+                            echo '<span style="color:green">' . ($status[$p['status']]) . '</span>';
                         }
                         ?>   
                     </td>
@@ -80,8 +80,8 @@
                 </tr>
             </tbody>
         <?php endforeach; ?>
-    </div>
-</table> 
+    </table> 
+</div>
 
 <ul class="pagination">
     <?php if ($total > $limit): ?>

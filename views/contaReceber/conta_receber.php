@@ -22,9 +22,8 @@
     </div>
 <?php endif; ?>
 
-
-<table id="tabela" class="table-responsive table-hover" border="0" width="100%">
-    <div class="table">
+<div class="table-responsive">
+    <table id="tabela" class="table table-hover" border="0" width="100%">
         <thead>
             <tr>
                 <th>#</th>
@@ -73,8 +72,9 @@
                 </tr>
             </tbody>
         <?php endforeach; ?>
-    </div>
-</table>
+    </table>
+</div>
+
 <ul class="pagination">
     <?php if ($total > $limit): ?>
         <?php if ($paginaAtual != 1): ?>

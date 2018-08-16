@@ -44,13 +44,13 @@ textarea{
     border : 1px solid #CCC;
 }
 
-
-.searchresults {
-    width:40%;
-    background-color:#FFF;
-    position:absolute;
-    border:1px solid #CCC;
-
+@media (min-width: 190px) and (max-width:90.4%){
+    .searchresults {
+        min-width: 190px;
+        background-color:#FFF;
+        position:absolute;
+        border:1px solid #CCC;
+    }
 }
 
 .si {
@@ -150,7 +150,6 @@ textarea{
 }
 
 #cliente_nome {
-    width: 400px;
     float: left;
     background-image:url('../imagens/search-engine.png');
     background-repeat: no-repeat;
@@ -161,7 +160,6 @@ textarea{
 }
 
 #add_prod{
-    width: 400px;
     float: left;
     background-image:url('../imagens/search-engine.png');
     background-repeat: no-repeat;
@@ -178,7 +176,7 @@ textarea{
     height: 34px;
     background-image:url('../imagens/search-engine.png');
     background-repeat: no-repeat;
-     background-size: 28px 28px;
+    background-size: 28px 28px;
 }
 
 
@@ -190,11 +188,13 @@ textarea{
 
 }
 
-.searchvenda {
-    width:400px;
-    background-color:#FFF;
-    position:absolute;
-    border:1px solid #CCC;
+
+@media (min-width: 190px) and (max-width:90.4%){
+    .searchvenda {
+        background-color:#FFF;
+        position:absolute;
+        border:1px solid #CCC;
+    }
 
 }
 

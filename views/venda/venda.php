@@ -10,7 +10,7 @@
     <input type="text" class="form-control col-sm-5" id="searchs" name="searchs" value="<?php echo (!empty($_GET['searchs'])) ? $_GET['searchs'] : ''; ?>" />
 </form>
 
-<br/>
+<br/><br/>
 
 <?php if (isset($msg_erro) && !empty($msg_erro)): ?>
     <div class="alert alert-danger alert-dismissible">
@@ -26,8 +26,8 @@
     </div>
 <?php endif; ?>
 
-<table id="tabela" class="table-responsive table-hover">
-    <div class="table">
+<div class="table-responsive">
+    <table id="tabela" class="table table-hover">
         <thead>
             <tr>
                 <th>#</th>
@@ -55,8 +55,8 @@
                 </tr>
             </tbody>
         <?php endforeach; ?>
-    </div>
-</table>
+    </table>
+</div>
 
 <ul class="pagination">
     <?php if ($total > $limit): ?>

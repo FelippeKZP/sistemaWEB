@@ -11,13 +11,24 @@
             reenviaremos sua senha para o e-mail informado.</p>
     </div>
     <div class="container-email">
-        <label>Email:</label><br/>
-        <input type="email" id="email" name="email" placeholder="Digite Seu Email"/>
 
-        <br/><br/>
+        <?php if (isset($msg_sucesso) && !empty($msg_sucesso)): ?>
+            <div class="sucesso"><?php echo $msg_sucesso; ?></div>
+        <?php endif; ?>
 
-        <input type="submit" id="bt" value="Enviar"/>
-        <a href="<?php echo BASE_URL; ?>login" id="btVoltar">Voltar</a>
+        <?php if (isset($msg_erro) && !empty($msg_erro)): ?>
+            <div class="error"><?php echo $msg_erro; ?></div>
+        <?php endif; ?>
+
+        <form method="POST">
+            <label>Email:</label><br/>
+            <input type="email" id="email" name="email" placeholder="Digite Seu Email"/>
+
+            <br/><br/>
+
+            <input type="submit" id="bt" value="Enviar"/>
+            <a href="<?php echo BASE_URL; ?>login" id="btVoltar">Voltar</a>
+        </form>
     </div>
 
 </div>
@@ -78,8 +89,8 @@
         margin-top: 10px;
         text-decoration: none;
     }
-    
-        .container-email #btVoltar{
+
+    .container-email #btVoltar{
         border: 0px;
         background-color:#d58512 ;
         height: 30px;
@@ -93,5 +104,28 @@
         display: inline-block;
         margin-top: 10px;
         text-decoration: none;
+    }
+
+    .container-email .error{
+        border: 2px solid #FFF;
+        padding: 10px;
+        background-color: #ff0000;
+        border-radius: 5px;
+        color: #FFF;
+        margin-top: 10px;
+        width: 73%;
+        margin-bottom: 20px;
+        
+    }
+
+    .container-email .sucesso{
+        border: 2px solid #FFF;
+        padding: 10px;
+        background-color:#6699ff;
+        border-radius: 5px;
+        color: #FFF;
+        margin-top: 10px;
+        width: 73%;
+        margin-bottom: 20px;
     }
 </style>
