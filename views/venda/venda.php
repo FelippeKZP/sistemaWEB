@@ -50,6 +50,7 @@
                         <a class="btn btn-primary"
                            href="<?php echo BASE_URL; ?>venda/venda_vizualizar/<?php echo $v['id']; ?>">Vizualizar</a>
                         <a class="btn btn-danger"
+                           onclick="return confirm('Deseja Mesmo Cancelar A Venda ?');"
                            href="<?php echo BASE_URL; ?>venda/venda_cancelar/<?php echo $v['id']; ?>">Cancelar</a>
                     </td>
                 </tr>

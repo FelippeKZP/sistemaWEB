@@ -47,8 +47,9 @@
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Movimento<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Compra</a></li>
+                                <li><a href="<?php echo BASE_URL; ?>compra">Compra</a></li>
                                 <li><a href="<?php echo BASE_URL; ?>venda">Venda</a></li>
+                                <li><a href="#">Perda</a></li>
                             </ul>
                         </li>
                         <li><a href="#">Contas Pagar</a></li>
