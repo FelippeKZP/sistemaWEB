@@ -80,3 +80,8 @@ body {
     margin-bottom: 20px;
     margin-left: 35px;
 }
+
+ .esqueci:hover{
+    color: #23527c !important;
+    text-decoration: underline;
+}

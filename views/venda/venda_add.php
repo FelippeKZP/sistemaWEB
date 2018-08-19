@@ -38,7 +38,7 @@
 
     <input type="text" class="form-control" id="add_prod"  name="add_prod" data-type="pesquisar_loteProdutos"/>
 
-    <br/>    <br/>    <br/>    <br/>
+    <br/><br/><br/><br/>
 
     <div class="table-responsive">
         <table id="tabela_produtos" class="table">

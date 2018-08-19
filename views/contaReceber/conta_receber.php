@@ -47,7 +47,7 @@
                     <td><?php echo date('d/m/Y', strtotime($c['data_vencimento'])); ?></td>
                     <td><?php
                         if ($c['data_recebimento'] == 0000 - 00 - 00) {
-                            echo '<span style="color:red;">' . 'Conta Não Foi Recebida' . '</span>';
+                            echo '<span class="label label-danger">' . 'Conta Não Foi Recebida' . '</span>';
                         } else {
                             echo date('d/m/Y', strtotime($c['data_recebimento']));
                         }
@@ -55,9 +55,9 @@
                     <td><?php echo number_format($c['total_venda'], 2, ',', '.'); ?></td>
                     <td><?php
                         if ($c['status'] == 0) {
-                            echo '<span style="color:red;">' . $status[$c['status']] . '<span>';
+                            echo '<span class="label label-danger">' . $status[$c['status']] . '<span>';
                         } else {
-                            echo '<span style ="color:green;">' . $status[$c['status']] . '</span>';
+                            echo '<span class ="label label-success">' . $status[$c['status']] . '</span>';
                         }
                         ?></td>
                     <td>

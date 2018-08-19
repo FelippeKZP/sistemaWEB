@@ -54,7 +54,7 @@
                     <td>
                         <?php
                         if ($p['quantidade_min'] > $p['quantidade']) {
-                            echo '<span style="color:red">' . ($p['quantidade_min']) . '</span>';
+                            echo '<span class="label label-danger">' . ($p['quantidade_min']) . '</span>';
                         } else {
                             echo $p['quantidade_min'];
                         }
@@ -64,9 +64,9 @@
                     <td>
                         <?php
                         if ($p['status'] == 0) {
-                            echo '<span style="color:red">' . ($status[$p['status']]) . '</span>';
+                            echo '<span class="label label-danger">' . ($status[$p['status']]) . '</span>';
                         } else {
-                            echo '<span style="color:green">' . ($status[$p['status']]) . '</span>';
+                            echo '<span class="label label-success">' . ($status[$p['status']]) . '</span>';
                         }
                         ?>   
                     </td>

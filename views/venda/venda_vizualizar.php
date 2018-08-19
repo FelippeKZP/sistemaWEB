@@ -31,9 +31,9 @@
 
 <h4>Produtos</h4>
 
-<table id="tabela" class="table-responsive table-hover">
-    <div class="table">
-        <thead>
+<div class="table-responsive">
+<table id="tabela" class="table table-hover">
+    <thead>
             <tr>
                 <th>Lote</th>
                 <th>Produto</th>
@@ -53,7 +53,8 @@
                 </tr>
             </tbody>
         <?php endforeach; ?>
-    </div>
 </table>
+</div>
 
+<br/>
 <a class="btn btn-warning" href="<?php echo BASE_URL; ?>venda">Voltar</a>

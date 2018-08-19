@@ -198,6 +198,15 @@ textarea{
 
 }
 
+@media (min-width: 190px) and (max-width:90.4%){
+    .searchcompra {
+        background-color:#FFF;
+        position:absolute;
+        border:1px solid #CCC;
+    }
+
+}
+
 .p_quant{
     width: 70px !important;
 }
@@ -230,32 +239,6 @@ textarea{
     filter: alpha(opacity=0);
 }
 
-.tabarea{
-    height: 40px;
-}
-
-.tabitem{
-    float: left;
-    width: 50%;
-    height: 40px;
-    line-height: 40px;
-    border-bottom: 1px solid #000;
-    text-align: center;
-    background-color:#000;
-    cursor: pointer;
-    color:#999;
-}
-
-.activetab{
-    border-bottom: 1px solid #FFF;
-    background-color: #FFF;
-
-}
-
-.tabbody{
-    display: none;
-
-}
 
 .notificacoes {
     width:30px;
@@ -277,8 +260,34 @@ textarea{
 }
 
 
+#fornecedor_razao{
+    float: left;
+    background-image:url('../imagens/search-engine.png');
+    background-repeat: no-repeat;
+    background-size: 15px 15px;
+    background-position: 5px ;
+    padding-left: 25px;
+    border : 1px solid #CCC;
+}
 
+#total_compra{
+    width: 150px;
+    float: right;
+    margin-bottom: 12px;
+    margin-right: 0px;
 
+}
+
+#add_prod_compra{
+    float: left;
+    background-image:url('../imagens/search-engine.png');
+    background-repeat: no-repeat;
+    background-size: 15px 15px;
+    background-position: 5px ;
+    padding-left: 25px;
+    border : 1px solid #CCC; 
+    margin-bottom: 15px;
+}
 
 
 

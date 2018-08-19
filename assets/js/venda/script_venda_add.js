@@ -157,8 +157,6 @@ function addProd(obj) {
 
 }
 
-
-
 $('#cliente_nome').on('keyup', function () {
 
     var datatype = $(this).attr('data-type');
@@ -181,7 +179,7 @@ $('#cliente_nome').on('keyup', function () {
 
                 var html = '';
                 for (var i in json) {
-                    html += '<div class="si"><a id="auto" href="javascript:;" onclick="selecionarCliente(this);" data-id="' + json[i].id + '">' + json[i].nome + ' ' + 'CPF: ' + json[i].cpfCnpj + ' </a></div>';
+                    html += '<div class="si"><a id="auto" href="javascript;" onclick="selecionarCliente(this);" data-id="' + json[i].id + '">' + json[i].nome + ' ' + 'CPF: ' + json[i].cpfCnpj + ' </a></div>';
                 }
 
                 $('.searchvenda').html(html);

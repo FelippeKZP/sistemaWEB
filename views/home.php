@@ -69,3 +69,27 @@
 </div>
 
 
+<div class="col-sm-8" style="margin-top: 10px;">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Gráfico de Total de Vendas e Compras</h3>
+        </div>
+        <div class="panel-body">
+            <canvas id="rel1" height="96px"></canvas>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-4" style="margin-top: 10px;">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Contas a Receber Status de Pgto.</h3>
+        </div>
+        <div class="panel-body">
+            <canvas id="rel2" height="210px"></canvas>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="<?php echo BASE_URL; ?>/assets/js/Chart.min.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/home.js"></script>

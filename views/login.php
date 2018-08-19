@@ -45,7 +45,7 @@
                 </div>
                 <!-- Fim Form Submit -->
                 <div class="form-group" style="padding-right: 30px; float: right;">
-                    <a id="esqueci" style="font-size: 12px; text-decoration: none; color:#999999;"  href="<?php echo BASE_URL; ?>login/esqueci_senha">ESQUECI MINHA SENHA</a>
+                    <a id="esqueci" class="esqueci" style="font-size: 12px; text-decoration: none; color:#72afd2;"  href="<?php echo BASE_URL; ?>login/esqueci_senha">ESQUECI MINHA SENHA</a>
                 </div>
 
             </form>
