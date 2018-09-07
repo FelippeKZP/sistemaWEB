@@ -110,6 +110,7 @@ class ajaxController extends controller {
             $data[] = array(
                 'id' => $sitem['id'],
                 'preco' => $sitem['preco'],
+                'preco_compra' => $sitem['preco_compra'],
                 'quant' => $sitem['quantidade'],
                 'produto' => $sitem['nome'],
                 'numero' => $sitem['numero_lote'],
@@ -117,6 +118,73 @@ class ajaxController extends controller {
             );
         }
 
+        echo json_encode($data);
+    }
+
+    public function verificarCPF() {
+        $data = array();
+        $u = new Usuario();
+        $u->setLoggedUser();
+
+        $f = new Funcionario();
+
+        if (isset($_GET['p']) && !empty($_GET['p'])) {
+            $p = addslashes($_GET['p']);
+        }
+        
+        $total = $f->verificarCPF($p);
+        
+         foreach ($total as $t){
+             $data[] = array(
+               'total' => $t['total']  
+             );
+         }
+         
+         echo json_encode($data);
+    }
+    
+    public function verificarRG(){
+        $data = array();
+        $u = new Usuario();
+        $u->setLoggedUser();
+        
+        $f = new Funcionario();
+        
+        if(isset($_GET['p']) && !empty($_GET['p'])){
+            $p = addslashes($_GET['p']);
+        }
+        
+        $total = $f->verificarRG($p);
+        
+        foreach ($total as $t){
+            $data[] = array(
+              'total' => $t['total']  
+            );
+        }
+        
+        echo json_encode($data);
+        
+    }
+    
+    public function verificarCarteira(){
+        $data = array();
+        $u = new Usuario();
+        $u->setLoggedUser();
+        
+        $f = new Funcionario();
+        
+        if(isset($_GET['p']) && !empty($_GET['p'])){
+            $p = addslashes($_GET['p']);
+        }
+        
+        $total = $f->verificarCarteira($p);
+        
+        foreach ($total as $t){
+            $data[] = array(
+                'total' => $t['total']
+            );
+        }
+        
         echo json_encode($data);
     }
 

@@ -10,11 +10,12 @@
 <?php endif; ?>
 
 <?php if (isset($msg_sucesso) && !empty($msg_sucesso)): ?>
-    <div class="alert alert-sucess alert-dismissible">
+    <div class="alert alert-success alert-dismissible">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <strong><?php echo $msg_sucesso; ?></strong>
     </div>
 <?php endif; ?>
+
 
 <form method="POST" enctype="multipart/form-data"  id="form">
 
@@ -51,8 +52,19 @@
 
     <div class="form-group col-sm-3">
         <label>Preço de Compra:</label>
-        <input type="text" class="form-control" id="preco_compra" name="preco_compra" value="<?php echo number_format($produto_editar_list['preco_compra'], 2); ?>" placeholder="Digite o Preço de Compra."/>
+        <input type="text" class="form-control" id="preco_compra" name="preco_compra" onblur="lucro();" value="<?php echo number_format($produto_editar_list['preco_compra'], 2); ?>" placeholder="Digite o Preço de Compra."/>
     </div>
+
+    <div class="form-group col-sm-3">
+        <label>Lucro da Venda:</label>
+        <input type="text" class="form-control" id="lucro_venda" name="lucro_venda" placeholder="0,00" value="<?php echo number_format($produto_editar_list['lucro_venda'],2,',','.'); ?>" readonly="true" />
+    </div>
+
+    <div class="form-group col-sm-3">
+        <label>Margem Bruta:</label>
+        <input type="text" class="form-control" id="margem_bruta" name="margem_bruta" placeholder="0.00%" value="<?php echo number_format($produto_editar_list['margem_bruta'],2).'%'; ?>" readonly="true"/>
+    </div>
+
     <div class="form-group col-sm-3">
         <label>Status:</label>
         <select id="status" class="form-control" name="status" required="true">
@@ -87,7 +99,7 @@
 
 
 </form>
-
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/produto/script_produto_add.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/produto/script_produto_validacao.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/produto/script_produto_mascara.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/produto/script_produto_maskMoney.js"></script>

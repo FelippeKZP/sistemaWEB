@@ -69,15 +69,20 @@ class vendaController extends controller {
         if (isset($_POST['id_cliente']) && !empty($_POST['id_cliente'])) {
             $id_cliente = addslashes($_POST['id_cliente']);
             $quant = $_POST['quant'];
+            $id_funcionario = addslashes($_POST['id_funcionario']);
 
             try {
-                $v->venda_add($id_cliente, $quant, $u->getId());
+                $v->venda_add($id_cliente,$id_funcionario, $quant, $u->getId());
                 $data['msg_sucesso'] = "Sucesso em Salvar a Venda.";
             } catch (Exception $ex) {
                 $data['msg_erro'] = "Ocorreu um Erro ao Salvar a Venda.";
             }
         }
 
+        $f = new Funcionario();
+        
+        $data['funcionario_list'] = $f->getCombo();
+        
         $this->loadTemplate('venda/venda_add', $data);
     }
 

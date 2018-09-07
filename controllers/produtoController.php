@@ -77,6 +77,9 @@ class produtoController extends controller {
             $quantidade_min = addslashes($_POST['quantidade_min']);
             $preco = addslashes($_POST['preco']);
             $preco_compra = addslashes($_POST['preco_compra']);
+            $lucro_venda = addslashes($_POST['lucro_venda']);
+            $margem_bruta = addslashes($_POST['margem_bruta']);
+
             $status = addslashes($_POST['status']);
 
             if (isset($_FILES['fotos'])) {
@@ -87,10 +90,10 @@ class produtoController extends controller {
 
             $preco = str_replace(',', '.', $preco);
             $preco_compra = str_replace(',', '.', $preco_compra);
+            $lucro_venda = str_replace(',', '.', $lucro_venda);
 
 
-
-            if ($p->produto_add($cod_barras, $nome, $id_grupo_produto, $quantidade_min, $preco, $preco_compra, $status, $fotos, $u->getId())) {
+            if ($p->produto_add($cod_barras, $nome, $id_grupo_produto, $quantidade_min, $preco, $preco_compra, $lucro_venda, $margem_bruta, $status, $fotos, $u->getId())) {
                 $data['msg_sucesso'] = "Produto Salvo Com Sucesso.";
             } else {
                 $data['msg_erro'] = "Já Existe Este Produto.";
@@ -123,6 +126,8 @@ class produtoController extends controller {
             $quantidade_min = addslashes($_POST['quantidade_min']);
             $preco = addslashes($_POST['preco']);
             $preco_compra = addslashes($_POST['preco_compra']);
+            $lucro_venda = addslashes($_POST['lucro_venda']);
+            $margem_bruta = addslashes($_POST['margem_bruta']);
 
             if (isset($_FILES['fotos'])) {
                 $fotos = $_FILES['fotos'];
@@ -134,12 +139,18 @@ class produtoController extends controller {
             $preco = str_replace('.', '', $preco);
             $preco = str_replace(',', '.', $preco);
 
-            //  $preco_compra = str_replace(',', '', $preco_compra);
+            
+            $preco_compra = str_replace('.', '', $preco_compra);
             $preco_compra = str_replace(',', '.', $preco_compra);
+            
+            
+            
+            $lucro_venda = str_replace('.', '', $lucro_venda);
+            $lucro_venda = str_replace(',', '.', $lucro_venda);
 
 
             try {
-                $p->produto_editar($cod_barras, $nome, $id_grupo_produto, $quantidade_min, $preco, $preco_compra, $fotos, $u->getId(), $id);
+                $p->produto_editar($cod_barras, $nome, $id_grupo_produto, $quantidade_min, $preco, $preco_compra,$lucro_venda,$margem_bruta, $fotos, $u->getId(), $id);
                 $data['msg_sucesso'] = "Sucesso ao Editar o Produto.";
             } catch (Exception $e) {
                 $data['msg_erro'] = "Ocorreu um Erro ao Editar o Produto.";

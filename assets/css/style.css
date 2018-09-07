@@ -188,24 +188,21 @@ textarea{
 
 }
 
-
-@media (min-width: 190px) and (max-width:90.4%){
-    .searchvenda {
-        background-color:#FFF;
-        position:absolute;
-        border:1px solid #CCC;
-    }
-
+.searchvenda {
+    background-color:#FFF;
+    position:absolute;
+    border:1px solid #CCC;
+    width: 90.4%;
 }
 
-@media (min-width: 190px) and (max-width:90.4%){
-    .searchcompra {
-        background-color:#FFF;
-        position:absolute;
-        border:1px solid #CCC;
-    }
-
+.searchcompra {
+    background-color:#FFF;
+    position:absolute;
+    border:1px solid #CCC;
+    width: 90.4%;
 }
+
+
 
 .p_quant{
     width: 70px !important;

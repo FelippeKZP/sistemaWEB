@@ -26,6 +26,7 @@
     </div>
 <?php endif; ?>
 
+
 <div class="table-responsive">
     <table id="tabela" class="table table-hover">
         <thead>
@@ -33,6 +34,7 @@
                 <th>#</th>
                 <th>Cliente</th>
                 <th>CPF/CNPJ</th>
+                <th>Vendedor</th>
                 <th>Data</th>
                 <th>Total</th>
                 <th>Ações</th>
@@ -44,6 +46,7 @@
                     <td><?php echo $v['id']; ?></td>
                     <td><?php echo $v['nome']; ?></td>
                     <td><?php echo $v['cpfCnpj']; ?></td>
+                    <td><?php echo $v['func']; ?></td>
                     <td><?php echo date('d/m/Y', strtotime($v['data_venda'])); ?></td>
                     <td><?php echo number_format($v['total_venda'], 2, ',', '.'); ?></td>
                     <td>
@@ -75,5 +78,7 @@
     <?php for ($q = $paginaAtual + $max; $q <= $paginaAtual + 1; $q++): ?>
         <li class="active"><a href="<?php echo BASE_URL; ?>venda?p=<?php echo $q; ?>"><?php echo $q; ?></a></li>
         <?php endfor; ?>
-    <li><a href="<?php echo BASE_URL; ?>venda?p=<?php echo $paginas; ?>">Ultima Pagina</a></li
+        <?php if ($paginaAtual != 1): ?>
+        <li><a href="<?php echo BASE_URL; ?>venda?p=<?php echo $paginas; ?>">Ultima Pagina</a></li>
+    <?php endif; ?>
 </ul>

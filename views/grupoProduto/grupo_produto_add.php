@@ -10,11 +10,12 @@
 <?php endif; ?>
 
 <?php if (isset($msg_sucesso) && !empty($msg_sucesso)): ?>
-    <div class="alert alert-sucess alert-dismissible">
+    <div class="alert alert-success alert-dismissible">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <strong><?php echo $msg_sucesso; ?></strong>
     </div>
 <?php endif; ?>
+
 
 
 <form id="form" method="POST">

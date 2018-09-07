@@ -1,13 +1,3 @@
-<script type="text/javascript">
-    jQuery(function ($) {
-
-        $("#periodo1").mask("99/99/9999");
-        $("#periodo2").mask("99/99/9999");
-
-    });
-
-</script>
-
 
 <?php if (isset($produto_estoque_baixo) && !empty($produto_estoque_baixo)): ?>
     <div class="alert alert-danger alert-dismissible">
@@ -27,7 +17,7 @@
         </div>
         <div class="panel-body">
             <img title="total de clientes" src="<?php echo BASE_URL; ?>assets/imagens/dashboardClientes.png" /> 
-            <h4 style="float: right; padding-right: 100px;"><?php echo $total_clientes; ?></h4>
+            <h4 style="float: right; padding-right: 50px;"><?php echo $total_clientes; ?></h4>
         </div>
     </div>
 </div>
@@ -39,7 +29,7 @@
         </div>
         <div class="panel-body">
             <img title="total de vendas" src="<?php echo BASE_URL; ?>assets/imagens/dashboardTotalVendas.png" /> 
-            <h4 style="float: right; padding-right: 100px;"><?php echo $total_vendas; ?></h4>
+            <h4 style="float: right; padding-right: 50px;"><?php echo $total_vendas; ?></h4>
         </div>
     </div>
 </div>
@@ -51,7 +41,7 @@
         </div>
         <div class="panel-body">
             <img  title="total da receita" src="<?php echo BASE_URL; ?>assets/imagens/dashboardVendas.png" /> 
-            <h4  style="float: right;  padding-right: 70px;">R$ <?php echo number_format($receita, 2, ',', '.'); ?></h4>
+            <h4  style="float: right;  padding-right: 50px;">R$ <?php echo number_format($receita, 2, ',', '.'); ?></h4>
         </div>
     </div>
 </div>
@@ -63,7 +53,7 @@
         </div>
         <div class="panel-body">
             <img  title="total da despesas" src="<?php echo BASE_URL; ?>assets/imagens/dashboardDespesas.png" /> 
-            <h4 style="float: right; padding-right: 70px;">R$ <?php echo number_format($despesas, 2, ',', '.'); ?></h4>
+            <h4 style="float: right; padding-right: 50px;">R$ <?php echo number_format($despesas, 2, ',', '.'); ?></h4>
         </div>
     </div>
 </div>

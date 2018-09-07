@@ -18,11 +18,22 @@ $(document).ready(function () {
 
 });
 
-$(document).ready(function () {
+function desc() {
+    var desconto = $('#desconto').val().replace(',', '.');
+    var total = $('#total_venda').val().replace(',', '.');
 
-    $('#total_venda').mask('000.000.000.000.000,00', {reverse: true, placeholder: "0,00"});
+    if (desconto < total) {
 
-});
+        var totalAtt = parseFloat(total) - parseFloat(desconto);
+
+        $('#total_venda').val(totalAtt.toFixed(2).replace('.', ','));
+        
+    } else {
+        bootbox.alert("Desconto tem que se menor que o  total da venda");
+        $('#desconto').val('');
+    }
+
+}
 
 function validacao() {
 
@@ -179,7 +190,7 @@ $('#cliente_nome').on('keyup', function () {
 
                 var html = '';
                 for (var i in json) {
-                    html += '<div class="si"><a id="auto" href="javascript;" onclick="selecionarCliente(this);" data-id="' + json[i].id + '">' + json[i].nome + ' ' + 'CPF: ' + json[i].cpfCnpj + ' </a></div>';
+                    html += '<div class="si"><a id="auto" href="javascript:;" onclick="selecionarCliente(this);" data-id="' + json[i].id + '">' + json[i].nome + ' ' + 'CPF: ' + json[i].cpfCnpj + ' </a></div>';
                 }
 
                 $('.searchvenda').html(html);

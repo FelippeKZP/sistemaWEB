@@ -2,7 +2,7 @@
 function soma(){
 
     var total_venda = $('#total').val().replace(',', '.');
-    var dinheiro = $('#dinheiro').val().replace(',', ';');
+    var dinheiro = $('#dinheiro').val().replace(',', '.');
 
 
 

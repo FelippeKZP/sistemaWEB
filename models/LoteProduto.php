@@ -108,7 +108,7 @@ class LoteProduto extends model {
     public function pesquisarLoteProdutos($p) {
         $array = array();
 
-        $sql = $this->db->prepare("SELECT lote_produto.id,produto.nome,produto.preco,lote_produto.quantidade, lote_produto.numero_lote
+        $sql = $this->db->prepare("SELECT lote_produto.id,produto.nome,produto.preco,produto.preco_compra,lote_produto.quantidade, lote_produto.numero_lote
               FROM lote_produto
               INNER JOIN produto on produto.id = lote_produto.id_produto
               WHERE produto.nome LIKE :nome OR lote_produto.numero_lote LIKE :nome

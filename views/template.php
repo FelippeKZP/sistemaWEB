@@ -37,6 +37,8 @@
                             <ul class="dropdown-menu">
                                 <li><a href="<?php echo BASE_URL; ?>cliente">Cliente</a></li>
                                 <li><a href="<?php echo BASE_URL; ?>fornecedor">Fornecedor</a></li>
+                                <li><a href="<?php echo BASE_URL; ?>funcaoFuncionario">Funcão de Funcionário</a></li>
+                                <li><a href="<?php echo BASE_URL; ?>funcionario">Funcionário</a></li>
                                 <li><a href="<?php echo BASE_URL; ?>grupoPermissao">Grupo de Permissão</a></li>
                                 <li><a href="<?php echo BASE_URL; ?>grupoProduto">Grupo de Produto</a></li>
                                 <li><a href="<?php echo BASE_URL; ?>produto">Produto</a></li>
@@ -54,7 +56,7 @@
                         </li>
                         <li><a href="#">Contas Pagar</a></li>
                         <li><a href="<?php echo BASE_URL; ?>contaReceber">Contas Receber</a></li>
-                        <li><a href="<?php echo BASE_URL; ?>balancoMes">Balanço Do Mês</a></li>
+                        <li><a href="<?php echo BASE_URL; ?>balancoMes">Balanço</a></li>
                         <li><a href="<?php echo BASE_URL; ?>relatorio">Relatórios</a></li>
                         </li>
                     </ul>

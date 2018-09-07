@@ -10,7 +10,6 @@
 
 <br/><br/>
 
-
 <?php if (isset($msg_erro) && !empty($msg_erro)): ?>
     <div class="alert alert-danger alert-dismissible">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -24,6 +23,7 @@
         <strong><?php echo $msg_sucesso; ?></strong>
     </div>
 <?php endif; ?>
+
 
 <div class="table-responsive">  
     <table id="tabela" class="table table-hover">

@@ -11,18 +11,19 @@
 <br/> <br/>
 
 <?php if (isset($msg_erro) && !empty($msg_erro)): ?>
-    <div class="alert alert-success alert-dismissible">
+    <div class="alert alert-danger alert-dismissible">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <strong><?php echo $msg_erro; ?></strong>
     </div>
 <?php endif; ?>
 
 <?php if (isset($msg_sucesso) && !empty($msg_sucesso)): ?>
-    <div class="alert alert-danger alert-dismissible">
+    <div class="alert alert-success alert-dismissible">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <strong><?php echo $msg_sucesso; ?></strong>
     </div>
 <?php endif; ?>
+
 
 <div class="table-responsive">
     <table id="tabela" class="table table-hover">

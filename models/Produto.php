@@ -160,7 +160,7 @@ class Produto extends model {
         return $array;
     }
 
-    public function produto_add($cod_barras, $nome, $id_grupo_produto, $quantidade_min, $preco, $preco_compra, $status, $fotos, $id_usuario) {
+    public function produto_add($cod_barras, $nome, $id_grupo_produto, $quantidade_min, $preco, $preco_compra,$lucro_venda,$margem_bruta,$status, $fotos, $id_usuario) {
         $sql = $this->db->prepare("SELECT id FROM produto WHERE cod_barras = :cod_barras AND nome = :nome");
         $sql->bindValue(":cod_barras", $cod_barras);
         $sql->bindValue(":nome", $nome);
@@ -168,14 +168,16 @@ class Produto extends model {
 
         if ($sql->rowCount() == 0) {
 
-            $sql = $this->db->prepare("INSERT INTO produto(cod_barras,nome,id_grupo_produto,quantidade,quantidade_min,preco,preco_compra,status)
-            VALUES(:cod_barras,:nome,:id_grupo_produto,0,:quantidade_min,:preco,:preco_compra,:status)");
+            $sql = $this->db->prepare("INSERT INTO produto(cod_barras,nome,id_grupo_produto,quantidade,quantidade_min,preco,preco_compra,lucro_venda,margem_bruta,status)
+            VALUES(:cod_barras,:nome,:id_grupo_produto,0,:quantidade_min,:preco,:preco_compra,:lucro,:margem,:status)");
             $sql->bindValue(":cod_barras", $cod_barras);
             $sql->bindValue(":nome", $nome);
             $sql->bindValue(":id_grupo_produto", $id_grupo_produto);
             $sql->bindValue(":quantidade_min", $quantidade_min);
             $sql->bindValue(":preco", $preco);
             $sql->bindValue(":preco_compra", $preco_compra);
+            $sql->bindValue(":lucro",$lucro_venda);
+            $sql->bindValue(":margem",$margem_bruta);
             $sql->bindValue(":status", $status);
             $sql->execute();
 
@@ -234,15 +236,17 @@ class Produto extends model {
         }
     }
 
-    public function produto_editar($cod_barras, $nome, $id_grupo_produto, $quantidade_min, $preco, $preco_compra, $fotos, $id_usuario, $id) {
+    public function produto_editar($cod_barras, $nome, $id_grupo_produto, $quantidade_min, $preco, $preco_compra,$lucro_venda,$margem_bruta, $fotos, $id_usuario, $id) {
         $sql = $this->db->prepare("UPDATE produto SET cod_barras = :cod_barras, nome = :nome, id_grupo_produto = :id_grupo_produto,
-        quantidade_min = :quantidade_min, preco = :preco, preco_compra = :preco_compra WHERE id = :id");
+        quantidade_min = :quantidade_min, preco = :preco, preco_compra = :preco_compra,lucro_venda = :lucro,margem_bruta = :margem WHERE id = :id");
         $sql->bindValue(":cod_barras", $cod_barras);
         $sql->bindValue(":nome", $nome);
         $sql->bindValue(":id_grupo_produto", $id_grupo_produto);
         $sql->bindValue(":quantidade_min", $quantidade_min);
         $sql->bindValue(":preco", $preco);
         $sql->bindValue(":preco_compra", $preco_compra);
+        $sql->bindValue(":lucro",$lucro_venda);
+        $sql->bindValue(":margem",$margem_bruta);
         $sql->bindValue(":id", $id);
         $sql->execute();
 

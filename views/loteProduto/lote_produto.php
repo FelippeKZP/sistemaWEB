@@ -24,6 +24,7 @@
     </div>
 <?php endif; ?>
 
+
 <div class="table-responsive">
     <table id="tabela" class="table table-hover">
         <thead>

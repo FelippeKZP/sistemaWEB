@@ -1,5 +1,6 @@
 <h1>Editar Cliente</h1>
 
+
 <?php if (isset($msg_erro) && !empty($msg_erro)): ?>
     <div class="alert alert-danger alert-dismissible">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -13,6 +14,7 @@
         <strong><?php echo $msg_sucesso; ?></strong>
     </div>
 <?php endif; ?>
+
 
 <br/><br/>
 

@@ -21,22 +21,41 @@
 
     <label>Cliente:</label><br/>
     <input type="hidden" name="id_cliente"/>
-    <input type="text" class="form-control" id="cliente_nome" name="cliente_nome" data-type="pesquisar_clientes"/>
+    <input type="text" class="form-control" id="cliente_nome" name="cliente_nome" autocomplete="off" data-type="pesquisar_clientes"/>
     <div style="clear: both"></div>
 
-    <br/><br/>
+    <br/>
+
+
+    <div class="form-group col-sm-4" style="padding-left: 0px;">
+        <label>Vendendor:</label>
+        <select id="id_funcionario" name="id_funcionario" class="form-control">
+            <?php foreach ($funcionario_list as $f): ?>
+            <option value="<?php echo $f['id']; ?>"><?php echo $f['nome']; ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+    
+    <div class="form-group col-sm-2">
+        <label>Desconto:</label>
+        <input type="text" class="form-control" id="desconto" onblur="desc();" name="desconto" placeholder="0,00"/>
+    </div>
+
+    <div style="clear:both"></div>
+
+
 
     <label style="float: right; margin-right: 47px;">Total da Venda:</label><br/>
     <div style="clear: both"></div>
-    <input type="text" class="form-control" id="total_venda" name="total_venda" disabled="true"/>
+    <input type="text" class="form-control" id="total_venda" name="total_venda" disabled="true" placeholder="0,00"/>
 
-    <br/><br/>
+    <br/> <br/>
 
     <hr style="border: 1px solid #CCC;"/>
 
     <h4>Produtos</h4>
 
-    <input type="text" class="form-control" id="add_prod"  name="add_prod" data-type="pesquisar_loteProdutos"/>
+    <input type="text" class="form-control" id="add_prod"  name="add_prod" autocomplete="off" data-type="pesquisar_loteProdutos"/>
 
     <br/><br/><br/><br/>
 

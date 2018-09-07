@@ -6,16 +6,18 @@ class Venda extends model {
         $array = array();
 
         if (!empty($s)) {
-            $sql = $this->db->prepare("SELECT venda.id,cliente.nome,cliente.cpfCnpj, venda.data_venda, venda.total_venda
+            $sql = $this->db->prepare("SELECT venda.id,cliente.nome,funcionario.nome as func,cliente.cpfCnpj, venda.data_venda, venda.total_venda
                    FROM venda
+                   INNER JOIN funcionario on funcionario.id = venda.id_funcionario
                    INNER JOIN cliente on cliente.id = venda.id_cliente
                    WHERE cliente.nome LIKE :nome                   
                    LIMIT $offset,$limit ");
             $sql->bindValue(":nome", '%' . $s . '%');
             $sql->execute();
         } else {
-            $sql = $this->db->prepare("SELECT venda.id, cliente.nome,cliente.cpfCnpj, venda.data_venda, venda.total_venda
+            $sql = $this->db->prepare("SELECT venda.id, cliente.nome,funcionario.nome as func,cliente.cpfCnpj, venda.data_venda, venda.total_venda
                     FROM venda
+                    INNER JOIN funcionario on funcionario.id = venda.id_funcionario
                     INNER JOIN cliente on cliente.id = venda.id_cliente
                     LIMIT $offset,$limit ");
             $sql->execute();
@@ -43,12 +45,14 @@ class Venda extends model {
         return $sql['c'];
     }
 
-    public function venda_add($id_cliente, $quant, $id_usuario) {
+    public function venda_add($id_cliente, $id_funcionario, $quant, $id_usuario) {
 
         $l = new LoteProduto();
 
-        $sql = $this->db->prepare("INSERT INTO venda(id_cliente,id_usuario,data_venda,total_venda) VALUES(:id_cliente,:id_usuario,NOW(),:total_venda)");
+        $sql = $this->db->prepare("INSERT INTO venda(id_cliente,id_funcionario,id_usuario,data_venda,total_venda)
+               VALUES(:id_cliente,:id_funcionario,:id_usuario,NOW(),:total_venda)");
         $sql->bindValue(":id_cliente", $id_cliente);
+        $sql->bindValue(":id_funcionario", $id_funcionario);
         $sql->bindValue(":id_usuario", $id_usuario);
         $sql->bindValue(":total_venda", '0');
         $sql->execute();

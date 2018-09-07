@@ -1,4 +1,4 @@
-<h1>Editar Grupo de Produto</h1>
+<h1>Adicionar Função de Funcionário</h1>
 
 <br/><br/>
 
@@ -17,17 +17,21 @@
 <?php endif; ?>
 
 
-<form id="form" method="POST">
+<form method="POST">
 
-    <div class="form-group col-sm-6">
+    <div class="form-group col-sm-4">
         <label>Nome:</label>
-        <input type="text" class="form-control" id="nome" name="nome" value="<?php echo $grupo_produto_editar_list['nome']; ?>" placeholder="Digite um Nome." />
+        <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o Nome."/>
+    </div>
+    <div class="form-group col-sm-4">
+        <label>Descrição:</label>
+        <textarea class="form-control" id="descricao" name="descricao" placeholder="Digite a Descrição."></textarea>
     </div>
 
-    <div class="form-group col-sm-7">
-        <input type="submit" class="btn btn-success" value="Editar" />
-        <a class="btn btn-warning" href="<?php echo BASE_URL; ?>grupoProduto">Voltar</a>
+    <div class="col-sm-12">
+        <input type="submit" class="btn btn-success" value="Salvar"/>
+        <a class="btn btn-warning" href="<?php echo BASE_URL; ?>funcaoFuncionario">Voltar</a>
     </div>
+
 </form>
 
-<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/grupoProduto/script_grupoProduto_validacao.js"></script>

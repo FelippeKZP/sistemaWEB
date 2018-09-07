@@ -10,11 +10,12 @@
 <?php endif; ?>
 
 <?php if (isset($msg_sucesso) && !empty($msg_sucesso)): ?>
-    <div class="alert alert-sucess alert-dismissible">
+    <div class="alert alert-success alert-dismissible">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <strong><?php echo $msg_sucesso; ?></strong>
     </div>
 <?php endif; ?>
+
 
 <form method="POST" enctype="multipart/form-data" id="form">
 
@@ -49,7 +50,17 @@
 
     <div class="form-group col-sm-3">
         <label>Preço de Compra:</label>
-        <input type="text" class="form-control" id="preco_compra" name="preco_compra" placeholder="Digite o Preço de Compra."/>
+        <input type="text" class="form-control" id="preco_compra" name="preco_compra" onblur="lucro();" placeholder="Digite o Preço de Compra."/>
+    </div>
+
+    <div class="form-group col-sm-3">
+        <label>Lucro da Venda:</label>
+        <input type="text" class="form-control" id="lucro_venda" name="lucro_venda" placeholder="0,00" readonly="true" />
+    </div>
+    
+    <div class="form-group col-sm-3">
+        <label>Margem Bruta:</label>
+        <input type="text" class="form-control" id="margem_bruta" name="margem_bruta" placeholder="0.00%" readonly="true"/>
     </div>
 
     <div class="form-group col-sm-3">
@@ -67,13 +78,14 @@
             <input type="file" id="fotos" name="fotos[]" class="upload"  multiple/>
         </div>
     </div>
-    
+
     <div class="form-group col-sm-12">
-         <input type="submit" class="btn btn-success" value="Salvar"/>
+        <input type="submit" class="btn btn-success" value="Salvar"/>
         <a class="btn btn-warning" href="<?php echo BASE_URL; ?>produto">Voltar</a>
     </div>
 </form>
 
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/produto/script_produto_add.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/produto/script_produto_validacao.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/produto/script_produto_mascara.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/produto/script_produto_maskMoney.js"></script>
