@@ -66,10 +66,9 @@ class Home extends model {
         $float = 0;
 
 
-        $sql = $this->db->prepare("SELECT SUM(compra.total_compra) as c
+        $sql = $this->db->prepare("SELECT SUM(contas_pagar.total) as c
                FROM contas_pagar
-               INNER JOIN compra on compra.id =  contas_pagar.id_compra
-               WHERE compra.data_compra BETWEEN :periodo1 AND :periodo2 AND contas_pagar.status = 1");
+               WHERE contas_pagar.data_vencimento BETWEEN :periodo1 AND :periodo2 AND contas_pagar.status = 1");
         $sql->bindValue(":periodo1", $periodo1);
         $sql->bindValue(":periodo2", $periodo2);
         $sql->execute();

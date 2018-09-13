@@ -44,7 +44,7 @@
             <hr style="border: 4px solid #444; border-radius: 2px;"/>
 
             <label>Lucro Líq:</label>
-            <input type="text" class="form-control" disabled="true" id="lucro" name="lucro" style="color:blue;" value="<?php echo number_format($anterior_list['venda'] - $atual_list['compra'] - $atual_list['perda'] - $atual_list['outras'], 2, ',', '.'); ?>" />
+            <input type="text" class="form-control" disabled="true" id="lucro" name="lucro" style="color:blue;" value="<?php echo number_format($anterior_list['venda'] - $anterior_list['compra'] - $anterior_list['perda'] - $anterior_list['outras'], 2, ',', '.'); ?>" />
         </div>
     </div>
 </div>

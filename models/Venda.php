@@ -45,15 +45,16 @@ class Venda extends model {
         return $sql['c'];
     }
 
-    public function venda_add($id_cliente, $id_funcionario, $quant, $id_usuario) {
+    public function venda_add($id_cliente, $id_funcionario, $quant, $desconto, $data_vencimento, $n_parcelas, $id_usuario) {
 
         $l = new LoteProduto();
 
-        $sql = $this->db->prepare("INSERT INTO venda(id_cliente,id_funcionario,id_usuario,data_venda,total_venda)
-               VALUES(:id_cliente,:id_funcionario,:id_usuario,NOW(),:total_venda)");
+        $sql = $this->db->prepare("INSERT INTO venda(id_cliente,id_funcionario,id_usuario,data_venda,total_venda,desconto)
+               VALUES(:id_cliente,:id_funcionario,:id_usuario,NOW(),:total_venda,:desconto)");
         $sql->bindValue(":id_cliente", $id_cliente);
         $sql->bindValue(":id_funcionario", $id_funcionario);
         $sql->bindValue(":id_usuario", $id_usuario);
+        $sql->bindValue(":desconto", $desconto);
         $sql->bindValue(":total_venda", '0');
         $sql->execute();
 
@@ -82,7 +83,7 @@ class Venda extends model {
 
                 $l->baixarEstoque($id_prod, $quant_prod);
 
-                $total_venda += $preco * $quant_prod;
+                $total_venda += $preco * $quant_prod - $desconto;
             }
         }
 
@@ -91,10 +92,37 @@ class Venda extends model {
         $sql->bindValue(":id", $id_venda);
         $sql->execute();
 
-        $sql = $this->db->prepare("INSERT INTO contas_receber(id_venda,data_vencimento,status)
-               VALUES(:id_venda,date_add(now(), interval 1 month), 0)");
-        $sql->bindValue(":id_venda", $id_venda);
-        $sql->execute();
+
+        if ($n_parcelas > 1) {
+            $qtdParc = $n_parcelas;
+            $valorTotal = $total_venda;
+            $calculoParc = ($valorTotal / $qtdParc);
+            $data = $data_vencimento;
+
+            for ($i = 1; $i <= $qtdParc; $i++) {
+                
+
+                $sql = $this->db->prepare("INSERT INTO contas_receber(id_venda,data_vencimento,parcela,valor,status)
+                VALUES(:id_venda,:data_vencimento,:parcela,:valor, 0)");
+                $sql->bindValue(":id_venda", $id_venda);
+                $sql->bindValue(":data_vencimento", $data);
+                $sql->bindValue(":parcela", $i . ' de ' . $n_parcelas);
+                $sql->bindValue(":valor", $calculoParc);
+                $sql->execute();
+                
+                $data = date('Y-m-d', strtotime($data . ' + 1 month'));
+            }
+        } else {
+            $data_vista = $data_vencimento;
+
+            $sql = $this->db->prepare("INSERT INTO contas_receber(id_venda,data_vencimento,parcela,valor,status)
+               VALUES(:id_venda,:data_vencimento,:parcela,:valor, 0)");
+            $sql->bindValue(":id_venda", $id_venda);
+            $sql->bindValue(":data_vencimento", $data_vista);
+            $sql->bindValue(":parcela", $n_parcelas . ' de ' . $n_parcelas);
+            $sql->bindValue(":valor", $total_venda);
+            $sql->execute();
+        }
     }
 
     public function venda_vizualizar($id) {

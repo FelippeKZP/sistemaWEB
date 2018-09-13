@@ -1,59 +1,3 @@
-<script type="text/javascript">
-
-    $(document).ready(function () {
-
-        $('form').validate({
-            rules: {
-                dinheiro: {
-                    required: true
-                }
-            },
-            messages: {
-                dinheiro: {
-                    required: "Este Campo É Obrigatório."
-                }
-            }
-        });
-
-    });
-
-    $(document).ready(function () {
-
-        $('#dinheiro').mask('000.000.000.000.000,00', {reverse: true, placeholder: "0,00"});
-
-        $('#troco').mask('000.000.000.000.000,00', {reverse: true, placeholder: "0,00"});
-
-    });
-
-    function soma() {
-
-        var total_venda = $('#total').val().replace(',', '.');
-        var dinheiro = $('#dinheiro').val().replace(',', '.');
-
-
-
-        if (total_venda <= dinheiro) {
-
-            var troco = parseFloat(dinheiro) - parseFloat(total_venda);
-
-            $('#troco').val(troco.toFixed(2).replace('.', ','));
-
-        } else {
-
-            bootbox.alert("Dinheiro Tem Que Ser Maior Que O Total Da Venda");
-
-            $('#dinheiro').val('');
-            $('#troco').val('');
-
-
-
-        }
-
-
-    }
-
-
-</script>
 
 <h1>Receber Conta</h1>
 
@@ -140,3 +84,4 @@
 
 </form>
 
+<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/contaReceber/script_receber_add.js"></script>

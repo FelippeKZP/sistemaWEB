@@ -54,7 +54,7 @@
                                 <li><a href="#">Perda</a></li>
                             </ul>
                         </li>
-                        <li><a href="#">Contas Pagar</a></li>
+                        <li><a href="<?php echo BASE_URL; ?>contaPagar">Contas Pagar</a></li>
                         <li><a href="<?php echo BASE_URL; ?>contaReceber">Contas Receber</a></li>
                         <li><a href="<?php echo BASE_URL; ?>balancoMes">Balanço</a></li>
                         <li><a href="<?php echo BASE_URL; ?>relatorio">Relatórios</a></li>

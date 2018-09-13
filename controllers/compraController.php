@@ -32,8 +32,8 @@ class compraController extends controller {
 
         $this->loadTemplate('compra/compra', $data);
     }
-    
-    public function compra_add(){
+
+    public function compra_add() {
         $data = array();
         $u = new Usuario();
         $n = new Notificacao();
@@ -41,8 +41,18 @@ class compraController extends controller {
         $data['usuario_nome'] = $u->getNome();
         $data['usuario_foto'] = $u->getFoto();
         $data['notificacao'] = $n->verificarNotificacao($u->getId());
-        
-        
+
+        $c = new Compra();
+
+        if (isset($_POST['id_fornecedor']) && !empty($_POST['id_fornecedor'])) {
+            $id_fornecedor = addslashes($_POST['id_fornecedor']);
+            $numero_nota = addslashes($_POST['numero_nota']);
+            $quant = $_POST['quant'];
+
+
+            $c->compra_add($id_fornecedor, $numero_nota, $quant, $u->getId());
+        }
+
         $this->loadTemplate('compra/compra_add', $data);
     }
 

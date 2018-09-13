@@ -1,5 +1,6 @@
 /* global parseFloat */
 
+
 $(document).ready(function () {
 
     $('form').validate({
@@ -18,20 +19,69 @@ $(document).ready(function () {
 
 });
 
+$('#condicao_pag').on('change', function () {
+
+    if ($(this).val() == 1) {
+        $('#data_venc').show();
+        $('#parcelas').show();
+        $('#btGerar').show();
+    } else {
+        $('#data_venc').show();
+        $('#parcelas').hide();
+        $('#btGerar').hide();
+    }
+
+});
+
+$(function () {
+    $('#btGerar').click(function () {
+        $('.resultado_parcelas').show();
+        $('#tabela_parcelas tbody tr').remove();
+
+        var total_venda = $("#total_venda").val().replace(',', '.');
+        
+
+        var qtde_parcelas = $('#n_parcelas').val();
+
+        var valorParcela = parseFloat(total_venda) / qtde_parcelas;
+
+        /* Capture o tempo em milissegundos desde 01/01/1970 */
+        var time = Date.parse($('#data_vencimento').val().split("-"));
+
+        /* Instancia o objeto Date e define a data em milissegundos */
+        vencimento = new Date();
+        vencimento.setTime(time);
+
+        for (i = 1; i <= qtde_parcelas; i++) {
+            var data = vencimento;
+
+            $('#tabela_parcelas tbody').append("<tr id=\"row_nf-" + i + "\" class=\"nf\"><td>" + i + " de " + qtde_parcelas + "</td><td title=\"vencimento\" class=\"text-center\">" + data.toLocaleString("pt-BR") + "</td><td>" + valorParcela.toFixed(2).replace('.',',') + "</td></tr>");
+
+            /* Captura o dia do mês e soma mais 30 dias */
+            vencimento.setDate(data.getDate() + 30);
+
+        }
+
+        return false;
+    });
+});
+
+
 function desc() {
     var desconto = $('#desconto').val().replace(',', '.');
     var total = $('#total_venda').val().replace(',', '.');
 
-    if (desconto < total) {
+    // if (desconto < total) {
 
-        var totalAtt = parseFloat(total) - parseFloat(desconto);
+    var totalAtt = parseFloat(total) - parseFloat(desconto);
 
-        $('#total_venda').val(totalAtt.toFixed(2).replace('.', ','));
-        
-    } else {
-        bootbox.alert("Desconto tem que se menor que o  total da venda");
-        $('#desconto').val('');
-    }
+    $('#total_venda').val(totalAtt.toFixed(2).replace('.', ','));
+
+    //} else {
+
+    //   bootbox.alert("Desconto tem que se menor que o  total da venda");
+    //   $('#desconto').val('');
+//}
 
 }
 

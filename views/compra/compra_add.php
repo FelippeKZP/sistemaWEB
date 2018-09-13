@@ -1,7 +1,6 @@
 <h1 class="h1">Adicionar Compra</h1>
 
-<br/><br/>
-
+<br/>
 
 <form id="form" method="POST" onsubmit="return validacao();">
 
@@ -11,6 +10,13 @@
     <div style="clear: both"></div>
 
     <br/><br/>
+
+    <div style="padding-left: 0px;" class="form-group col-sm-2">
+        <label>Número da Nota:</label>
+        <input type="text" class="form-control" id="numero_nota" name="numero_nota" placeholder="Digite o número da nota."/>
+    </div>
+
+    <div style="clear:both"></div>
 
     <label style="float: right; margin-right: 36px;">Total da Compra:</label><br/>
     <div style="clear: both"></div>
@@ -23,7 +29,7 @@
     <h4>Produtos</h4>
 
     <input type="text" class="form-control" id="add_prod_compra"  name="add_prod_compra" data-type="pesquisar_loteProdutos"/>
-    
+
 
     <br/><br/><br/><br/>
 

@@ -27,8 +27,8 @@ class vendaController extends controller {
         if (!empty($_GET['searchs'])) {
             $s = $_GET['searchs'];
         }
-        
-         $limit = 10;
+
+        $limit = 10;
 
         $data['limit'] = 1;
 
@@ -50,7 +50,7 @@ class vendaController extends controller {
         $data['max'] = 2;
 
 
-        $data['venda_list'] = $v->getList($s,$offset,$limit);
+        $data['venda_list'] = $v->getList($s, $offset, $limit);
 
         $this->loadTemplate('venda/venda', $data);
     }
@@ -70,9 +70,21 @@ class vendaController extends controller {
             $id_cliente = addslashes($_POST['id_cliente']);
             $quant = $_POST['quant'];
             $id_funcionario = addslashes($_POST['id_funcionario']);
+            $desconto = addslashes($_POST['desconto']);
+            $data_vencimento = addslashes($_POST['data_vencimento']);
+            $n_parcelas = '';
+
+            $desconto = str_replace(',', '.', $desconto);
+           // $data_vencimento = $data_vencimento[2] . '-' . $data_vencimento[1] . '-' . $data_vencimento[0];
+
+            if (!empty($_POST['n_parcelas'])) {
+                $n_parcelas = addslashes($_POST['n_parcelas']);
+            } else {
+                $n_parcelas = 1;
+            }
 
             try {
-                $v->venda_add($id_cliente,$id_funcionario, $quant, $u->getId());
+                $v->venda_add($id_cliente, $id_funcionario, $quant, $desconto,$data_vencimento,$n_parcelas, $u->getId());
                 $data['msg_sucesso'] = "Sucesso em Salvar a Venda.";
             } catch (Exception $ex) {
                 $data['msg_erro'] = "Ocorreu um Erro ao Salvar a Venda.";
@@ -80,52 +92,52 @@ class vendaController extends controller {
         }
 
         $f = new Funcionario();
-        
+
         $data['funcionario_list'] = $f->getCombo();
-        
+
         $this->loadTemplate('venda/venda_add', $data);
     }
 
-    public function venda_vizualizar($id){
+    public function venda_vizualizar($id) {
         $data = array();
         $u = new Usuario();
         $n = new Notificacao();
         $data['usuario_nome'] = $u->getNome();
         $data['usuario_foto'] = $u->getFoto();
         $data['notificacao'] = $n->verificarNotificacao($u->getId());
-        
+
         $v = new Venda();
-        
+
         $data['info'] = $v->venda_vizualizar($id);
-        
+
         $this->loadTemplate('venda/venda_vizualizar', $data);
     }
-    
-    public function venda_cancelar($id){
-        $data = array ();
+
+    public function venda_cancelar($id) {
+        $data = array();
         $u = new Usuario();
         $n = new Notificacao();
         $u->setLoggedUser();
-        $data['usuario_nome'] =  $u->getNome();
+        $data['usuario_nome'] = $u->getNome();
         $data['usuario_foto'] = $u->getFoto();
         $data['notificacao'] = $n->verificarNotificacao($u->getId());
-        
+
         $v = new Venda();
-        
-        try{
+
+        try {
             $v->venda_cancelar($id);
             $data['msg_sucesso'] = "Esta Venda Foi Cancelada, Junto Com Conta A Receber.";
         } catch (Exception $ex) {
             $data['msg_erro'] = "Ocorreu Um Erro Ao Cancelar A Venda";
         }
-        
-         $s = '';
+
+        $s = '';
 
         if (!empty($_GET['searchs'])) {
             $s = $_GET['searchs'];
         }
-        
-         $limit = 10;
+
+        $limit = 10;
 
         $data['limit'] = 1;
 
@@ -147,10 +159,11 @@ class vendaController extends controller {
         $data['max'] = 2;
 
 
-        $data['venda_list'] = $v->getList($s,$offset,$limit);
-        
+        $data['venda_list'] = $v->getList($s, $offset, $limit);
+
         $this->loadTemplate('venda/venda', $data);
     }
+
 }
 
 ?>

@@ -72,8 +72,6 @@ class contaReceberController extends controller {
         $c = new ContaReceber();
 
 
-        $data['info'] = $c->getInfo($id);
-
         $data['status'] = array(
             '0' => 'Pendente',
             '1' => 'Pago'
@@ -86,15 +84,17 @@ class contaReceberController extends controller {
 
             $dinheiro = str_replace(',', '.', $dinheiro);
             $troco = str_replace(',', '.', $troco);
-            
+
             try {
 
-                $c->receber($dinheiro,$troco, $u->getId(), $id);
+                $c->receber($dinheiro, $troco, $u->getId(), $id);
                 $data['msg_sucesso'] = "Conta Recebida Com Sucesso.";
             } catch (Exception $e) {
                 $data['msg_erro'] = "Erro Ao Receber Esta Conta.";
             }
         }
+
+        $data['info'] = $c->getInfo($id);
 
         $this->loadTemplate('contaReceber/receber', $data);
     }
