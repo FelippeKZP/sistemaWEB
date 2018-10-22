@@ -27,6 +27,8 @@ class grupoProdutoController extends controller {
             $s = $_GET['searchs'];
         }
 
+        $data['filtros'] =  $_GET;
+
         $limit = 10;
 
         $data['limit'] = 1;
@@ -70,7 +72,7 @@ class grupoProdutoController extends controller {
             if ($g->grupo_produto_add($nome)) {
                 $data['msg_sucesso'] = "Grupo de Produto Salvo Com Sucesso.";
             } else {
-                $data['msg_erro'] = "Já Existe Este Grupo de Produto.";
+                $data['msg_erro'] = "JÃ¡ Existe Este Grupo de Produto.";
             }
         }
 
@@ -87,6 +89,16 @@ class grupoProdutoController extends controller {
         $data['notificacao'] = $n->verificarNotificacao($u->getId());
 
         $g = new GrupoProduto();
+
+        if(isset($id) && !empty($id)){
+            if($g->verificarId($id)){
+
+            }else{
+                header("Location:".BASE_URL.'grupoProduto' );
+            }
+        }else{
+            header("Location:".BASE_URL.'grupoProduto' );
+        }
 
         if (isset($_POST['nome']) && !empty($_POST['nome'])) {
             $nome = addslashes($_POST['nome']);
@@ -115,11 +127,22 @@ class grupoProdutoController extends controller {
 
         $g = new GrupoProduto();
 
+        
+        if(isset($id) && !empty($id)){
+            if($g->verificarId($id)){
+
+            }else{
+                header("Location:".BASE_URL.'grupoProduto' );
+            }
+        }else{
+            header("Location:".BASE_URL.'grupoProduto' );
+        }
+
         try {
             $g->grupo_produto_deletar($id);
             $data['msg_sucesso'] = "Sucesso ao Excluir Grupo de Produto.";
         } catch (Exception $e) {
-            $data['msg_erro'] = "Este Grupo de Produto Já Esta Associado";
+            $data['msg_erro'] = "Este Grupo de Produto JÃ¡ Esta Associado";
         }
 
         $s = '';
@@ -127,7 +150,9 @@ class grupoProdutoController extends controller {
             $s = $_GET['searchs'];
         }
 
-         $limit = 10;
+        $data['filtros'] =  $_GET;
+
+        $limit = 10;
 
         $data['limit'] = 1;
 

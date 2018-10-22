@@ -26,7 +26,7 @@ class notificacaoController extends controller {
 
 
         $data['status'] = array(
-            '0' => 'Não Lido',
+            '0' => 'NÃ£o Lido',
             '1' => 'Lido',
         );
 
@@ -51,14 +51,14 @@ class notificacaoController extends controller {
 
             try {
                 $n->notificacao_add($usuarios,$tipo_notificacao,$notificacao,$u->getId());
-                $data['msg_sucesso'] = "Sucesso Ao Salvar A Notificação";
+                $data['msg_sucesso'] = "Sucesso Ao Salvar A NotificaÃ§Ã£o";
             } catch (Exception $ex) {
-                $data['msg_erro'] = "Ocorreu Um Erro Ao Salvar A Notificação.";
+                $data['msg_erro'] = "Ocorreu Um Erro Ao Salvar A NotificaÃ§Ã£o.";
             }
         }
 
 
-        $data['usuario_list'] = $u->getCombo();
+        $data['usuario_list'] = $u->getCombo($u->getId());
         $this->loadTemplate('notificacao/notificacao_add', $data);
     }
 

@@ -8,7 +8,7 @@ $(document).ready(function () {
         },
         messages: {
             dinheiro: {
-                required: "Este Campo É Obrigatório."
+                required: "Este Campo Ã‰ ObrigatÃ³rio."
             }
         }
     });

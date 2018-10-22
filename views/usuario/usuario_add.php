@@ -1,6 +1,6 @@
-<h1>Adicionar Usu·rio</h1>
+<h1>Adicionar Usu√°rio</h1>
 
-<br/><br/>
+<br/>
 
 <?php if (isset($msg_erro) && !empty($msg_erro)): ?>
     <div class="alert alert-danger alert-dismissible">
@@ -36,7 +36,7 @@
     </div>
 
     <div class="form-group col-sm-4">
-        <label>Grupo de Permiss„o:</label>
+        <label>Grupo de Permiss√£o:</label>
         <select id="grupo_permissao" class="form-control" name="id_grupo_permissao">
             <?php foreach ($grupo_permissao_list as $p): ?>
                 <option value="<?php echo $p['id']; ?>"><?php echo $p['nome']; ?></option>
@@ -44,18 +44,27 @@
         </select>
     </div>
 
-    <div class="form-group col-sm-5">
-        <label>Fotos:(suporta apenas imagem em png.)</label>
+    <div class="form-group col-sm-3">
+        <label>Status:</label>
+        <select id="status" class="form-control" name="status" >
+            <option value="1">Ativo</option>
+            <option value="0">Inativo</option>
+        </select>
+    </div>
+
+    <div class="form-group col-sm-3">
+        <label>Fotos:(suporta apenas foto em png.)</label>
         <div class="fileUpload btn btn-primary">
-            <span>Upload</span>
+            <span><span class="glyphicon glyphicon-picture" aria-hidden="true"></span>Upload</span>
             <input type="file" id="fotos" name="fotos[]" class="upload"  multiple/>
         </div>
     </div>
 
-    <div class="form-group col-sm-12">
-        <input type="submit" class="btn btn-success" value="Salvar" />
-        <a class="btn btn-warning" href="<?php echo BASE_URL; ?>usuario">Voltar</a>
+    <div class=" form-group col-sm-12">
+        <button  class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Salvar</button>
+        <a class="btn btn-warning" href="<?php echo BASE_URL; ?>usuario"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Voltar</a>
     </div>
+    
 </form>
 
 <script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/usuario/script_usuario_validacao.js"></script>

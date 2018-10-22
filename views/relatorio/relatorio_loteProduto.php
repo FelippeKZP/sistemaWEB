@@ -1,13 +1,13 @@
-<h1>Relatório de Lotes de Produto</h1>
+<h1>RelatÃ³rio de Lotes de Produto</h1>
 
-<a class="btn btn-primary" style="float: right;" href="<?php echo BASE_URL; ?>relatorio">Telas de Relatórios</a>
+<a class="btn btn-primary" style="float: right;" href="<?php echo BASE_URL; ?>relatorio"><span class="glyphicon glyphicon-th" aria-hidden="true"></span> Telas de RelatÃ³rios</a>
 
-<br/><br/><br/>
+<br/><br/>
 
 <form method="GET" onsubmit="return openPopup(this);">
 
     <div class="form-group col-sm-3">
-        <label>Número:</label>
+        <label>NÃºmero:</label>
         <input type="text" class="form-control" name="nome"/>
     </div>
     
@@ -16,7 +16,7 @@
     <div class="form-group col-sm-3">
        <label style="padding-left: 70px;">Data de Vencimento:</label>
         <input type="date" class="form-control" name="periodo1"/>
-        <label style="margin-top: 6px; padding-left: 120px;">Até:</label>
+        <label style="margin-top: 6px; padding-left: 120px;">AtÃ©:</label>
         <input type="date" class="form-control" name="periodo2"/>
     </div>
 
@@ -24,8 +24,8 @@
 
 
     <div style="text-align: left; padding-left: 15px;">
-        <input type="submit" class="btn btn-group-lg btn-success" value="Gerar Relatório"/>
-    </div> 
+        <button class="btn btn-group-lg btn-success"><span class="glyphicon glyphicon-open-file" aria-hidden="true"></span> Gerar</button>
+    </div>
 
 </form>
 

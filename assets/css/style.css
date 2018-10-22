@@ -1,3 +1,10 @@
+@font-face{
+    font-family:'Glyphicons Halflings';
+    src:url(../fonts/glyphicons-halflings-regular.eot);
+    src:url(../fonts/glyphicons-halflings-regular.woff2);
+    src:url(../fonts/glyphicons-halflings-regular.woff);
+}
+
 .area{
     margin-top: 70px;
     padding-left: 50px;
@@ -44,13 +51,11 @@ textarea{
     border : 1px solid #CCC;
 }
 
-@media (min-width: 190px) and (max-width:90.4%){
-    .searchresults {
-        min-width: 190px;
-        background-color:#FFF;
-        position:absolute;
-        border:1px solid #CCC;
-    }
+.searchresults {
+    background-color:#FFF;
+    position:absolute;
+    border:1px solid #CCC;
+    width: 90.4%;
 }
 
 .si {
@@ -86,6 +91,7 @@ textarea{
     float:left;
     margin:20px;
     padding:20px;
+    margin-left: -4px;
     text-align: center;
     font-size:17px;
 }
@@ -286,5 +292,9 @@ textarea{
     margin-bottom: 15px;
 }
 
+#historico{
+    background-color: #FF00FF; 
+    color: #FFF;
+}
 
 

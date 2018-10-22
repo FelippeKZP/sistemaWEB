@@ -27,7 +27,9 @@ class grupoPermissaoController extends controller {
             $s = $_GET['searchs'];
         }
 
-        $limit = 1;
+        $data['filtros'] =  $_GET;
+
+        $limit = 10;
 
         $data['limit'] = 1;
 
@@ -47,6 +49,7 @@ class grupoPermissaoController extends controller {
         $data['offset'] = ($data['paginaAtual'] * $limit) - $limit;
 
         $data['max'] = 2;
+        
 
         $data['grupo_permissao_list'] = $p->getList($s, $offset, $limit);
 
@@ -71,9 +74,9 @@ class grupoPermissaoController extends controller {
             $id_permissao = $_POST['permissao'];
 
             if ($p->grupo_permissao_add($nome, $id_permissao)) {
-                $data['msg_sucesso'] = "Grupo de Permissão Salvo Com Sucesso.";
+                $data['msg_sucesso'] = "Grupo de PermissÃ£o Salvo Com Sucesso.";
             } else {
-                $data['msg_erro'] = "Já Existe Este Grupo De Permissão.";
+                $data['msg_erro'] = "JÃ¡ Existe Este Grupo De PermissÃ£o.";
             }
         }
         $data['permissao_lista'] = $permissao->getInfo();
@@ -93,15 +96,26 @@ class grupoPermissaoController extends controller {
         $p = new GrupoPermissao();
         $permissao = new Permissao();
 
+        if(isset($id) && !empty($id)){
+            if($p->verificarId($id)){
+
+            }else{
+                header("Location:".BASE_URL.'grupoPermissao' );
+            }
+        }else{
+            header("Location:".BASE_URL.'grupoPermissao' );
+        }
+
+
         if (isset($_POST['nome']) && !empty($_POST['nome'])) {
             $nome = addslashes($_POST['nome']);
             $id_permissao = $_POST['permissao'];
 
             try {
                 $p->grupo_permissao_editar($nome, $id_permissao, $id);
-                $data['msg_sucesso'] = "Sucesso ao Editar Grupo de Permissão";
+                $data['msg_sucesso'] = "Sucesso ao Editar Grupo de PermissÃ£o";
             } catch (Exception $ex) {
-                $data['msg_erro'] = "Ocorreu um Erro ao Editar Grupo de Permissão";
+                $data['msg_erro'] = "Ocorreu um Erro ao Editar Grupo de PermissÃ£o";
             }
         }
 
@@ -122,11 +136,22 @@ class grupoPermissaoController extends controller {
 
         $p = new GrupoPermissao();
 
+        if(isset($id) && !empty($id)){
+            if($p->verificarId($id)){
+
+            }else{
+                header("Location:".BASE_URL.'grupoPermissao' );
+            }
+        }else{
+            header("Location:".BASE_URL.'grupoPermissao' );
+        }
+
+
         try {
             $p->grupo_permissao_deletar($id);
-            $data['msg_sucesso'] = "Sucesso ao Excluir Grupo de Permissão";
+            $data['msg_sucesso'] = "Sucesso ao Excluir Grupo de PermissÃ£o";
         } catch (Exception $e) {
-            $data['msg_erro'] = "Este Grupo de Permissão Já Esta Associado";
+            $data['msg_erro'] = "Este Grupo de PermissÃ£o JÃ¡ Esta Associado";
         }
 
         $s = '';
@@ -137,6 +162,7 @@ class grupoPermissaoController extends controller {
 
         $limit = 10;
 
+        $data['filtros'] =  $_GET;
 
         $total = $p->getTotal($s);
 

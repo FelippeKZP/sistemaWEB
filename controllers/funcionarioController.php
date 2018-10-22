@@ -28,7 +28,33 @@ class funcionarioController extends controller {
             $s = $_GET['searchs'];
         }
 
-        $data['funcionario_list'] = $f->getList($s);
+        $data['filtros'] =  $_GET;
+
+        $limit = 10;
+
+        $data['limit'] = 10;
+
+        $total = $f->getTotal($s);
+
+        $data['total'] = $f->getTotal($s);
+
+        $data['paginas'] = ceil($total / $limit);
+
+        $data['paginaAtual'] = 1;
+        if (!empty($_GET['p'])) {
+            $data['paginaAtual'] = intval($_GET['p']);
+        }
+
+        $offset = ($data['paginaAtual'] * $limit) - $limit;
+
+        $data['offset'] = ($data['paginaAtual'] * $limit) - $limit;
+
+        $data['max'] = 2;
+
+        $data['funcionario_list'] = $f->getList($s,$offset,$limit);
+
+
+        $data['funcionario_list'] = $f->getList($s,$offset,$limit);
 
         $this->loadTemplate('funcionario/funcionario', $data);
     }
@@ -65,14 +91,15 @@ class funcionarioController extends controller {
             $data_admissao = $data_admissao[2] . '-' . $data_admissao[1] . '-' . $data_admissao[0];
             $data_aniversario = $data_aniversario[2] . '-' . $data_aniversario[1] . '-' . $data_aniversario[0];
 
+            $salario = str_replace('.', '', $salario);
             $salario = str_replace(',', '.', $salario);
 
             try {
                 $f->funcionario_add($nome, $cpf, $rg, $telefone, $data_admissao, $data_aniversario, $id_funcao, $carteira_trabalho, $salario, $cep, $bairro, $rua, $numero, $estado, $cidade, $pais);
 
-                $data['msg_sucesso'] = "Sucesso Ao Salvar Funcionário";
+                $data['msg_sucesso'] = "Sucesso Ao Salvar FuncionÃ¡rio";
             } catch (Exception $ex) {
-                $data['msg_erro'] = "Já Existe Este Funcionário";
+                $data['msg_erro'] = "JÃ¡ Existe Este FuncionÃ¡rio";
             }
         }
 
@@ -93,6 +120,17 @@ class funcionarioController extends controller {
         $data['notificacao'] = $n->verificarNotificacao($u->getId());
 
         $f = new Funcionario();
+
+        if(isset($id) && !empty($id)){
+            if($f->verificarId($id)){
+
+            }else{
+                header("Location:".BASE_URL.'funcionario' );
+            }
+        }else{
+            header("Location:".BASE_URL.'funcionario' );
+        }
+
 
         $data['funcionario_list_edit'] = $f->getInfo($id);
 
@@ -119,14 +157,14 @@ class funcionarioController extends controller {
 
             $salario = str_replace('.', '', $salario);
             $salario = str_replace(',', '.', $salario);
-         
+
 
             try {
                 $f->funcionario_editar($nome, $cpf, $rg, $telefone, $data_admissao, $data_aniversario, $id_funcao, $carteira_trabalho, $salario, $cep, $bairro, $rua, $numero, $estado, $cidade, $pais, $id);
 
-                $data['msg_sucesso'] = "Sucesso Ao Editar Funcionário";
+                $data['msg_sucesso'] = "Sucesso Ao Editar FuncionÃ¡rio";
             } catch (Exception $ex) {
-                $data['msg_erro'] = "Ocorreu Um Erro Ao Editar Funcionário.";
+                $data['msg_erro'] = "Ocorreu Um Erro Ao Editar FuncionÃ¡rio.";
             }
         }
 
@@ -150,12 +188,24 @@ class funcionarioController extends controller {
 
         $f = new Funcionario();
 
+        
+        if(isset($id) && !empty($id)){
+            if($f->verificarId($id)){
+
+            }else{
+                header("Location:".BASE_URL.'funcionario' );
+            }
+        }else{
+            header("Location:".BASE_URL.'funcionario' );
+        }
+
+
         try {
             $f->funcionario_deletar($id);
 
-            $data['msg_sucesso'] = "Sucesso Ao Excluir Funcionário.";
+            $data['msg_sucesso'] = "Sucesso Ao Excluir FuncionÃ¡rio.";
         } catch (Exception $ex) {
-            $data['msg_erro'] = "Este Funcionário Já Esta Associado.";
+            $data['msg_erro'] = "Este FuncionÃ¡rio JÃ¡ Esta Associado.";
         }
 
         $s = '';
@@ -164,6 +214,8 @@ class funcionarioController extends controller {
             $s = $_GET['searchs'];
         }
 
+        $data['filtros'] =  $_GET;
+        
         $data['funcionario_list'] = $f->getList($s);
 
         $this->loadTemplate('funcionario/funcionario', $data);

@@ -30,8 +30,10 @@ class produtoController extends controller {
 
         $data['status'] = array(
             '0' => 'Indisponivel',
-            '1' => 'Dísponivel',
+            '1' => 'DÃ­sponivel',
         );
+
+        $data['filtros'] =  $_GET;
 
         $limit = 10;
 
@@ -96,7 +98,7 @@ class produtoController extends controller {
             if ($p->produto_add($cod_barras, $nome, $id_grupo_produto, $quantidade_min, $preco, $preco_compra, $lucro_venda, $margem_bruta, $status, $fotos, $u->getId())) {
                 $data['msg_sucesso'] = "Produto Salvo Com Sucesso.";
             } else {
-                $data['msg_erro'] = "Já Existe Este Produto.";
+                $data['msg_erro'] = "JÃ¡ Existe Este Produto.";
             }
         }
 
@@ -117,6 +119,16 @@ class produtoController extends controller {
         $data['notificacao'] = $n->verificarNotificacao($u->getId());
 
         $p = new Produto();
+
+        if(isset($id) && !empty($id)){
+            if($p->verificarId($id)){
+
+            }else{
+                header("Location:".BASE_URL.'produto' );
+            }
+        }else{
+            header("Location:".BASE_URL.'produto' );
+        }
 
 
         if (isset($_POST['cod_barras']) && !empty($_POST['cod_barras'])) {
@@ -196,11 +208,23 @@ class produtoController extends controller {
         $data['notificacao'] = $n->verificarNotificacao($u->getId());
 
         $p = new Produto();
+
+        if(isset($id) && !empty($id)){
+            if($p->verificarId($id)){
+
+            }else{
+                header("Location:".BASE_URL.'produto' );
+            }
+        }else{
+            header("Location:".BASE_URL.'produto' );
+        }
+
+
         try {
             $p->produto_deletar($id);
             $data['msg_sucesso'] = "Sucesso a Excluir o Produto.";
         } catch (Exception $e) {
-            $data['msg_erro'] = "Este Produto Já Esta Associado";
+            $data['msg_erro'] = "Este Produto JÃ¡ Esta Associado";
         }
 
         $s = '';
@@ -210,8 +234,10 @@ class produtoController extends controller {
 
         $data['status'] = array(
             '0' => 'Indisponivel',
-            '1' => 'Dísponivel',
+            '1' => 'DÃ­sponivel',
         );
+
+        $data['filtros'] =  $_GET;
 
         $limit = 10;
 

@@ -1,6 +1,6 @@
-<h1>Editar Grupo de Permissão</h1>
+<h1>Editar Grupo de PermissÃ£o</h1>
 
-<br/><br/>
+<br/>
 
 <?php if (isset($msg_erro) && !empty($msg_erro)): ?>
     <div class="alert alert-danger alert-dismissible">
@@ -25,7 +25,7 @@
     </div>
 
     <div class="form-group col-sm-6">
-        <label>Permissões:</label>
+        <label>PermissÃµes:</label>
         <?php foreach ($permissao_lista as $p): ?>
             <div class="checkbox ">
                 <label  for="<?php echo $p['id']; ?>"><input type="checkbox" id="<?php echo $p['id']; ?>" name="permissao[]" value="<?php echo $p['id']; ?>"
@@ -34,9 +34,9 @@
         <?php endforeach; ?>
     </div>
 
-    <div class="form-group col-sm-12">
-        <input type="submit" class="btn btn-info" value="Editar"/>
-        <a class="btn btn-warning"href="<?php echo BASE_URL ?>grupoPermissao">Voltar</a>
+    <div class=" form-group col-sm-12" style="float: right;">
+        <button  class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Salvar</button>
+        <a class="btn btn-warning" href="<?php echo BASE_URL; ?>grupoPermissao"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Voltar</a>
     </div>
 </form>
 

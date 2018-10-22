@@ -1,4 +1,4 @@
-<h1>Adicionar FunÁ„o de Funcion·rio</h1>
+<h1>Adicionar Fun√ß√£o de Funcion√°rio</h1>
 
 <br/><br/>
 
@@ -24,14 +24,15 @@
         <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o Nome."/>
     </div>
     <div class="form-group col-sm-4">
-        <label>DescriÁ„o:</label>
-        <textarea class="form-control" id="descricao" name="descricao" placeholder="Digite a DescriÁ„o."></textarea>
+        <label>Descri√ß√£o:</label>
+        <textarea class="form-control" id="descricao" name="descricao" placeholder="Digite a Descri√ß√£o."></textarea>
     </div>
 
-    <div class="col-sm-12">
-        <input type="submit" class="btn btn-success" value="Salvar"/>
-        <a class="btn btn-warning" href="<?php echo BASE_URL; ?>funcaoFuncionario">Voltar</a>
+    <div class=" form-group col-sm-12" style="float: right;">
+        <button  class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Salvar</button>
+        <a class="btn btn-warning" href="<?php echo BASE_URL; ?>funcaoFuncionario"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Voltar</a>
     </div>
+
 
 </form>
 

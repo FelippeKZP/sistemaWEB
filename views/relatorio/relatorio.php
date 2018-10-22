@@ -1,15 +1,15 @@
-<h1>Relat髍ios</h1>
+<h1 class="h1">Relat贸rios</h1>
 
 <br/> 
 <fieldset>
 
-    <legend>Relat髍ios Cadastrais</legend>
+    <legend>Relat贸rios Cadastrais</legend>
 
     <div class="relatorio_item">
         <a href="<?php echo BASE_URL; ?>relatorio/relatorio_cliente">
             <img src="<?php echo BASE_URL; ?>assets/imagens/clientes.png" border="0" height="80"  />
             <br/><br/>
-            Relat髍io de Clientes
+            Relat贸rio de Clientes
         </a>
     </div>
 
@@ -17,7 +17,7 @@
         <a href="<?php echo BASE_URL; ?>relatorio/relatorio_fornecedor">
             <img src="<?php echo BASE_URL; ?>assets/imagens/fornecedor.png" border="0" height="80"  />
             <br/><br/>
-            Relat髍io de Fornecedores
+            Relat贸rio de Fornecedores
         </a>
     </div>
 
@@ -25,7 +25,7 @@
         <a href="<?php echo BASE_URL; ?>relatorio/relatorio_grupoPermissao">
             <img src="<?php echo BASE_URL; ?>assets/imagens/grupoPermissao.png" border="0" height="80"  />
             <br/><br/>
-            Relat髍io de Grup. de Permiss鉶
+            Relat贸rio de Grup. de Permiss茫o
         </a>
     </div>
 
@@ -33,7 +33,7 @@
         <a href="<?php echo BASE_URL; ?>relatorio/relatorio_grupoProduto">
             <img src="<?php echo BASE_URL; ?>assets/imagens/grupoProduto.png" border="0" height="80"  />
             <br/><br/>
-            Relat髍io de Grup. de Produto
+            Relat贸rio de Grup. de Produto
         </a>
     </div>
 
@@ -41,17 +41,15 @@
         <a href="<?php echo BASE_URL; ?>relatorio/relatorio_loteProdutos">
             <img src="<?php echo BASE_URL; ?>assets/imagens/loteProduto.png" border="0" height="80"  />
             <br/><br/>
-            Relat髍io de Lotes de Produto
+            Relat贸rio de Lotes de Produto
         </a>
     </div>
-
-    <br/>
 
     <div class="relatorio_item">
         <a href="<?php echo BASE_URL; ?>relatorio/relatorio_produto">
             <img src="<?php echo BASE_URL; ?>assets/imagens/produto.png" border="0" height="80"  />
             <br/><br/>
-            Relat髍io de Lotes de Produtos
+            Relat贸rio de Lotes de Produtos
         </a>
     </div>
 
@@ -59,7 +57,7 @@
         <a href="<?php echo BASE_URL; ?>relatorio/relatorio_usuario">
             <img src="<?php echo BASE_URL; ?>assets/imagens/usuario.png" border="0" height="80"  />
             <br/><br/>
-            Relat髍io de Usu醨ios
+            Relat贸rio de Usu谩rios
         </a>
     </div>
 </fieldset>
@@ -67,26 +65,26 @@
 <br/>
 
 <fieldset>
-    <legend>Relat髍io Gerenciais</legend>
+    <legend>Relat贸rio Gerenciais</legend>
     <div class="relatorio_item">
         <a href="<?php echo BASE_URL; ?>relatorio/relatorio_estoqueBaixo">
             <img src="<?php echo BASE_URL; ?>assets/imagens/estoqueBaixo.png" border="0" height="80"  />
             <br/><br/>
-            Relat髍io de Estoque Baixo
+            Relat贸rio de Estoque Baixo
         </a>
     </div>
     <div class="relatorio_item">
         <a href="<?php echo BASE_URL; ?>relatorio/relatorio_produtoMaisVendido">
             <img src="<?php echo BASE_URL; ?>assets/imagens/produtoMaisVendido.png" border="0" height="80"  />
             <br/><br/>
-            Relat髍io de Prod. Mais Vendidos
+            Relat贸rio de Prod. Mais Vendidos
         </a>
     </div>
     <div class="relatorio_item">
         <a href="<?php echo BASE_URL; ?>relatorio/relatorio_historicoEstoque">
             <img src="<?php echo BASE_URL; ?>assets/imagens/historicoEstoque.png" border="0" height="80"  />
             <br/><br/>
-            Relat髍io de Hist. de Estoque
+            Relat贸rio de Hist. de Estoque
         </a>
     </div>
 </fieldset>
@@ -94,7 +92,7 @@
 <br/>
 
 <fieldset>
-    <legend>Relat髍ios de Movimentos</legend>
+    <legend>Relat贸rios de Movimentos</legend>
 </fieldset>
 
 

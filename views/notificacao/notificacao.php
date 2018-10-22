@@ -1,14 +1,14 @@
-<h1 class="h1">Suas Notificações</h1>
+<h1 class="h1">Suas NotificaÃ§Ãµes</h1>
 
 <br/><br/>
 
-<a class="btn btn-success" href="<?php echo BASE_URL; ?>notificacao/notificacao_add">Adicionar Notificação</a>
+<a class="btn btn-success" href="<?php echo BASE_URL; ?>notificacao/notificacao_add">Adicionar NotificaÃ§Ã£o</a>
 
 <br/><br/>
 
 <?php if ($notificacao_list == null): ?>
 <div class="alert alert-info">
-    <span>Você Não Contém Nenhuma Notificação.</span>
+    <span>VocÃª NÃ£o ContÃ©m Nenhuma NotificaÃ§Ã£o.</span>
 </div>
 <?php endif; ?>
 

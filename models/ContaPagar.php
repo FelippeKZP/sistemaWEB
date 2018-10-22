@@ -2,15 +2,15 @@
 
 class ContaPagar extends model {
 
-    public function getList($s) {
+    public function getList($s, $offset, $limit) {
         $array = array();
 
         if (!empty($s)) {
-            $sql = $this->db->prepare("SELECT * FROM contas_pagar WHERE descricao LIKE :descricao ");
+            $sql = $this->db->prepare("SELECT * FROM contas_pagar WHERE descricao LIKE :descricao LIMIT $offset, $limit");
             $sql->bindValue(":descricao", '%' . $s . '%');
             $sql->execute();
         } else {
-            $sql = $this->db->prepare("SELECT * FROM contas_pagar");
+            $sql = $this->db->prepare("SELECT * FROM contas_pagar LIMIT $offset, $limit");
             $sql->execute();
         }
 
@@ -21,9 +21,49 @@ class ContaPagar extends model {
         return $array;
     }
 
+    public function getTotal($s){
+        if(!empty($s)){
+            $sql = $this->db->prepare("SELECT COUNT(id) as c FROM contas_pagar WHERE descricao LIKE :descricao");
+            $sql->bindValue(":descricao". '%'. $s .'%');
+            $sql->execute();
+        }else{
+            $sql = $this->db->prepare("SELECT COUNT(id) as c FROM contas_pagar");
+            $sql->execute();
+        }
+        $sql = $sql->fetch();
+        return $sql['c'];
+    }
+
+    public function getInfo($id){
+        $array =  array();
+
+        $sql = $this->db->prepare("SELECT * FROM contas_pagar WHERE id = :id");
+        $sql->bindValue(":id",$id);
+        $sql->execute();
+
+        if($sql->rowCount() > 0){
+            $array = $sql->fetch();
+        }
+
+        return $array;
+    }
+
+    public function verificarId($id){
+
+        $sql = $this->db->prepare("SELECT id FROM contas_pagar WHERE id = :id");
+        $sql->bindValue(":id",$id);
+        $sql->execute();
+
+        if($sql->rowCount() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public function conta_pagar_add($tipo, $descricao, $data_conta, $data_vencimento, $data_pagamento, $total, $status, $id_usuario) {
         $sql = $this->db->prepare("INSERT INTO contas_pagar(tipo,descricao,data_conta,data_vencimento,data_pagamento,total,status,id_usuario)
-                VALUES(:tipo,:descricao,:data_conta,:data_vencimento,:data_pagamento,:total,:status,:id_usuario)");
+            VALUES(:tipo,:descricao,:data_conta,:data_vencimento,:data_pagamento,:total,:status,:id_usuario)");
         $sql->bindValue(":tipo", $tipo);
         $sql->bindValue(":descricao", $descricao);
         $sql->bindValue(":data_conta", $data_conta);
@@ -35,11 +75,20 @@ class ContaPagar extends model {
         $sql->execute();
         return true;
     }
-    
+
     public function conta_pagar_receber($id){
-        $sql = $this->db->prepare("UPDATE contas_pagar SET data_pagamento = NOW(), status = 1 WHERE id = :id");
-        $sql->bindValue(":id",$id);
+        $sql = $this->db->prepare("SELECT id FROM contas_pagar WHERE id = :id AND status = 0");
+        $sql->bindValue(":id", $id);
         $sql->execute();
+
+        if($sql->rowCount() > 0){
+            $sql = $this->db->prepare("UPDATE contas_pagar SET data_pagamento = NOW(), status = 1 WHERE id = :id");
+            $sql->bindValue(":id",$id);
+            $sql->execute();
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public function conta_pagar_excluir($id){

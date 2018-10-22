@@ -71,9 +71,11 @@ class vendaController extends controller {
             $quant = $_POST['quant'];
             $id_funcionario = addslashes($_POST['id_funcionario']);
             $desconto = addslashes($_POST['desconto']);
+            $tipo_pag = addslashes($_POST['condicao_pag']);
             $data_vencimento = addslashes($_POST['data_vencimento']);
             $n_parcelas = '';
 
+            $desconto = str_replace('.', '', $desconto);
             $desconto = str_replace(',', '.', $desconto);
            // $data_vencimento = $data_vencimento[2] . '-' . $data_vencimento[1] . '-' . $data_vencimento[0];
 
@@ -84,7 +86,7 @@ class vendaController extends controller {
             }
 
             try {
-                $v->venda_add($id_cliente, $id_funcionario, $quant, $desconto,$data_vencimento,$n_parcelas, $u->getId());
+                $v->venda_add($id_cliente, $id_funcionario, $quant, $desconto,$tipo_pag,$data_vencimento,$n_parcelas, $u->getId());
                 $data['msg_sucesso'] = "Sucesso em Salvar a Venda.";
             } catch (Exception $ex) {
                 $data['msg_erro'] = "Ocorreu um Erro ao Salvar a Venda.";

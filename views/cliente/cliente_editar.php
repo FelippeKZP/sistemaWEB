@@ -2,21 +2,21 @@
 
 
 <?php if (isset($msg_erro) && !empty($msg_erro)): ?>
-    <div class="alert alert-danger alert-dismissible">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong><?php echo $msg_erro; ?></strong>
-    </div>
+<div class="alert alert-danger alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong><?php echo $msg_erro; ?></strong>
+</div>
 <?php endif; ?>
 
 <?php if (isset($msg_sucesso) && !empty($msg_sucesso)): ?>
-    <div class="alert alert-success alert-dismissible">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong><?php echo $msg_sucesso; ?></strong>
-    </div>
+<div class="alert alert-success alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong><?php echo $msg_sucesso; ?></strong>
+</div>
 <?php endif; ?>
 
 
-<br/><br/>
+<br/>
 
 <form id="form" method="POST">
 
@@ -24,8 +24,8 @@
         <div class="form-group col-sm-4" style="padding-left: 0px;">
             <label>Tipo de Pessoa:</label>
             <select name="tipo_pessoa" class="form-control">
-                <option value="física" <?php echo ($cliente_editar_list['tipo_pessoa'] == 'física') ? 'selected="selected"' : ''; ?>>Física</option>
-                <option value="jurídica" <?php echo ($cliente_editar_list['tipo_pessoa'] == 'jurídica') ? 'selected="selected"' : ''; ?>>Jurídica</option>
+                <option value="fÃ­sica" <?php echo ($cliente_editar_list['tipo_pessoa'] == 'fÃ­sica') ? 'selected="selected"' : ''; ?>>FÃ­sica</option>
+                <option value="jurÃ­dica" <?php echo ($cliente_editar_list['tipo_pessoa'] == 'jurÃ­dica') ? 'selected="selected"' : ''; ?>>JurÃ­dica</option>
             </select>
         </div>
     </div>
@@ -37,23 +37,23 @@
     </div>
 
     
-        <div class="form-group col-sm-4">
-            <label>CPF/CNPJ:</label>
-            <input type="text" class="form-control" id="cpf" name="cpf" value="<?php echo $cliente_editar_list['cpfCnpj']; ?>" placeholder="Digite o CPF ou CNPJ."/>
-        </div>
+    <div class="form-group col-sm-4">
+        <label>CPF/CNPJ:</label>
+        <input type="text" class="form-control" id="cpf" name="cpf" value="<?php echo $cliente_editar_list['cpfCnpj']; ?>" placeholder="Digite o CPF ou CNPJ."/>
+    </div>
 
-        <div class="form-group col-sm-3">
-            <label>RG/IE:</label>
-            <input type="text" class="form-control" id="rg" name="rg" value="<?php echo $cliente_editar_list['rgIe']; ?>" placeholder="Digite o RG ou IE."/>
-        </div>
+    <div class="form-group col-sm-3">
+        <label>RG/IE:</label>
+        <input type="text" class="form-control" id="rg" name="rg" value="<?php echo $cliente_editar_list['rgIe']; ?>" placeholder="Digite o RG ou IE."/>
+    </div>
     
 
-    <div class="form-group col-sm-4">
+    <div class="form-group col-sm-3">
         <label>Telefone:</label>
         <input type="text" class="form-control" id="telefone" name="telefone" value="<?php echo $cliente_editar_list['telefone']; ?>" placeholder="Digite o Telefone."/>
     </div>
 
-    <div class="form-group col-sm-5">
+    <div class="form-group col-sm-3">
         <label>Email:</label>
         <input type="text" class="form-control"  id="email" name="email" value="<?php echo $cliente_editar_list['email']; ?>"  placeholder="Digite o Email."/>
     </div>
@@ -63,11 +63,16 @@
         <input  type="text" class="form-control" id="data_cadastro" name="data_cadastro" value="<?php echo date('d/m/Y', strtotime($cliente_editar_list['data_cadastro'])); ?>" placeholder="Digite a Data de Cadastro."/>
     </div>
 
+    <div class="form-group col-sm-3">
+        <label>Data de AniversÃ¡rio:</label>
+        <input  type="text" class="form-control" id="data_aniversario" name="data_aniversario" value="<?php echo date('d/m/Y', strtotime($cliente_editar_list['data_aniversario'])); ?>" placeholder="Digite a Data de AniversÃ¡rio."/>
+    </div>
+
 
 
     <div class="form-group col-sm-12">
         <fieldset>
-            <legend>Dados de Endereço</legend>
+            <legend>Dados de EndereÃ§o</legend>
 
             <div class="form-group col-sm-3">
                 <label>CEP:</label>
@@ -85,7 +90,7 @@
             </div>
 
             <div class="form-group col-sm-3">
-                <label>Número:</label>
+                <label>NÃºmero:</label>
                 <input type="text" class="form-control" id="numero" name="numero" value="<?php echo $cliente_editar_list['numero']; ?>" placeholder="Digite o Numero"/>
             </div>
 
@@ -100,18 +105,18 @@
             </div>
 
             <div class="form-group col-sm-3">
-                <label>País:</label>
+                <label>PaÃ­s:</label>
                 <input type="text" class="form-control" id="pais" value="<?php echo $cliente_editar_list['pais']; ?>" name="pais"/>
             </div>
         </fieldset>
     </div>
 
     <div class="form-group col-sm-12">
-        <input type="submit" class="btn btn-success" value="Editar"/>
-        <a class="btn btn-warning" href="<?php echo BASE_URL; ?>cliente">Voltar</a>
+       <button  class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Editar</button>
+        <a class="btn btn-warning" href="<?php echo BASE_URL; ?>cliente"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Voltar</a>
     </div>
 </form>
 
-<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/cliente/script_cliente_add.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/cliente/script_cliente_editar.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/cliente/script_cliente_validacao.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/cliente/script_cliente_mascara.js"></script>

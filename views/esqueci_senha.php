@@ -3,11 +3,11 @@
 <div class="quadrado">
     <div class="container-aviso">
         <h2>Esqueceu sua senha de acesso ?</h2>
-        <h4>Nós a renviaremos para seu e-mail</h4>
+        <h4>NÃ³s a renviaremos para seu e-mail</h4>
     </div>
     <div class="container-form">
-        <p>Se você esqueceu sua senha para acesso ao site, não se preocupe.
-            Apenas informe no campo a seguir o endereço de e-mail de cadastro que você possui no sistema e
+        <p>Se vocÃª esqueceu sua senha para acesso ao site, nÃ£o se preocupe.
+            Apenas informe no campo a seguir o endereÃ§o de e-mail de cadastro que vocÃª possui no sistema e
             reenviaremos sua senha para o e-mail informado.</p>
     </div>
     <div class="container-email">
@@ -22,7 +22,7 @@
 
         <form method="POST">
             <label>Email:</label><br/>
-            <input type="email" id="email" name="email" placeholder="Digite Seu Email"/>
+            <input type="email" id="email" name="email" placeholder="Digite Seu Email" autocomplete="off"/>
 
             <br/><br/>
 

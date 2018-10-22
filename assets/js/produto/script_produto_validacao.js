@@ -19,19 +19,19 @@ $(document).ready(function () {
         },
         messages: {
             cod_barras: {
-                required: "Este campo é obrigatório."
+                required: "Este campo Ã© obrigatÃ³rio."
             },
             nome: {
-                required: "Este campo é obrigatório."
+                required: "Este campo Ã© obrigatÃ³rio."
             },
             quantidade_min: {
-                required: "Este campo é obrigatório."
+                required: "Este campo Ã© obrigatÃ³rio."
             },
             preco: {
-                required: "Este campo é obrigatório."
+                required: "Este campo Ã© obrigatÃ³rio."
             },
             preco_compra: {
-                required: "Este campo é obrigatório."
+                required: "Este campo Ã© obrigatÃ³rio."
             }
         }
     });

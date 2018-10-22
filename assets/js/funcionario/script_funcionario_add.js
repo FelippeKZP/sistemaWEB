@@ -39,7 +39,7 @@ $('#cpf').on('change', function () {
                 if (total == 0) {
                     return true;
                 } else {
-                    bootbox.alert('O CPF informado j· existe no banco de dados.');
+                    bootbox.alert('O CPF informado j√° existe no banco de dados.');
                     $('#cpf').val('');
                 }
             }
@@ -65,7 +65,7 @@ $('#rg').on('change', function () {
                 if (total == 0) {
                     return true;
                 } else {
-                    bootbox.alert('O RG informado j· existe no banco de dados.');
+                    bootbox.alert('O RG informado j√° existe no banco de dados.');
                     $('#rg').val('');
                 }
             }
@@ -91,7 +91,7 @@ $('#carteira').on('change', function () {
                 if (total == 0) {
                     return true;
                 } else {
-                    bootbox.alert('A carteira de trabalho j· existe no banco de dados.');
+                    bootbox.alert('A carteira de trabalho j√° existe no banco de dados.');
                     $('#carteira').val('');
                 }
             }

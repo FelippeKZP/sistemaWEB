@@ -1,6 +1,6 @@
 <h1>Editar Fornecedor</h1>
 
-<br/><br/>
+<br/>
 
 <?php if (isset($msg_erro) && !empty($msg_erro)): ?>
     <div class="alert alert-danger alert-dismissible">
@@ -19,8 +19,8 @@
 
 <form method="POST" id="form">
     <div class="form-group col-sm-4">
-        <label>Razão Social:</label>
-        <input type="text" class="form-control" id="razao_social" name="razao_social" value="<?php echo $fornecedor_editar_list['razao_social']; ?>" placeholder="Digite a Razão Social."/>
+        <label>RazÃ£o Social:</label>
+        <input type="text" class="form-control" id="razao_social" name="razao_social" value="<?php echo $fornecedor_editar_list['razao_social']; ?>" placeholder="Digite a RazÃ£o Social."/>
     </div>
 
     <div class="form-group col-sm-4">
@@ -50,7 +50,7 @@
 
     <div class="form-group col-sm-12">
         <fieldset>
-            <legend>Dados de Endereço</legend>
+            <legend>Dados de EndereÃ§o</legend>
             <div class="form-group col-sm-3">
                 <label>CEP:</label>
                 <input type="text" class="form-control" id="cep" name="cep" value="<?php echo $fornecedor_editar_list['cep']; ?>" placeholder="Digite o CEP."/>
@@ -67,8 +67,8 @@
             </div>
 
             <div class="form-group col-sm-3">
-                <label>Número:</label>
-                <input type="text" class="form-control" id="numero" name="numero" value="<?php echo $fornecedor_editar_list['numero']; ?>" placeholder="Digite o Número do Local." />
+                <label>NÃºmero:</label>
+                <input type="text" class="form-control" id="numero" name="numero" value="<?php echo $fornecedor_editar_list['numero']; ?>" placeholder="Digite o NÃºmero do Local." />
             </div>
 
             <div class="form-group col-sm-3">
@@ -82,14 +82,16 @@
             </div>
 
             <div class="form-group col-sm-3">
-                <label>País:</label>
+                <label>PaÃ­s:</label>
                 <input type="text" class="form-control"  id="cidade" name="pais" value="<?php echo $fornecedor_editar_list['pais']; ?>" />
             </div>
         </fieldset>
     </div>
 
-    <input type="submit" class="btn btn-success" value="Editar"/>
-    <a class="btn btn-warning" href="<?php echo BASE_URL; ?>fornecedor">Voltar</a>
+    <div class=" form-group col-sm-12" style="float: right;">
+        <button  class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Editar</button>
+        <a class="btn btn-warning" href="<?php echo BASE_URL; ?>fornecedor"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Voltar</a>
+    </div>
 
 </form>
 

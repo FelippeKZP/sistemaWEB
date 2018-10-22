@@ -50,49 +50,49 @@ $(document).ready(function () {
         },
         messages: {
             nome: {
-                required: "Este Campo é Obrigatório."
+                required: "Este Campo Ã© ObrigatÃ³rio."
             },
             cpf: {
-                required: "Este Campo é Obrigatório."
+                required: "Este Campo Ã© ObrigatÃ³rio."
             },
             rg: {
-                required: "Este Campo é Obrigatório."
+                required: "Este Campo Ã© ObrigatÃ³rio."
             },
             telefone: {
-                required: "Este Campo é Obrigatório."
+                required: "Este Campo Ã© ObrigatÃ³rio."
             },
             data_admissao: {
-                required: "Este Campo é Obrigatório."
+                required: "Este Campo Ã© ObrigatÃ³rio."
             },
             data_aniversario: {
-                required: "Este Campo é Obrigatório."
+                required: "Este Campo Ã© ObrigatÃ³rio."
             },
             carteira: {
-                required: "Este Campo é Obrigatório."
+                required: "Este Campo Ã© ObrigatÃ³rio."
             },
             salario: {
-                required: "Este Campo é Obrigatório."
+                required: "Este Campo Ã© ObrigatÃ³rio."
             },
             cep: {
-                required: "Este Campo é Obrigatório."
+                required: "Este Campo Ã© ObrigatÃ³rio."
             },
             bairro: {
-                required: "Este Campo é Obrigatório."
+                required: "Este Campo Ã© ObrigatÃ³rio."
             },
             rua: {
-                required: "Este Campo é Obrigatório."
+                required: "Este Campo Ã© ObrigatÃ³rio."
             },
             numero: {
-                required: "Este Campo é Obrigatório."
+                required: "Este Campo Ã© ObrigatÃ³rio."
             },
             cidade: {
-                required: "Este Campo é Obrigatório."
+                required: "Este Campo Ã© ObrigatÃ³rio."
             },
             estado: {
-                required: "Este Campo é Obrigatório."
+                required: "Este Campo Ã© ObrigatÃ³rio."
             },
             pais: {
-                required: "Este Campo é Obrigatório."
+                required: "Este Campo Ã© ObrigatÃ³rio."
             }
         }
     });

@@ -1,14 +1,14 @@
 
 <?php if (isset($produto_estoque_baixo) && !empty($produto_estoque_baixo)): ?>
-    <div class="alert alert-danger alert-dismissible">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong>Contém Produto Com Estoque Baixo, Verifique o Relatório de Produtos Com Estoque Baixo.</strong>
-    </div>
+<div class="alert alert-danger alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>ContÃ©m Produto Com Estoque Baixo, Verifique o RelatÃ³rio de Produtos Com Estoque Baixo.</strong>
+</div>
 <?php endif; ?>
 
 <div style="clear: both"></div>
 
-<h3 style="margin-left: 10px;">Dados Gerais Nos Últimos 30 Dias</h3>
+<h3 style="margin-left: 10px;">Dados Gerais Nos Ãšltimos 30 Dias</h3>
 
 <div class="col-sm-3" style="margin-top: 10px;">
     <div class="panel panel-primary">
@@ -41,7 +41,7 @@
         </div>
         <div class="panel-body">
             <img  title="total da receita" src="<?php echo BASE_URL; ?>assets/imagens/dashboardVendas.png" /> 
-            <h4  style="float: right;  padding-right: 50px;">R$ <?php echo number_format($receita, 2, ',', '.'); ?></h4>
+            <h4  style="float: right;  padding-right: 30px;">R$ <?php echo number_format($receita, 2, ',', '.'); ?></h4>
         </div>
     </div>
 </div>
@@ -53,7 +53,7 @@
         </div>
         <div class="panel-body">
             <img  title="total da despesas" src="<?php echo BASE_URL; ?>assets/imagens/dashboardDespesas.png" /> 
-            <h4 style="float: right; padding-right: 50px;">R$ <?php echo number_format($despesas, 2, ',', '.'); ?></h4>
+            <h4 style="float: right; padding-right: 30px;">R$ <?php echo number_format($despesas, 2, ',', '.'); ?></h4>
         </div>
     </div>
 </div>
@@ -62,7 +62,7 @@
 <div class="col-sm-8" style="margin-top: 10px;">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="panel-title">Gráfico de Total de Vendas e Compras</h3>
+            <h3 class="panel-title">GrÃ¡fico de Total de Vendas e Compras</h3>
         </div>
         <div class="panel-body">
             <canvas id="rel1" height="96px"></canvas>
@@ -81,5 +81,12 @@
     </div>
 </div>
 
+<script type="text/javascript">
+    var  lista_dia = <?php echo json_encode($lista_dia); ?>;
+    var grafico_list = <?php echo json_encode(array_values($grafico_list)); ?>;
+    var grafico_compra_list = <?php echo json_encode(array_values($grafico_compra_list)); ?>;
+    var status_nome_list = <?php echo json_encode(array_values($status)); ?>;
+    var status_list = <?php echo json_encode(array_values($status_list));  ?>
+</script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>/assets/js/Chart.min.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/home.js"></script>

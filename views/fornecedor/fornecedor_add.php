@@ -1,27 +1,27 @@
 <h1>Adicionar Fornecedor</h1>
 
-<br/> <br/>
+<br/>
 
 <?php if (isset($msg_erro) && !empty($msg_erro)): ?>
-    <div class="alert alert-danger alert-dismissible">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong><?php echo $msg_erro; ?></strong>
-    </div>
+<div class="alert alert-danger alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong><?php echo $msg_erro; ?></strong>
+</div>
 <?php endif; ?>
 
 <?php if (isset($msg_sucesso) && !empty($msg_sucesso)): ?>
-    <div class="alert alert-success alert-dismissible">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong><?php echo $msg_sucesso; ?></strong>
-    </div>
+<div class="alert alert-success alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong><?php echo $msg_sucesso; ?></strong>
+</div>
 <?php endif; ?>
 
 
 <form id="form" method="POST">
 
     <div class="form-group  col-sm-4">
-        <label>Razão Social:</label>
-        <input type="text" class="form-control" id="razao_social" name="razao_social" placeholder="Digite a Razão Social."/>
+        <label>RazÃ£o Social:</label>
+        <input type="text" class="form-control" id="razao_social" name="razao_social" placeholder="Digite a RazÃ£o Social."/>
     </div>
 
     <div class="form-group col-sm-4">
@@ -31,12 +31,12 @@
 
     <div class="form-group col-sm-4">
         <label>CNPJ:</label><br/>
-        <input type="text" class="form-control" id="cnpj" name="cnpj" placeholder="Digite o CNPJ." />
+        <input type="text" class="form-control" id="cnpj" name="cnpj" placeholder="Digite o CNPJ." data-type="verificarFornecedorCnpj" />
     </div>
 
     <div class="form-group col-sm-5">
         <label>IE:</label>
-        <input type="text" class="form-control" id="ie" name="ie" placeholder="Digite o IE" />
+        <input type="text" class="form-control" id="ie" name="ie" placeholder="Digite o IE" data-type="verificarFornecedorIe" />
     </div>
 
     <div class="form-group col-sm-4">
@@ -51,7 +51,7 @@
 
     <div class="form col-sm-12">
         <fieldset>
-            <legend>Dados de Endereço</legend>
+            <legend>Dados de EndereÃ§o</legend>
 
             <div class="form-group col-sm-3">
                 <label>CEP:</label>
@@ -69,8 +69,8 @@
             </div>
 
             <div class="form-group col-sm-3">
-                <label>Número:</label>
-                <input type="text" class="form-control" id="numero" name="numero" placeholder="Digite o Número do Local." />
+                <label>NÃºmero:</label>
+                <input type="text" class="form-control" id="numero" name="numero" placeholder="Digite o NÃºmero do Local." />
             </div>
 
             <div class="form-group col-sm-3">
@@ -84,18 +84,18 @@
             </div>
 
             <div class="form-group col-sm-3">
-                <label>País:</label>
+                <label>PaÃ­s:</label>
                 <input type="text" class="form-control"  id="pais" name="pais" />
             </div>
         </fieldset>
     </div>
 
-    <div class="form-group col-sm-12">
-        <input type="submit" class="btn btn-success" value="Salvar"/>
-        <a class="btn btn-warning" href="<?php echo BASE_URL; ?>fornecedor">Voltar</a>
+    <div class=" form-group col-sm-12" style="float: right;">
+        <button  class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Salvar</button>
+        <a class="btn btn-warning" href="<?php echo BASE_URL; ?>fornecedor"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Voltar</a>
     </div>
 </form>
 
-<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/fornecedor/script_fornecedor_add.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/fornecedor/script_fornecedor_editar.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/fornecedor/script_fornecedor_validacao.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/fornecedor/script_fornecedor_mascara.js"></script>

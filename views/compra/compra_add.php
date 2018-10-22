@@ -9,11 +9,16 @@
     <input type="text" class="form-control" id="fornecedor_razao" autocomplete="off" name="fornecedor_razao" data-type="pesquisar_fornecedores"/>
     <div style="clear: both"></div>
 
-    <br/><br/>
+    <br/>
 
     <div style="padding-left: 0px;" class="form-group col-sm-2">
-        <label>Número da Nota:</label>
-        <input type="text" class="form-control" id="numero_nota" name="numero_nota" placeholder="Digite o número da nota."/>
+        <label>NÃºmero da Nota:</label>
+        <input type="text" class="form-control" id="numero_nota" name="numero_nota" placeholder="Digite o nÃºmero da nota."/>
+    </div>
+
+    <div style="padding-left: 0px;" class="form-group col-sm-2">
+        <label>Data de Vencimento:</label>
+        <input type="text" class="form-control" id="data_vencimento" name="data_vencimento" placeholder="Digite a data de vencimento da compra"/>
     </div>
 
     <div style="clear:both"></div>
@@ -39,17 +44,18 @@
                 <th>Lote</th>
                 <th>Produto</th>
                 <th>Quant.</th>
-                <th>Preço Unit.</th>
+                <th>PreÃ§o Unit.</th>
                 <th>Sub Total</th>
-                <th>Ação</th>
+                <th>AÃ§Ã£o</th>
             </tr>
         </table>
     </div>
+
     <hr style="border: 1px solid #CCC;"/>
 
-    <div class="col-sm-12">
-        <input type="submit" class="btn btn-success" value="Salvar"  />
-        <a class="btn btn-warning" href="<?php echo BASE_URL; ?>compra">Voltar</a>
+    <div class="form-group col-sm-12" style="margin-left: -15px;">
+        <button  class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Salvar</button>
+        <a class="btn btn-warning" href="<?php echo BASE_URL; ?>compra"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Voltar</a>
     </div>
 </form>
 

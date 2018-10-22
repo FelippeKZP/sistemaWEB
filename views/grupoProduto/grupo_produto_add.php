@@ -1,6 +1,6 @@
 <h1>Adicionar Grupo de Produto</h1>
 
-<br/><br/>
+<br/>
 
 <?php if (isset($msg_erro) && !empty($msg_erro)): ?>
     <div class="alert alert-danger alert-dismissible">
@@ -25,9 +25,9 @@
         <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite um Nome." />
     </div>
 
-    <div class="form-group col-sm-12">
-        <input type="submit" class="btn btn-success" value="Salvar" />
-        <a class="btn btn-warning" href="<?php echo BASE_URL; ?>grupoProduto">Voltar</a>
+    <div class=" form-group col-sm-12" style="float: right;">
+        <button  class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Salvar</button>
+        <a class="btn btn-warning" href="<?php echo BASE_URL; ?>grupoProduto"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Voltar</a>
     </div>
 </form>
 

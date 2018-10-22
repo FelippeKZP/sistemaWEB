@@ -7,7 +7,7 @@ $(document).ready(function () {
         },
         messages: {
             fornecedor_razao: {
-                required: "A Escolha do Fornecedor é Obrigatório. "
+                required: "A Escolha do Fornecedor Ã© ObrigatÃ³rio. "
             }
         }
     });
@@ -105,7 +105,7 @@ function addProdCompra(obj) {
          </td>\n\
          <td class="preco">R$ ' + preco.toFixed(2) + '</td>\n\
          <td class="subtotal">' + preco.toFixed(2) + '</td>\n\
-         <td><a class="btn btn-danger" href="javascript:;" onclick="delProd(this);">Excluir</a></td>\n\
+         <td><a class="btn btn-danger" href="javascript:;" onclick="delProd(this);"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a></td>\n\
          </tr>';
 
         $('#tabela_produtos').append(tr);

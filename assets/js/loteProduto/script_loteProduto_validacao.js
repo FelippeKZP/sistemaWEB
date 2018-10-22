@@ -16,22 +16,22 @@ $(document).ready(function () {
         },
         messages: {
             numero_lote: {
-                required: "Este campo é obrigatório."
+                required: "Este campo Ã© obrigatÃ³rio."
             },
             produto: {
-                required: "Este campo é obrigatório."
+                required: "Este campo Ã© obrigatÃ³rio."
             },
             fornecedor: {
-                required: "Este campo é obrigatório."
+                required: "Este campo Ã© obrigatÃ³rio."
             },
             quantidade: {
-                required: "Este campo é obrigatório."
+                required: "Este campo Ã© obrigatÃ³rio."
             },
             data_fabricacao: {
-                required: "Este campo é obrigatório."
+                required: "Este campo Ã© obrigatÃ³rio."
             },
             data_vencimento: {
-                required: "Este campo é obrigatório."
+                required: "Este campo Ã© obrigatÃ³rio."
             }
         }
     });

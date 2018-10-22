@@ -1,17 +1,17 @@
-<h1>Relatório de Estoque Baixo</h1>
+<h1>RelatÃ³rio de Estoque Baixo</h1>
 
-<a class="btn btn-primary" style="float: right;" href="<?php echo BASE_URL; ?>relatorio">Telas de Relatórios</a>
+<a class="btn btn-primary" style="float: right;" href="<?php echo BASE_URL; ?>relatorio"><span class="glyphicon glyphicon-th" aria-hidden="true"></span> Telas de RelatÃ³rios</a>
 
-<br/><br/><br/>
+<br/><br/>
 
 <form method="GET" onsubmit="return openPopup(this);">
 
 
-    <div style="clear: both"></div>
-    
-    <div style="text-align: center;">
-        <input type="submit" class="btn btn-group-lg btn-success" value="Gerar Relatório"/>
-    </div>
+	<div style="clear: both;"></div>
+
+	<div style="text-align: left; padding-left: 15px;">
+		<button class="btn btn-group-lg btn-success"><span class="glyphicon glyphicon-open-file" aria-hidden="true"></span> Gerar</button>
+	</div>
 </form>
 
 <script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/relatorio/relatorio_estoqueBaixo.js"></script>

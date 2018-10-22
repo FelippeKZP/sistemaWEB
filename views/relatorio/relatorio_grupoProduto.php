@@ -1,8 +1,6 @@
-<h1>Relatório de Grupos de Produto</h1>
+<h1>RelatÃ³rio de Grupos de Produto</h1>
 
-<br/><br/>
-
-<a class="btn btn-primary" style="float: right;" href="<?php echo BASE_URL; ?>relatorio">Telas de Relatórios</a>
+<a class="btn btn-primary" style="float: right;" href="<?php echo BASE_URL; ?>relatorio"><span class="glyphicon glyphicon-th" aria-hidden="true"></span> Telas de RelatÃ³rios</a>
 
 <br/><br/>
 
@@ -16,8 +14,9 @@
     <div style="clear: both"></div>
     
     <div style="text-align: left; padding-left: 15px;">
-        <input type="submit" class="btn btn-group-lg btn-success" value="Gerar Relatório"/>
+        <button class="btn btn-group-lg btn-success"><span class="glyphicon glyphicon-open-file" aria-hidden="true"></span> Gerar</button>
     </div>
+
 </form>
 
 <script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/relatorio/relatorio_grupoProduto.js"></script>

@@ -7,7 +7,7 @@ $(document).ready(function () {
         },
         messages: {
             nome: {
-                required: "Este campo é obrigatório."
+                required: "Este campo Ã© obrigatÃ³rio."
             }
         }
     });

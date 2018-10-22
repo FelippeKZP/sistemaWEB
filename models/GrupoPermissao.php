@@ -92,6 +92,21 @@ class GrupoPermissao extends model {
         return $array;
     }
 
+    public function verificarId($id){
+
+        $sql = $this->db->prepare("SELECT id FROM grupo_permissao WHERE id = :id");
+        $sql->bindValue(":id",$id);
+        $sql->execute();
+
+        if($sql->rowCount() > 0){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+
     public function grupo_permissao_add($nome, $id_permissao) {
 
         $sql = $this->db->prepare("SELECT id FROM grupo_permissao WHERE nome = :nome");

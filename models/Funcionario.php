@@ -2,19 +2,19 @@
 
 class Funcionario extends model {
 
-    public function getList($s) {
+    public function getList($s,$offset,$limit) {
         $array = array();
 
         if (!empty($s)) {
 
             $sql = $this->db->prepare("SELECT funcionario.id,funcionario.nome,funcionario.cpf,funcao_funcionario.nome as funcao,funcionario.data_admissao,funcionario.salario
-                    FROM funcionario INNER JOIN funcao_funcionario on funcao_funcionario.id = funcionario.id_funcao 
-                    WHERE funcionario.nome LIKE :nome OR funcionario.cpf LIKE :nome");
-            $sql->bindValue(":nome", $s);
+                FROM funcionario INNER JOIN funcao_funcionario on funcao_funcionario.id = funcionario.id_funcao 
+                WHERE funcionario.nome LIKE :nome OR funcionario.cpf LIKE :nome LIMIT $offset, $limit");
+            $sql->bindValue(":nome", '%'. $s.'%');
             $sql->execute();
         } else {
             $sql = $this->db->prepare("SELECT funcionario.id,funcionario.nome,funcionario.cpf,funcao_funcionario.nome as funcao,funcionario.data_admissao,funcionario.salario
-                   FROM funcionario INNER JOIN funcao_funcionario on funcao_funcionario.id = funcionario.id_funcao");
+               FROM funcionario INNER JOIN funcao_funcionario on funcao_funcionario.id = funcionario.id_funcao LIMIT $offset, $limit");
             $sql->execute();
         }
 
@@ -23,6 +23,20 @@ class Funcionario extends model {
         }
 
         return $array;
+    }
+
+    public function getTotal($s){
+        if(!empty($s)){
+            $sql = $this->db->prepare("SELECT COUNT(id) as c FROM funcionario WHERE nome LIKE :nome");
+            $sql->bindValue(":nome", '%'.$s.'%');
+            $sql->execute();
+        }else{
+            $sql = $this->db->prepare("SELECT COUNT(id) as c FROM funcionario");
+            $sql->execute();
+        }
+
+        $sql = $sql->fetch();
+        return $sql['c'];
     }
 
     public function getInfo($id) {
@@ -54,41 +68,34 @@ class Funcionario extends model {
 
     public function funcionario_add($nome, $cpf, $rg, $telefone, $data_admissao, $data_aniversario, $id_funcao, $carteira_trabalho, $salario, $cep, $bairro, $rua, $numero, $estado, $cidade, $pais) {
 
-        $sql = $this->db->prepare("SELECT id FROM funcionario WHERE cpf = :cpf");
+
+        $sql = $this->db->prepare("INSERT INTO funcionario(nome,cpf,rg,telefone,data_admissao,data_aniversario,id_funcao,carteira,salario,cep,bairro,rua,numero,estado,cidade,pais)
+           VALUES(:nome,:cpf,:rg,:telefone,:data_admissao,:data_aniversario,:id_funcao,:carteira_trabalho,:salario,:cep,:bairro,:rua,:numero,:estado,:cidade,:pais)");
+        $sql->bindValue(":nome", $nome);
         $sql->bindValue(":cpf", $cpf);
+        $sql->bindValue(":rg", $rg);
+        $sql->bindValue(":telefone", $telefone);
+        $sql->bindValue(":data_admissao", $data_admissao);
+        $sql->bindValue(":data_aniversario", $data_aniversario);
+        $sql->bindValue(":id_funcao", $id_funcao);
+        $sql->bindValue(":carteira_trabalho", $carteira_trabalho);
+        $sql->bindValue(":salario", $salario);
+        $sql->bindValue(":cep", $cep);
+        $sql->bindValue(":bairro", $bairro);
+        $sql->bindValue(":rua", $rua);
+        $sql->bindValue(":numero", $numero);
+        $sql->bindValue(":estado", $estado);
+        $sql->bindValue(":cidade", $cidade);
+        $sql->bindValue(":pais", $pais);
         $sql->execute();
 
-        if ($sql->rowCount() == 0) {
-            $sql = $this->db->prepare("INSERT INTO funcionario(nome,cpf,rg,telefone,data_admissao,data_aniversario,id_funcao,carteira,salario,cep,bairro,rua,numero,estado,cidade,pais)
-               VALUES(:nome,:cpf,:rg,:telefone,:data_admissao,:data_aniversario,:id_funcao,:carteira_trabalho,:salario,:cep,:bairro,:rua,:numero,:estado,:cidade,:pais)");
-            $sql->bindValue(":nome", $nome);
-            $sql->bindValue(":cpf", $cpf);
-            $sql->bindValue(":rg", $rg);
-            $sql->bindValue(":telefone", $telefone);
-            $sql->bindValue(":data_admissao", $data_admissao);
-            $sql->bindValue(":data_aniversario", $data_aniversario);
-            $sql->bindValue(":id_funcao", $id_funcao);
-            $sql->bindValue(":carteira_trabalho", $carteira_trabalho);
-            $sql->bindValue(":salario", $salario);
-            $sql->bindValue(":cep", $cep);
-            $sql->bindValue(":bairro", $bairro);
-            $sql->bindValue(":rua", $rua);
-            $sql->bindValue(":numero", $numero);
-            $sql->bindValue(":estado", $estado);
-            $sql->bindValue(":cidade", $cidade);
-            $sql->bindValue(":pais", $pais);
-            $sql->execute();
-
-            return true;
-        } else {
-            return false;
-        }
+        
     }
 
     public function funcionario_editar($nome, $cpf, $rg, $telefone, $data_admissao, $data_aniversario, $id_funcao, $carteira_trabalho, $salario, $cep, $bairro, $rua, $numero, $estado, $cidade, $pais, $id) {
         $sql = $this->db->prepare("UPDATE funcionario SET nome = :nome, cpf = :cpf,rg = :rg,telefone=:telefone,data_admissao = :data_admissao,
-               data_aniversario = :data_aniversario,id_funcao = :id_funcao,carteira = :carteira,salario = :salario,cep = :cep, bairro = :bairro,
-               rua = :rua, numero = :numero,estado = :estado,cidade = :cidade,pais = :pais WHERE id = :id");
+           data_aniversario = :data_aniversario,id_funcao = :id_funcao,carteira = :carteira,salario = :salario,cep = :cep, bairro = :bairro,
+           rua = :rua, numero = :numero,estado = :estado,cidade = :cidade,pais = :pais WHERE id = :id");
         $sql->bindValue(":nome", $nome);
         $sql->bindValue(":cpf", $cpf);
         $sql->bindValue(":rg", $rg);
@@ -114,6 +121,21 @@ class Funcionario extends model {
         $sql->bindValue(":id", $id);
         $sql->execute();
     }
+
+
+    public function verificarId($id){
+
+        $sql = $this->db->prepare("SELECT id FROM funcionario WHERE id = :id");
+        $sql->bindValue(":id",$id);
+        $sql->execute();
+
+        if($sql->rowCount() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 
     public function verificarCPF($p) {
         $array = array();

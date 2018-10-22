@@ -82,6 +82,20 @@ class GrupoProduto extends model {
         }
     }
 
+
+    public function verificarId($id){
+
+        $sql = $this->db->prepare("SELECT id FROM grupo_produto WHERE id = :id");
+        $sql->bindValue(":id",$id);
+        $sql->execute();
+
+        if($sql->rowCount() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public function grupo_produto_editar($nome, $id) {
         $sql = $this->db->prepare("UPDATE grupo_produto SET nome = :nome WHERE id = :id");
         $sql->bindValue(":nome", $nome);

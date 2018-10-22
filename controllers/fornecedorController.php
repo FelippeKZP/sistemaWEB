@@ -27,6 +27,9 @@ class fornecedorController extends controller {
             $s = $_GET['searchs'];
         }
 
+
+        $data['filtros'] =  $_GET;
+
         $limit = 10;
 
         $data['limit'] = 1;
@@ -61,6 +64,7 @@ class fornecedorController extends controller {
         $data['usuario_nome'] = $u->getNome();
         $data['usuario_foto'] = $u->getFoto();
         $data['notificacao'] = $n->verificarNotificacao($u->getId());
+        
         $f = new Fornecedor();
 
         if (isset($_POST['razao_social']) && !empty($_POST['razao_social'])) {
@@ -83,7 +87,7 @@ class fornecedorController extends controller {
             if ($f->fornecedor_add($razao_social, $nome_fantasia, $cnpj, $ie, $telefone, $data_cadastro, $cep, $bairro, $rua, $numero, $cidade, $estado, $pais)) {
                 $data['msg_sucesso'] = "Fornecedor Salvo Com Sucesso.";
             } else {
-                $data['msg_erro'] = "Já Existe Este Fornecedor";
+                $data['msg_erro'] = "JÃ¡ Existe Este Fornecedor";
             }
         }
 
@@ -98,8 +102,18 @@ class fornecedorController extends controller {
         $data['usuario_nome'] = $u->getNome();
         $data['usuario_foto'] = $u->getFoto();
         $data['notificacao'] = $n->verificarNotificacao($u->getId());
+        
         $f = new Fornecedor();
 
+        if(isset($id) && !empty($id)){
+            if($f->verificarId($id)){
+
+            }else{
+                header("Location:".BASE_URL.'fornecedor' );
+            }
+        }else{
+            header("Location:".BASE_URL.'fornecedor' );
+        }
 
         if (isset($_POST['razao_social']) && !empty($_POST['razao_social'])) {
             $razao_social = addslashes($_POST['razao_social']);
@@ -139,13 +153,24 @@ class fornecedorController extends controller {
         $data['usuario_nome'] = $u->getNome();
         $data['usuario_foto'] = $u->getFoto();
         $data['notificacao'] = $n->verificarNotificacao($u->getId());
+        
         $f = new Fornecedor();
+
+        if(isset($id) && !empty($id)){
+            if($f->verificarId($id)){
+
+            }else{
+                header("Location:".BASE_URL.'fornecedor' );
+            }
+        }else{
+            header("Location:".BASE_URL.'fornecedor' );
+        }
 
         try {
             $f->fornecedor_deletar($id);
             $data['msg_sucesso'] = "Sucesso ao Excluir o Fornecedor";
         } catch (Exception $e) {
-            $data['msg_erro'] = "Este Fornecedor Já Esta Associado";
+            $data['msg_erro'] = "Este Fornecedor JÃ¡ Esta Associado";
         }
 
 
@@ -154,6 +179,9 @@ class fornecedorController extends controller {
         if (!empty($_GET['searchs'])) {
             $s = $_GET['searchs'];
         }
+
+        
+        $data['filtros'] =  $_GET;
 
         $data['fornecedor_list'] = $f->getList($s);
 

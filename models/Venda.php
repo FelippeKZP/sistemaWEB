@@ -45,16 +45,17 @@ class Venda extends model {
         return $sql['c'];
     }
 
-    public function venda_add($id_cliente, $id_funcionario, $quant, $desconto, $data_vencimento, $n_parcelas, $id_usuario) {
+    public function venda_add($id_cliente, $id_funcionario, $quant, $desconto, $tipo_pag, $data_vencimento, $n_parcelas, $id_usuario) {
 
         $l = new LoteProduto();
 
-        $sql = $this->db->prepare("INSERT INTO venda(id_cliente,id_funcionario,id_usuario,data_venda,total_venda,desconto)
-               VALUES(:id_cliente,:id_funcionario,:id_usuario,NOW(),:total_venda,:desconto)");
+        $sql = $this->db->prepare("INSERT INTO venda(id_cliente,id_funcionario,id_usuario,data_venda,total_venda,desconto,tipo_pag)
+               VALUES(:id_cliente,:id_funcionario,:id_usuario,NOW(),:total_venda,:desconto,:tipo_pag)");
         $sql->bindValue(":id_cliente", $id_cliente);
         $sql->bindValue(":id_funcionario", $id_funcionario);
         $sql->bindValue(":id_usuario", $id_usuario);
         $sql->bindValue(":desconto", $desconto);
+        $sql->bindValue(":tipo_pag", $tipo_pag);
         $sql->bindValue(":total_venda", '0');
         $sql->execute();
 
@@ -100,7 +101,7 @@ class Venda extends model {
             $data = $data_vencimento;
 
             for ($i = 1; $i <= $qtdParc; $i++) {
-                
+
 
                 $sql = $this->db->prepare("INSERT INTO contas_receber(id_venda,data_vencimento,parcela,valor,status)
                 VALUES(:id_venda,:data_vencimento,:parcela,:valor, 0)");
@@ -109,7 +110,7 @@ class Venda extends model {
                 $sql->bindValue(":parcela", $i . ' de ' . $n_parcelas);
                 $sql->bindValue(":valor", $calculoParc);
                 $sql->execute();
-                
+
                 $data = date('Y-m-d', strtotime($data . ' + 1 month'));
             }
         } else {

@@ -65,7 +65,7 @@ class relatorioController extends controller {
         $mpdf = new mPDF();
         $mpdf->WriteHTML($html);
         $mpdf->Output();
-       
+
     }
 
     public function relatorio_fornecedor() {
@@ -453,10 +453,8 @@ class relatorioController extends controller {
         ob_start();
         $this->loadView('relatorio/relatorio_historicoEstoque_pdf', $data);
         $html = ob_get_contents();
-        $html = utf8_encode($html);
+        //$html = utf8_encode($html);
         ob_clean();
-
-
 
         $m = new mPDF();
         $m->WriteHTML($html);

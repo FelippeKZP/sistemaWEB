@@ -24,6 +24,12 @@ class usuarioController extends controller {
         if (!empty($s)) {
             $s = $_GET['searchs'];
         }
+
+        $data['status'] = array(
+            '0' => 'Inativo',
+            '1' => 'Ativo');
+
+        $data['filtros'] =  $_GET;
         
         $limit = 10;
 
@@ -68,6 +74,7 @@ class usuarioController extends controller {
             $email = addslashes($_POST['email']);
             $senha = addslashes($_POST['senha']);
             $id_grupo_permissao = addslashes($_POST['id_grupo_permissao']);
+            $status = addslashes($_POST['status']);
 
             if (isset($_FILES['fotos'])) {
                 $fotos = $_FILES['fotos'];
@@ -75,10 +82,10 @@ class usuarioController extends controller {
                 $fotos = array();
             }
 
-            if ($u->usuario_add($nome, $email, $senha, $id_grupo_permissao, $fotos)) {
-                $data['msg_sucesso'] = "Usuário Salvo Com Sucesso.";
+            if ($u->usuario_add($nome, $email, $senha, $id_grupo_permissao,$status, $fotos)) {
+                $data['msg_sucesso'] = "UsuÃ¡rio Salvo Com Sucesso.";
             } else {
-                $data['msg_erro'] = "Já Existe Este Usuário Com Esse Email.";
+                $data['msg_erro'] = "JÃ¡ Existe Este UsuÃ¡rio Com Esse Email.";
             }
         }
 
@@ -98,11 +105,23 @@ class usuarioController extends controller {
 
         $p = new GrupoPermissao();
 
+        if(isset($id) && !empty($id)){
+            if($u->verificarId($id)){
+
+            }else{
+                header("Location:".BASE_URL.'usuario' );
+            }
+        }else{
+            header("Location:".BASE_URL.'usuario' );
+        }
+
+
         if (isset($_POST['nome']) && !empty($_POST['nome'])) {
             $nome = addslashes($_POST['nome']);
             $email = addslashes($_POST['email']);
             // $senha = addslashes($_POST['senha']);
             $id_grupo_permissao = addslashes($_POST['id_grupo_permissao']);
+            $status = addslashes($_POST['status']);
 
             if (isset($_FILES['fotos'])) {
                 $fotos = $_FILES['fotos'];
@@ -111,10 +130,10 @@ class usuarioController extends controller {
             }
 
             try {
-                $u->usuario_editar($nome, $email, $id_grupo_permissao, $fotos, $id);
-                $data['msg_sucesso'] = "Sucesso ao Editar o Usuário.";
+                $u->usuario_editar($nome, $email, $id_grupo_permissao,$status, $fotos, $id);
+                $data['msg_sucesso'] = "Sucesso ao Editar o UsuÃ¡rio.";
             } catch (Exception $ex) {
-                $data['msg_erro'] = "Ocorreu um Erro ao Editar o Usuário";
+                $data['msg_erro'] = "Ocorreu um Erro ao Editar o UsuÃ¡rio";
             }
         }
 
@@ -133,17 +152,31 @@ class usuarioController extends controller {
         $data['usuario_foto'] = $u->getFoto();
         $data['notificacao'] = $n->verificarNotificacao($u->getId());
 
+
+        if(isset($id) && !empty($id)){
+            if($u>verificarId($id)){
+
+            }else{
+                header("Location:".BASE_URL.'usuario' );
+            }
+        }else{
+            header("Location:".BASE_URL.'usuario' );
+        }
+
+
         try {
             $u->usuario_deletar($id);
-            $data['msg_sucesso'] = "Sucesso ao Excluir o Usuário";
+            $data['msg_sucesso'] = "Sucesso ao Excluir o UsuÃ¡rio";
         } catch (Exception $e) {
-            $data['msg_erro'] = "Este Usuário Já Esta Associado";
+            $data['msg_erro'] = "Este UsuÃ¡rio JÃ¡ Esta Associado";
         }
 
         $s = '';
         if (!empty($s)) {
             $s = $_GET['searchs'];
         }
+
+        $data['filtros'] =  $_GET;
         
         $limit = 10;
 
@@ -169,7 +202,7 @@ class usuarioController extends controller {
 
         $data['usuario_list'] = $u->getList($s,$offset,$limit);
 
-       
+
 
         $this->loadTemplate('usuario/usuario', $data);
     }

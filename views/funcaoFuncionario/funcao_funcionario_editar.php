@@ -1,19 +1,19 @@
-<h1>Editar FunÁ„o de Funcion·rio</h1>
+<h1>Editar Fun√ß√£o de Funcion√°rio</h1>
 
 <br/><br/>
 
 <?php if (isset($msg_erro) && !empty($msg_erro)): ?>
-    <div class="alert alert-danger alert-dismissible">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong><?php echo $msg_erro; ?></strong>
-    </div>
+<div class="alert alert-danger alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong><?php echo $msg_erro; ?></strong>
+</div>
 <?php endif; ?>
 
 <?php if (isset($msg_sucesso) && !empty($msg_sucesso)): ?>
-    <div class="alert alert-success alert-dismissible">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong><?php echo $msg_sucesso; ?></strong>
-    </div>
+<div class="alert alert-success alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong><?php echo $msg_sucesso; ?></strong>
+</div>
 <?php endif; ?>
 
 
@@ -24,15 +24,16 @@
         <input type="text" class="form-control" id="nome" name="nome" value="<?php echo $funcao_list_edit['nome']; ?>" placeholder="Digite o Nome."/>
     </div>
     <div class="form-group col-sm-4">
-        <label>DescriÁ„o:</label>
-        <textarea class="form-control" id="descricao" name="descricao" placeholder="Digite a DescriÁ„o."><?php echo $funcao_list_edit['descricao']; ?></textarea>
+        <label>Descri√ß√£o:</label>
+        <textarea class="form-control" id="descricao" name="descricao" placeholder="Digite a Descri√ß√£o."><?php echo $funcao_list_edit['descricao']; ?></textarea>
     </div>
 
-    <div class="col-sm-12">
-        <input type="submit" class="btn btn-success" value="Editar"/>
-        <a class="btn btn-warning" href="<?php echo BASE_URL; ?>funcaoFuncionario">Voltar</a>
+    <div class=" form-group col-sm-12" style="float: right;">
+        <button  class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Salvar</button>
+        <a class="btn btn-warning" href="<?php echo BASE_URL; ?>funcaoFuncionario"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Voltar</a>
     </div>
 
+    
 </form>
 
 

@@ -1,6 +1,6 @@
-<h1>RelatÛrio de Grupos de Permiss„o</h1>
+<h1>Relat√≥rio de Grupos de Permiss√£o</h1>
 
-<a class="btn btn-primary" style="float: right;" href="<?php echo BASE_URL; ?>relatorio">Telas de RelatÛrios</a>
+<a class="btn btn-primary" style="float: right;" href="<?php echo BASE_URL; ?>relatorio"><span class="glyphicon glyphicon-th" aria-hidden="true"></span> Telas de Relat√≥rios</a>
 
 <br/><br/>
 
@@ -14,8 +14,9 @@
     <div style="clear: both"></div>
     
     <div style="text-align: left; padding-left: 15px;">
-        <input type="submit" class="btn btn-group-lg btn-success" value="Gerar RelatÛrio"/>
+        <button class="btn btn-group-lg btn-success"><span class="glyphicon glyphicon-open-file" aria-hidden="true"></span> Gerar</button>
     </div>
+    
 </form>
 
 <script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/relatorio/relatorio_grupoPermissao.js"></script>

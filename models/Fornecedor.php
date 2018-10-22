@@ -93,6 +93,50 @@ class Fornecedor extends model {
         return $array;
     }
 
+    public function verificarId($id){
+
+        $sql = $this->db->prepare("SELECT id FROM fornecedor WHERE id = :id");
+        $sql->bindValue(":id",$id);
+        $sql->execute();
+
+        if($sql->rowCount() > 0){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+    public function verificarFornecedorCnpj($p){
+        $array =  array();
+        $sql =  $this->db->prepare("SELECT COUNT(id) as total FROM fornecedor WHERE cnpj = :cnpj");
+        $sql->bindValue(":cnpj", $p);
+        $sql->execute();
+
+        if($sql->rowCount() > 0){
+            $array =  $sql->fetchAll();
+        }
+
+        return $array;
+
+    }
+
+
+    public function verificarFornecedorIe($p){
+        $array =  array();
+        $sql =  $this->db->prepare("SELECT COUNT(id) as total FROM fornecedor WHERE ie = :ie");
+        $sql->bindValue(":ie", $p);
+        $sql->execute();
+
+        if($sql->rowCount() > 0){
+            $array =  $sql->fetchAll();
+        }
+
+        return $array;
+
+    }
+
+
     public function fornecedor_add($razao_social, $nome_fantasia, $cnpj, $ie, $telefone, $data_cadastro, $cep, $bairro, $rua, $numero, $cidade, $estado, $pais) {
 
         $sql = $this->db->prepare("SELECT id FROM fornecedor WHERE cnpj = :cnpj");
@@ -102,7 +146,7 @@ class Fornecedor extends model {
         if ($sql->rowCount() == 0) {
 
             $sql = $this->db->prepare("INSERT INTO fornecedor(razao_social,nome_fantasia,cnpj,ie,telefone,data_cadastro,cep,bairro,rua,numero,cidade,estado,pais)
-        VALUES(:razao_social,:nome_fantasia,:cnpj,:ie,:telefone,:data_cadastro,:cep,:bairro,:rua,:numero,:cidade,:estado,:pais)");
+                VALUES(:razao_social,:nome_fantasia,:cnpj,:ie,:telefone,:data_cadastro,:cep,:bairro,:rua,:numero,:cidade,:estado,:pais)");
             $sql->bindValue(":razao_social", $razao_social);
             $sql->bindValue(":nome_fantasia", $nome_fantasia);
             $sql->bindValue(":cnpj", $cnpj);

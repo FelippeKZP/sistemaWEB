@@ -1,19 +1,19 @@
 <h1>Adicionar Cliente</h1>
 
-<br/><br/>
+<br/>
 
 <?php if (isset($msg_erro) && !empty($msg_erro)): ?>
-    <div class="alert alert-danger alert-dismissible">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong><?php echo $msg_erro; ?></strong>
-    </div>
+<div class="alert alert-danger alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong><?php echo $msg_erro; ?></strong>
+</div>
 <?php endif; ?>
 
 <?php if (isset($msg_sucesso) && !empty($msg_sucesso)): ?>
-    <div class="alert alert-success alert-dismissible">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong><?php echo $msg_sucesso; ?></strong>
-    </div>
+<div class="alert alert-success alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong><?php echo $msg_sucesso; ?></strong>
+</div>
 <?php endif; ?>
 
 
@@ -22,8 +22,8 @@
         <div class="form-group col-sm-4">
             <label>Tipo de Pessoa:</label>
             <select name="tipo_pessoa" class="form-control">
-                <option value="física">Física</option>
-                <option value="jurídica">Jurídica</option>
+                <option value="fÃ­sica">FÃ­sica</option>
+                <option value="jurÃ­dica">JurÃ­dica</option>
             </select>
         </div>
     </div>
@@ -35,22 +35,22 @@
 
     <div class="form-group col-sm-4">
         <label>CPF/CNPJ:</label>
-        <input type="text" class="form-control" id="cpf" name="cpf" placeholder="Digite o CPF ou CNPJ."/>
+        <input type="text" class="form-control" id="cpf" name="cpf" placeholder="Digite o CPF ou CNPJ." data-type="verificarClienteCpfCnpj"/>
     </div>
 
     <div class="form-group col-sm-3">
         <label>RG/IE:</label>
-        <input type="text" class="form-control" id="rg" name="rg" placeholder="Digite o RG ou IE."/>
+        <input type="text" class="form-control" id="rg" name="rg" placeholder="Digite o RG ou IE." data-type="verificarClienteRgIe"/>
     </div>
 
-    <div class="form-group col-sm-4">
+    <div class="form-group col-sm-3">
         <label>Telefone:</label>
-        <input type="text" class="form-control" id="telefone" name="telefone" placeholder="Digite o Telefone."/><br/><br/>
+        <input type="text" class="form-control" id="telefone" name="telefone" placeholder="Digite o Telefone."/>
     </div>
 
-    <div class="form-group col-sm-5">
+    <div class="form-group col-sm-3">
         <label>Email:</label>
-        <input type="text" class="form-control" id="email" name="email" placeholder="Digite o Email."/>
+        <input type="text" class="form-control" id="email" name="email" placeholder="Digite o Email." data-type="verificarClienteEmail"/>
     </div>
 
     <div class="form-group col-sm-3">
@@ -58,11 +58,16 @@
         <input  type="text" class="form-control" id="data_cadastro" name="data_cadastro" placeholder="Digite a Data de Cadastro."/>
     </div>
 
+    <div class="form-group col-sm-3">
+        <label>Data de AniversÃ¡rio:</label><br/>
+        <input  type="text" class="form-control" id="data_aniversario" name="data_aniversario" placeholder="Digite a Data de AniversÃ¡rio."/>
+    </div>
+
     <br/><br/>
 
     <div class="form-group col-sm-12">
         <fieldset>
-            <legend>Dados de Endereço</legend>
+            <legend>Dados de EndereÃ§o</legend>
             <div class="form-group col-sm-3">
                 <label>CEP:</label>
                 <input type="text" class="form-control"  id="cep" name="cep" placeholder="Digite o CEP."/>
@@ -76,7 +81,7 @@
                 <input type="text" class="form-control" id="rua" name="rua"/>
             </div>
             <div class="form-group col-sm-3">
-                <label>Número:</label>
+                <label>NÃºmero:</label>
                 <input type="text" class="form-control" id="numero" name="numero" placeholder="Digite o Numero"/>
             </div>
             <div class="form-group col-sm-3">
@@ -89,7 +94,7 @@
             </div>
 
             <div class="form-group col-sm-3">
-                <label>País:</label>
+                <label>PaÃ­s:</label>
                 <input type="text" class="form-control" id="pais" name="pais"/>
             </div>
         </fieldset>
@@ -97,8 +102,8 @@
 
 
     <div class=" form-group col-sm-12" style="float: right;">
-        <input type="submit" class="btn btn-success" value="Salvar"/>
-        <a class="btn btn-warning" href="<?php echo BASE_URL; ?>cliente">Voltar</a>
+        <button  class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Salvar</button>
+        <a class="btn btn-warning" href="<?php echo BASE_URL; ?>cliente"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Voltar</a>
     </div>
 
 </form>

@@ -1,6 +1,6 @@
-<h1>Relatório de Clientes</h1>
+<h1>RelatÃ³rio de Clientes</h1>
 
-<a class="btn btn-primary" style="float: right;" href="<?php echo BASE_URL; ?>relatorio">Telas de Relatórios</a>
+<a class="btn btn-primary" style="float: right;" href="<?php echo BASE_URL; ?>relatorio"><span class="glyphicon glyphicon-th" aria-hidden="true"></span> Telas de RelatÃ³rios</a>
 
 <br/><br/>
 
@@ -15,10 +15,10 @@
     <div class="form-group col-sm-2"></div>
 
     <div class="form-group col-sm-3">
-        <label style="padding-left: 100px;">Período:</label>
+        <label style="padding-left: 100px;">PerÃ­odo:</label>
         <div style="clear: both;"></div>
         <input type="date" class="form-control" name="periodo1"/>
-        <label style="margin-top: 6px; padding-left: 120px;">Até:</label>
+        <label style="margin-top: 6px; padding-left: 120px;">AtÃ©:</label>
         <div style="clear: both;"></div>
         <input type="date" class="form-control" name="periodo2"/>
     </div>
@@ -26,7 +26,7 @@
     <div style="clear: both;"></div>
 
     <div style="text-align: left; padding-left: 15px;">
-        <input type="submit" class="btn btn-group-lg btn-success" value="Gerar Relatório"/>
+        <button class="btn btn-group-lg btn-success"><span class="glyphicon glyphicon-open-file" aria-hidden="true"></span> Gerar</button>
     </div> 
 
 </form>

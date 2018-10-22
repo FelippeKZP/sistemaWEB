@@ -47,47 +47,47 @@ $(document).ready(function () {
         },
         messages: {
             razao_social: {
-                required: "Este Campo é Obrigatório."
+                required: "Este Campo Ã© ObrigatÃ³rio."
             },
             nome_fantasia:{
-                required: "Este Campo é Obrigatório."
+                required: "Este Campo Ã© ObrigatÃ³rio."
             },
             cnpj: {
-                required: "Este Campo é Obrigatório."
+                required: "Este Campo Ã© ObrigatÃ³rio."
             },
             ie: {
-                required: "Este Campo é Obrigatório."
+                required: "Este Campo Ã© ObrigatÃ³rio."
             },
             telefone: {
-                required: "Este Campo é Obrigatório."
+                required: "Este Campo Ã© ObrigatÃ³rio."
             },
             email: {
-                required: "Este Campo é Obrigatório.",
-                email:"Este Campo é um Email."
+                required: "Este Campo Ã© ObrigatÃ³rio.",
+                email:"Este Campo Ã© um Email."
             },
             data_cadastro: {
-                required: "Este Campo é Obrigatório."
+                required: "Este Campo Ã© ObrigatÃ³rio."
             },
             cep: {
-                required: "Este Campo é Obrigatório."
+                required: "Este Campo Ã© ObrigatÃ³rio."
             },
             bairro: {
-                required: "Este Campo é Obrigatório."
+                required: "Este Campo Ã© ObrigatÃ³rio."
             },
             rua: {
-                required: "Este Campo é Obrigatório."
+                required: "Este Campo Ã© ObrigatÃ³rio."
             },
             numero: {
-                required: "Este Campo é Obrigatório."
+                required: "Este Campo Ã© ObrigatÃ³rio."
             },
             cidade: {
-                required: "Este Campo é Obrigatório."
+                required: "Este Campo Ã© ObrigatÃ³rio."
             },
             estado: {
-                required: "Este Campo é Obrigatório."
+                required: "Este Campo Ã© ObrigatÃ³rio."
             },
             pais: {
-                required: "Este Campo é Obrigatório."
+                required: "Este Campo Ã© ObrigatÃ³rio."
             }
         }
     });

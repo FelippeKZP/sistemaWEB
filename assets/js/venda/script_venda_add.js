@@ -11,7 +11,7 @@ $(document).ready(function () {
         },
         messages: {
             cliente_nome: {
-                required: "A Escolha do  Cliente é Obrigatório."
+                required: "A Escolha do  Cliente Ã© ObrigatÃ³rio."
             }
         }
     });
@@ -28,6 +28,7 @@ $('#condicao_pag').on('change', function () {
     } else {
         $('#data_venc').show();
         $('#parcelas').hide();
+        $('.resultado_parcelas').hide();
         $('#btGerar').hide();
     }
 
@@ -57,8 +58,8 @@ $(function () {
 
             $('#tabela_parcelas tbody').append("<tr id=\"row_nf-" + i + "\" class=\"nf\"><td>" + i + " de " + qtde_parcelas + "</td><td title=\"vencimento\" class=\"text-center\">" + data.toLocaleString("pt-BR") + "</td><td>" + valorParcela.toFixed(2).replace('.',',') + "</td></tr>");
 
-            /* Captura o dia do mês e soma mais 30 dias */
-            vencimento.setDate(data.getDate() + 30);
+            /* Captura o dia do mÃªs e soma mais 30 dias */
+            vencimento.setMonth(data.getMonth() + 1);
 
         }
 
@@ -202,7 +203,7 @@ function addProd(obj) {
         </td>\n\
         <td class="price">R$ ' + preco.toFixed(2) + '</td>\n\
         <td id="subtotal" class="subtotal">R$ ' + preco.toFixed(2) + '</td>\n\
-        <td><a class="btn btn-danger"  href="javascript:;" onclick="delProd(this);">Excluir</a></td>\n\
+        <td><a class="btn btn-danger"  href="javascript:;" onclick="delProd(this);"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a></td>\n\
         </tr>';
             $('#tabela_produtos').append(tr);
         }
@@ -210,7 +211,7 @@ function addProd(obj) {
 
 
     } else {
-        bootbox.alert("Este Lote de Produto Contém Quantidade 0");
+        bootbox.alert("Este Lote de Produto ContÃ©m Quantidade 0");
 
     }
 

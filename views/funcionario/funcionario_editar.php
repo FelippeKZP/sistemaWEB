@@ -1,6 +1,6 @@
-<h1>Adicionar Funcion·rio</h1>
+<h1>Adicionar Funcion√°rio</h1>
 
-<br/><br/>
+<br/>
 
 
 <?php if (isset($msg_erro) && !empty($msg_erro)): ?>
@@ -40,17 +40,17 @@
     </div>
 
     <div class="form-group col-sm-3">
-        <label>Data de Admiss„o:</label>
-        <input type="text" class="form-control" id="data_admissao" name="data_admissao" value="<?php echo date('d/m/Y', strtotime($funcionario_list_edit['data_admissao'])); ?>" placeholder="Digite a Data de Admiss„o."/>
+        <label>Data de Admiss√£o:</label>
+        <input type="text" class="form-control" id="data_admissao" name="data_admissao" value="<?php echo date('d/m/Y', strtotime($funcionario_list_edit['data_admissao'])); ?>" placeholder="Digite a Data de Admiss√£o."/>
     </div>
 
     <div class="form-group col-sm-3">
-        <label>Data de Anivers·rio:</label>
-        <input type="text" class="form-control" id="data_aniversario" name="data_aniversario" value="<?php echo date('d/m/Y', strtotime($funcionario_list_edit['data_aniversario'])); ?>" placeholder="Digite a Data de Anivers·rio."/>
+        <label>Data de Anivers√°rio:</label>
+        <input type="text" class="form-control" id="data_aniversario" name="data_aniversario" value="<?php echo date('d/m/Y', strtotime($funcionario_list_edit['data_aniversario'])); ?>" placeholder="Digite a Data de Anivers√°rio."/>
     </div>
 
     <div class="form-group col-sm-3">
-        <label>FunÁ„o:</label>
+        <label>Fun√ß√£o:</label>
         <select id="funcao" name="id_funcao" class="form-control">
             <?php foreach ($funcao_list as $f): ?>
                 <option value="<?php echo $f['id']; ?>"
@@ -65,13 +65,13 @@
     </div>
 
     <div class="form-group col-sm-3">
-        <label>Sal·rio:</label>
-        <input type="text" class="form-control" id="salario" name="salario" value="<?php echo number_format($funcionario_list_edit['salario'],2); ?>" placeholder="Digite o Sal·rio."/>
+        <label>Sal√°rio:</label>
+        <input type="text" class="form-control" id="salario" name="salario" value="<?php echo number_format($funcionario_list_edit['salario'],2); ?>" placeholder="Digite o Sal√°rio."/>
     </div>
 
     <fieldset  class="form-group col-sm-12">
 
-        <legend>Dados de EndereÁo</legend>
+        <legend>Dados de Endere√ßo</legend>
 
         <div class="form-group col-sm-3">
             <label>CEP:</label>
@@ -86,8 +86,8 @@
             <input type="text" class="form-control" id="rua" name="rua" value="<?php echo $funcionario_list_edit['rua']; ?>"  placeholder="Digite a Rua."/>
         </div>
         <div class="form-group col-sm-3">
-            <label>N˙mero:</label>
-            <input type="text" class="form-control" id="numero" name="numero" value="<?php echo $funcionario_list_edit['numero']; ?>" placeholder="Digite o N˙mero."/>
+            <label>N√∫mero:</label>
+            <input type="text" class="form-control" id="numero" name="numero" value="<?php echo $funcionario_list_edit['numero']; ?>" placeholder="Digite o N√∫mero."/>
         </div>
         <div class="form-group col-sm-3">
             <label>Cidade:</label>
@@ -98,16 +98,15 @@
             <input type="text" class="form-control" id="estado" name="estado" value="<?php echo $funcionario_list_edit['estado']; ?>"/>
         </div>
         <div class="form-group col-sm-3">
-            <label>PaÌs:</label>
+            <label>Pa√≠s:</label>
             <input type="text" class="form-control" id="pais" name="pais" value="<?php echo $funcionario_list_edit['pais']; ?>"/>
         </div>
     </fieldset>
 
-    <div class="form-group col-sm-12">
-        <input type="submit" class="btn btn-success" value="Salvar"/>
-        <a href="<?php echo BASE_URL; ?>funcionario" class="btn btn-warning">Voltar</a>
+    <div class=" form-group col-sm-12" style="float: right;">
+        <button  class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Salvar</button>
+        <a class="btn btn-warning" href="<?php echo BASE_URL; ?>funcionario"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Voltar</a>
     </div>
-
 </form>
 
 <script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/funcionario/script_funcionario_add.js"></script>

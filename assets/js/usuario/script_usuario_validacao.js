@@ -14,14 +14,14 @@ $(document).ready(function () {
         },
         messages: {
             nome: {
-                required: "Este campo é obrigatório."
+                required: "Este campo Ã© obrigatÃ³rio."
             },
              email: {
-                required: "Este campo é obrigatório.",
-                email: "Este campo é um Email."
+                required: "Este campo Ã© obrigatÃ³rio.",
+                email: "Este campo Ã© um Email."
             },
              senha: {
-                required: "Este campo é obrigatório."
+                required: "Este campo Ã© obrigatÃ³rio."
             }
         }
     });

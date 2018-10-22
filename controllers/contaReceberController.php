@@ -25,12 +25,19 @@ class contaReceberController extends controller {
             '0' => 'Pendente',
             '1' => 'Pago'
         );
+        
+        $data['tipo_pag'] = array(
+            '0' => 'Á Vista',
+            '1' => 'Á Prazo'
+        );
 
         $s = '';
 
         if (!empty($_GET['searchs'])) {
             $s = $_GET['searchs'];
         }
+
+        $data['filtros'] =  $_GET;
 
         $limit = 10;
 
@@ -70,6 +77,17 @@ class contaReceberController extends controller {
         $data['notificacao'] = $n->verificarNotificacao($u->getId());
 
         $c = new ContaReceber();
+
+
+        if(isset($id) && !empty($id)){
+            if($c->verificarId($id)){
+
+            }else{
+                header("Location:".BASE_URL.'contaReceber' );
+            }
+        }else{
+            header("Location:".BASE_URL.'contaReceber' );
+        }
 
 
         $data['status'] = array(

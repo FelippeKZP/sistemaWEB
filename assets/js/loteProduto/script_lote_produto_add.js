@@ -33,7 +33,7 @@ $('#produto').on('keyup', function(){
                 $('.searchresults').css('top', $('#produto').offset().top +  $('#produto').height() + 3 + 'px');
                 var html = '';
                 for(var i in json){
-                    html += '<div class="si"><a href="javascript:;" onclick="selectProduto(this);" data-id="'+ json[i].id +'">'+ json[i].nome +' ' + 'Cód: ' + json[i].cod + '</a></div>';
+                    html += '<div class="si"><a href="javascript:;" onclick="selectProduto(this);" data-id="'+ json[i].id +'">'+ json[i].nome +' ' + 'CÃ³d: ' + json[i].cod + '</a></div>';
                 }
                 
                 $('.searchresults').html(html);

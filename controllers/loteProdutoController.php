@@ -27,6 +27,8 @@ class loteProdutoController extends controller {
             $s = $_GET['searchs'];
         }
 
+        $data['filtros'] =  $_GET;
+
         $limit = 10;
 
         $data['limit'] = 1;
@@ -79,7 +81,7 @@ class loteProdutoController extends controller {
             if ($l->lote_produto_add($numero_lote, $id_produto, $id_fornecedor, $quantidade, $data_fabricacao, $data_vencimento, $u->getId())) {
                 $data['msg_sucesso'] = "Lote de Produto Salvo Com Sucesso.";
             } else {
-                $data['msg_erro'] = "Já Existe Este Lote de Produto.";
+                $data['msg_erro'] = "JÃ¡ Existe Este Lote de Produto.";
             }
         }
 
@@ -96,6 +98,16 @@ class loteProdutoController extends controller {
         $data['notificacao'] = $n->verificarNotificacao($u->getId());
 
         $l = new LoteProduto();
+
+        if(isset($id) && !empty($id)){
+            if($l->verificarId($id)){
+
+            }else{
+                header("Location:".BASE_URL.'loteProduto' );
+            }
+        }else{
+            header("Location:".BASE_URL.'loteProduto' );
+        }
 
         if (isset($_POST['numero_lote']) && !empty($_POST['numero_lote'])) {
             $numero_lote = addslashes($_POST['numero_lote']);
@@ -131,17 +143,29 @@ class loteProdutoController extends controller {
 
         $l = new LoteProduto();
 
+        if(isset($id) && !empty($id)){
+            if($l->verificarId($id)){
+
+            }else{
+                header("Location:".BASE_URL.'loteProduto' );
+            }
+        }else{
+            header("Location:".BASE_URL.'loteProduto' );
+        }
+
         try {
             $l->lote_produto_deletar($id);
             $data['msg_sucesso'] = "Sucesso ao Excluir o Lote de Produto.";
         } catch (Exception $e) {
-            $data['msg_erro'] = "Este Lote de Produto Já Esta Associado.";
+            $data['msg_erro'] = "Este Lote de Produto JÃ¡ Esta Associado.";
         }
 
         $s = '';
         if (!empty($_GET['searchs'])) {
             $s = $_GET['searchs'];
         }
+
+        $data['filtros'] =  $_GET;
 
         $limit = 10;
 
@@ -168,6 +192,48 @@ class loteProdutoController extends controller {
 
 
         $this->loadTemplate('loteProduto/lote_produto', $data);
+    }
+
+    public function lote_produto_perda($id){
+        $data = array();
+        $u = new Usuario();
+        $n = new Notificacao();
+        $u->setLoggedUser();
+        $data['usuario_nome'] = $u->getNome();
+        $data['usuario_foto'] = $u->getFoto();
+        $data['notificacao'] = $n->verificarNotificacao($u->getId());
+
+        $l = new LoteProduto();
+
+        if(isset($id) && !empty($id)){
+            if($l->verificarId($id)){
+
+            }else{
+                header("Location:".BASE_URL.'loteProduto' );
+            }
+        }else{
+            header("Location:".BASE_URL.'loteProduto' );
+        }
+
+        if(isset($_POST['quantidade_perda']) && !empty($_POST['quantidade_perda'])){
+            $quantidade_perda = addslashes($_POST['quantidade_perda']);
+            $motivo = addslashes($_POST['motivo']);
+            $preco = addslashes($_POST['preco']);
+            
+            $preco = str_replace(',','.',$preco);
+
+            try{
+                $l->lote_produto_perda($quantidade_perda,$motivo,$preco,$id,$u->getId());
+                $data['msg_sucesso'] = "Sucesso ao realizar perda do lote";
+
+            }catch(Exception $e){
+                $data['msg_erro'] = "Ocorreu um erro ao realizar a perda";
+            }
+        }
+
+        $data['lote_produto_editar_list'] = $l->getInfo($id);
+
+        $this->loadTemplate('loteProduto/lote_produto_perda', $data);
     }
 
 }

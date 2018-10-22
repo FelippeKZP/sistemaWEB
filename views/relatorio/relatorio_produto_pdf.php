@@ -33,7 +33,7 @@
 
 <fieldset>
     <h1 style="padding-left: 170px;">Drogaria FuzaFarma</h1>
-    <h4 style="padding-left: 350px; padding-top: -25px;">preÁo baixo sempre!</h4>
+    <h4 style="padding-left: 350px; padding-top: -25px;">pre√ßo baixo sempre!</h4>
 
 
     <h6>CNPJ:</h6>
@@ -42,15 +42,15 @@
     <h6 style="padding-left: 570px;">Telefone:</h6>
     <h6 style="padding-left: 570px; padding-top: -20px;">(67) 3461-1830</h6>
 
-    <h6>EndereÁo:</h6>
-    <h6 style="padding-top: -20px;">Rua ¡melia Fukuda, 359 - Centro, NaviraÌ,MS</h6>
+    <h6>Endere√ßo:</h6>
+    <h6 style="padding-top: -20px;">Rua √Åmelia Fukuda, 359 - Centro, Navira√≠,MS</h6>
 
 
 </fieldset>
 
 <hr/>
 
-<h1>RelatÛrio de  Produtos</h1>
+<h1>Relat√≥rio de  Produtos</h1>
 
 
 
@@ -60,7 +60,7 @@
 
     <?php
     if (isset($filtros['nome']) && !empty($filtros['nome'])) {
-        echo "Filtrado pelo CÛdigo de Barras : " . $filtros['nome'] . "<br/>";
+        echo "Filtrado pelo C√≥digo de Barras : " . $filtros['nome'] . "<br/>";
     }
     ?>
 
@@ -72,10 +72,10 @@
 <table id="tabela">
     <thead>
         <tr>
-            <th>CÛd. Barras</th>
+            <th>C√≥d. Barras</th>
             <th>Nome</th>
-            <th>PreÁo de Ven.</th>
-            <th>PreÁo de Com.</th>
+            <th>Pre√ßo de Ven.</th>
+            <th>Pre√ßo de Com.</th>
             <th>Quant.</th>
             <th>Quant. Min.</th>
 

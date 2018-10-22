@@ -1,7 +1,7 @@
 
 <h1>Receber Conta</h1>
 
-<br/><br/>
+<br/>
 
 <?php if (isset($msg_erro) && !empty($msg_erro)): ?>
     <div class="alert alert-danger alert-dismissible">
@@ -41,7 +41,7 @@
 
     <div class="form-group col-sm-2">
         <label>Total da Venda:</label>
-        <input type="text" id="total" class="form-control" value="<?php echo number_format($info['total_venda'], 2, ',', '.'); ?>" disabled="true"/>
+        <input type="text" id="total" class="form-control" value="<?php echo number_format($info['valor'], 2, ',', '.'); ?>" disabled="true"/>
     </div>
 
 
@@ -76,9 +76,9 @@
 
     <div class="form-group col-sm-12">
         <?php if ($info['status'] == 0): ?>
-            <input type="submit" class="btn btn-success" value="Salvar"/>
+            <button class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Salvar</button>
         <?php endif; ?>
-        <a class="btn btn-warning" href="<?php echo BASE_URL; ?>contaReceber">Voltar</a>
+        <a class="btn btn-warning" href="<?php echo BASE_URL; ?>contaReceber"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Voltar</a>
     </div>
 
 

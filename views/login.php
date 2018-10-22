@@ -11,7 +11,7 @@
 
         <div class="login">
 
-            <!-- Inicio Formulário -->
+            <!-- Inicio FormulÃ¡rio -->
             <form method="POST">
 
                 <!-- Inicio Logo -->
@@ -49,7 +49,7 @@
                 </div>
 
             </form>
-            <!-- Fim do Formulário-->
+            <!-- Fim do FormulÃ¡rio-->
         </div>
 
     </body>

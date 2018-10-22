@@ -1,12 +1,26 @@
 <h1>Adicionar Conta a Pagar</h1>
 
-<br/><br/>
+<br/>
+
+<?php if (isset($msg_erro) && !empty($msg_erro)): ?>
+<div class="alert alert-danger alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong><?php echo $msg_erro; ?></strong>
+</div>
+<?php endif; ?>
+
+<?php if (isset($msg_sucesso) && !empty($msg_sucesso)): ?>
+<div class="alert alert-success alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong><?php echo $msg_sucesso; ?></strong>
+</div>
+<?php endif; ?>
 
 <form id="form" method="POST">
     <div class="form-group col-sm-3">
         <label>Tipo de Conta:</label>
         <select name="tipo" class="form-control">
-            <option value="0">¡gua</option>
+            <option value="0">√Ågua</option>
             <option value="1">Aluguel</option>
             <option value="2">Compra</option>
             <option value="3">Internet</option>
@@ -16,8 +30,8 @@
         </select>
     </div>
     <div class="form-group col-sm-3">
-        <label>DescriÁ„o:</label>
-        <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Digite a descriÁ„o"/>
+        <label>Descri√ß√£o:</label>
+        <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Digite a descri√ß√£o"/>
     </div>
     <div class="form-group col-sm-2">
         <label>Data da Conta:</label>
@@ -43,8 +57,9 @@
         </select>
     </div>
 
-    <div class="col-sm-12">
-        <input type="submit" class="btn btn-success" value="Salvar"/>
-        <a class="btn btn-warning" href="<?php echo BASE_URL; ?>contaPagar">Voltar</a>
+    <div class="form-group col-sm-12">
+        <button  class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Salvar</button>
+        <a class="btn btn-warning" href="<?php echo BASE_URL; ?>contaPagar"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Voltar</a>
     </div>
+    
 </form>

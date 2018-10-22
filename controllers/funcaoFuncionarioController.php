@@ -28,7 +28,28 @@ class funcaoFuncionarioController extends controller {
             $s = $_GET['searchs'];
         }
 
-        $data['funcao_list'] = $f->getList($s);
+        $data['filtros'] =  $_GET;
+
+        $limit = 10;
+
+        $data['limit'] = 10;
+
+        $total = $f->getTotal($s);
+
+        $data['paginas'] = ceil($total / $limit);
+
+        $data['paginaAtual'] = 1;
+        if(!empty($_GET['p'])){
+            $data['paginaAtual'] = intval($_GET['p']);
+        }
+
+        $offset = ($data['paginaAtual'] * $limit) - $limit;
+
+        $data['offset'] = ($data['paginaAtual'] * $limit) - $limit;
+
+        $data['max'] = 2;
+
+        $data['funcao_list'] = $f->getList($s,$limit,$offset);
 
         $this->loadTemplate('funcaoFuncionario/funcao_funcionario', $data);
     }
@@ -52,9 +73,9 @@ class funcaoFuncionarioController extends controller {
             try {
                 $f->funcao_funcionario_add($nome, $descricao);
 
-                $data['msg_sucesso'] = "Função de Funcionário Salvo Com Sucesso.";
+                $data['msg_sucesso'] = "FunÃ§Ã£o de FuncionÃ¡rio Salvo Com Sucesso.";
             } catch (Exception $ex) {
-                $data['msg_erro'] = "Já Existe Esta Função de Funcionário.";
+                $data['msg_erro'] = "JÃ¡ Existe Esta FunÃ§Ã£o de FuncionÃ¡rio.";
             }
         }
 
@@ -74,6 +95,17 @@ class funcaoFuncionarioController extends controller {
 
         $f = new FuncaoFuncionario();
 
+        if(isset($id) && !empty($id)){
+            if($f->verificarId($id)){
+
+            }else{
+                header("Location:".BASE_URL.'funcaoFuncionario' );
+            }
+        }else{
+            header("Location:".BASE_URL.'funcaoFuncionario' );
+        }
+
+
         if (isset($_POST['nome']) && !empty($_POST['nome'])) {
             $nome = addslashes($_POST['nome']);
             $descricao = addslashes($_POST['descricao']);
@@ -81,9 +113,9 @@ class funcaoFuncionarioController extends controller {
             try {
                 $f->funcao_funcionario_editar($nome, $descricao, $id);
 
-                $data['msg_sucesso'] = "Sucesso Ao Editar Função de Funcionário.";
+                $data['msg_sucesso'] = "Sucesso Ao Editar FunÃ§Ã£o de FuncionÃ¡rio.";
             } catch (Exception $ex) {
-                $data['msg_erro'] = "Ocorreu Um Erro Ao Editar Função de Funcionário.";
+                $data['msg_erro'] = "Ocorreu Um Erro Ao Editar FunÃ§Ã£o de FuncionÃ¡rio.";
             }
         }
         
@@ -104,12 +136,22 @@ class funcaoFuncionarioController extends controller {
 
         $f = new FuncaoFuncionario();
 
+        if(isset($id) && !empty($id)){
+            if($c->verificarId($id)){
+
+            }else{
+                header("Location:".BASE_URL.'funcaoFuncionario' );
+            }
+        }else{
+            header("Location:".BASE_URL.'funcaoFuncionario' );
+        }
+
         try {
             $f->funcao_funcionario_deletar($id);
 
-            $data['msg_sucesso'] = "Sucesso ao Excluir a Função de Funcionário.";
+            $data['msg_sucesso'] = "Sucesso ao Excluir a FunÃ§Ã£o de FuncionÃ¡rio.";
         } catch (Exception $ex) {
-            $data['msg_erro'] = "Esta Função de Funcionário Já Esta Associado.";
+            $data['msg_erro'] = "Esta FunÃ§Ã£o de FuncionÃ¡rio JÃ¡ Esta Associado.";
         }
 
         $s = '';
@@ -117,6 +159,8 @@ class funcaoFuncionarioController extends controller {
         if (!empty($_GET['searchs'])) {
             $s = $_GET['searchs'];
         }
+
+        $data['filtros'] =  $_GET;
 
         $data['funcao_list'] = $f->getList($s);
 

@@ -2,15 +2,15 @@
 
 class FuncaoFuncionario extends model {
 
-    public function getList($s) {
+    public function getList($s,$limit,$offset) {
         $array = array();
 
         if (!empty($s)) {
-            $sql = $this->db->prepare("SELECT * FROM funcao_funcionario WHERE nome LIKE :nome");
-            $sql->bindValue(":nome" . '%' . $s . '%');
+            $sql = $this->db->prepare("SELECT * FROM funcao_funcionario WHERE nome LIKE :nome LIMIT $offset, $limit");
+            $sql->bindValue(":nome", '%' . $s . '%');
             $sql->execute();
         } else {
-            $sql = $this->db->prepare("SELECT * FROM funcao_funcionario");
+            $sql = $this->db->prepare("SELECT * FROM funcao_funcionario LIMIT $offset, $limit");
             $sql->execute();
         }
 
@@ -19,6 +19,20 @@ class FuncaoFuncionario extends model {
         }
 
         return $array;
+    }
+
+    public function getTotal($s){
+        if(!empty($s)){
+            $sql = $this->db->prepare("SELECT COUNT(id) as c FROM funcao_funcionario WHERE nome LIKE :nome");
+            $sql->bindValue(":nome". '%'. $s.'%');
+            $sql->execute();
+        }else{
+            $sql = $this->db->prepare("SELECT COUNT(id) as c FROM funcao_funcionario");
+            $sql->execute();
+        }
+
+        $sql = $sql->fetch();
+        return $sql['c'];
     }
 
     public function getInfo($id) {
@@ -34,17 +48,31 @@ class FuncaoFuncionario extends model {
 
         return $array;
     }
-    
+
+    public function verificarId($id){
+
+        $sql = $this->db->prepare("SELECT id FROM funcao_funcionario WHERE id = :id");
+        $sql->bindValue(":id",$id);
+        $sql->execute();
+
+        if($sql->rowCount() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
     public function getCombo(){
         $array = array();
-        
+
         $sql = $this->db->prepare("SELECT id,nome FROM funcao_funcionario ORDER BY nome ASC");
         $sql->execute();
-        
+
         if($sql->rowCount() > 0){
             $array = $sql->fetchAll();
         }
-        
+
         return $array;
     }
 
@@ -82,8 +110,8 @@ class FuncaoFuncionario extends model {
         $sql->bindValue(":id", $id);
         $sql->execute();
     }
-    
-   
+
+
 
 }
 

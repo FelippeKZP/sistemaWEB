@@ -10,12 +10,12 @@ class Usuario extends model {
 
         if (!empty($s)) {
             $sql = $this->db->prepare("SELECT *,(select url from usuario_imagem WHERE usuario_imagem.id_usuario = usuario.id limit 1) as url
-                     FROM usuario WHERE nome LIKE :nome LIMIT $offset,$limit");
+               FROM usuario WHERE nome LIKE :nome LIMIT $offset,$limit");
             $sql->bindValue(":nome", '%' . $s . '%');
             $sql->execute();
         } else {
             $sql = $this->db->prepare("SELECT *, (select url from usuario_imagem WHERE usuario_imagem.id_usuario = usuario.id limit 1) as url
-                     FROM usuario LIMIT $offset,$limit");
+               FROM usuario LIMIT $offset,$limit");
             $sql->execute();
         }
 
@@ -45,15 +45,15 @@ class Usuario extends model {
 
         if (!empty($email)) {
             $sql = $this->db->prepare("SELECT usuario.id,usuario.nome,usuario.email,grupo_permissao.nome as grupo_permissao
-            FROM usuario
-            INNER JOIN grupo_permissao ON grupo_permissao.id = usuario.id_grupo_permissao
-            WHERE usuario.email LIKE :email");
+                FROM usuario
+                INNER JOIN grupo_permissao ON grupo_permissao.id = usuario.id_grupo_permissao
+                WHERE usuario.email LIKE :email");
             $sql->bindValue(":email", '%' . $email . '%');
             $sql->execute();
         } else {
             $sql = $this->db->prepare("SELECT usuario.id,usuario.nome,usuario.email,grupo_permissao.nome as grupo_permissao 
-            FROM usuario 
-            INNER JOIN grupo_permissao ON grupo_permissao.id = usuario.id_grupo_permissao ");
+                FROM usuario 
+                INNER JOIN grupo_permissao ON grupo_permissao.id = usuario.id_grupo_permissao ");
             $sql->execute();
         }
 
@@ -63,6 +63,21 @@ class Usuario extends model {
 
         return $array;
     }
+
+
+    public function verificarId($id){
+
+        $sql = $this->db->prepare("SELECT id FROM usuario WHERE id = :id");
+        $sql->bindValue(":id",$id);
+        $sql->execute();
+
+        if($sql->rowCount() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 
     public function getInfo($id) {
         $array = array();
@@ -86,17 +101,19 @@ class Usuario extends model {
         return $array;
     }
 
-    public function usuario_add($nome, $email, $senha, $id_grupo_permissao, $fotos) {
+    public function usuario_add($nome, $email, $senha, $id_grupo_permissao,$status, $fotos) {
         $sql = $this->db->prepare("SELECT *  FROM usuario WHERE email = :email");
         $sql->bindValue(":email", $email);
         $sql->execute();
 
         if ($sql->rowCount() == 0) {
-            $sql = $this->db->prepare("INSERT INTO usuario(nome,email,senha,id_grupo_permissao) VALUES(:nome,:email,:senha,:id_grupo_permissao)");
+            $sql = $this->db->prepare("INSERT INTO usuario(nome,email,senha,id_grupo_permissao,status) 
+                VALUES(:nome,:email,:senha,:id_grupo_permissao,:status)");
             $sql->bindValue(":nome", $nome);
             $sql->bindValue(":email", $email);
             $sql->bindValue(":senha", md5($senha));
             $sql->bindValue(":id_grupo_permissao", $id_grupo_permissao);
+            $sql->bindValue(":status",$status);
             $sql->execute();
 
             $id_usuario = $this->db->lastInsertId();
@@ -148,12 +165,13 @@ class Usuario extends model {
         }
     }
 
-    public function usuario_editar($nome, $email, $id_grupo_permissao, $fotos, $id) {
-        $sql = $this->db->prepare("UPDATE usuario SET nome = :nome, email = :email, id_grupo_permissao = :id_grupo_permissao WHERE id = :id");
+    public function usuario_editar($nome, $email, $id_grupo_permissao,$status, $fotos, $id) {
+        $sql = $this->db->prepare("UPDATE usuario SET nome = :nome, email = :email, id_grupo_permissao = :id_grupo_permissao, status = :status WHERE id = :id");
         $sql->bindValue(":nome", $nome);
         $sql->bindValue(":email", $email);
         //$sql->bindValue(":senha", md5($senha));
         $sql->bindValue(":id_grupo_permissao", $id_grupo_permissao);
+        $sql->bindValue(":status", $status);
         $sql->bindValue(":id", $id);
         $sql->execute();
 
@@ -241,7 +259,7 @@ class Usuario extends model {
     }
 
     public function Login($email, $senha) {
-        $sql = $this->db->prepare("SELECT * FROM usuario WHERE email = :email AND senha = :senha");
+        $sql = $this->db->prepare("SELECT * FROM usuario WHERE email = :email AND senha = :senha AND status = 1");
         $sql->bindValue(":email", $email);
         $sql->bindValue(":senha", md5($senha));
         $sql->execute();
@@ -301,10 +319,11 @@ class Usuario extends model {
         $this->permissions->hasPermission($name);
     }
 
-    public function getCombo() {
+    public function getCombo($id) {
         $array = array();
 
-        $sql = $this->db->prepare("SELECT * FROM usuario");
+        $sql = $this->db->prepare("SELECT * FROM usuario WHERE id NOT IN(:id)");
+        $sql->bindValue(":id", $id);
         $sql->execute();
 
         if ($sql->rowCount() > 0) {
@@ -328,29 +347,77 @@ class Usuario extends model {
             $token = md5(time() . rand(0, 99999) . rand(0, 99999));
 
             $sql = $this->db->prepare("INSERT INTO usuario_token(id_usuario,hash,data,status)
-                   VALUES(:id_usuario,:hash,:data,0)");
+             VALUES(:id_usuario,:hash,:data,0)");
             $sql->bindValue(":id_usuario", $id_usuario);
             $sql->bindValue(":hash", $token);
             $sql->bindValue(":data", date('Y-m-d H:i', strtotime('+2 months')));
             $sql->execute();
 
-            //$link = "http://localhost/fuzafarma/redefinir.php?token=" . $token;
 
-           // $email_remetente = "felipekzp0@gmail.com";
-            //$quebra_linha = "\n";
-            //$assunto = "Redefinição De Senha";
-            //$mensagem = "Click no link para redefinir sua senha:<br/>" . $link;
-            //$headers = "MIME-Version: 1.1" . $quebra_linha;
-            //$headers .= "Content-type: text/plain; UTF-8" . $quebra_linha; // ou UTF-8, como queira
-            //$headers .= "From: $email_remetente" . $quebra_linha; // remetente
-            //$headers .= "Return-Path: $email_remetente" . $quebra_linha; // return-path
+            require 'bibliotecas/PHPMailer/class.phpmailer.php';
+            $mail = new PHPMailer();
 
-            //mail($email, $assunto, $mensagem, $headers, "-r" . $email_remetente);
+            $mail->SetLanguage("br");
+            $mail->IsSMTP();
+            $mail->IsHTML(true);
+            $mail->SMTPAuth = true;
+            $mail->SMTPSecure = 'ssl';
+            $mail->AuthType = 'NTLM';
+            $mail->Host       = 'smtp.gmail.com';
+            $mail->Port       = 465;
+            $mail->Username   = 'felippe.s@edu.unipar.br'; 
+            $mail->Password   = 'CAMARO123';
 
+
+            $mail->setFrom('felipekzp0@gmail.com','Felippe');
+            //$mail->FromName('Felippe');
+            $mail->AddAddress($email);
+
+            $mail->isHTML(true);
+            $link = "http://localhost/fuzafarma/redefinir.php?token=" . $token;
+            $mail->Subject = 'RedefiniÃ§Ã£o De Senha';
+            $mail->Body    = 'Click no link para redefinir sua senha:'. $link;
+            
+
+            $mail->send();
+            
+            
             return true;
         } else {
             return false;
         }
+    }
+
+    public function verificarToken($token) {
+        $sql = $this->db->prepare("SELECT * FROM usuario_token WHERE hash = :hash AND status = 0 AND data > NOW()");
+        $sql->bindValue(":hash", $token);
+        $sql->execute();
+
+        if ($sql->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public function mudarSenha($senha,$token){
+        $sql = $this->db->prepare("SELECT id_usuario FROM usuario_token WHERE hash = :hash");
+        $sql->bindValue(":hash",$token);
+        $sql->execute();
+        
+        if($sql->rowCount() > 0){
+            $sql = $sql->fetch();
+            $id_usuario = $sql['id_usuario'];
+        } 
+        
+        $sql = $this->db->prepare("UPDATE usuario SET senha = :senha WHERE id = :id");
+        $sql->bindValue(":senha", md5($senha));
+        $sql->bindValue(":id",$id_usuario);
+        $sql->execute();
+        
+        $sql = $this->db->prepare("UPDATE usuario_token  SET status = 1 WHERE hash = :hash");
+        $sql->bindValue(":hash",$token);
+        $sql->execute();
     }
 
 }
