@@ -69,12 +69,15 @@ class grupoProdutoController extends controller {
 
         if (isset($_POST['nome']) && !empty($_POST['nome'])) {
             $nome = addslashes($_POST['nome']);
-            if ($g->grupo_produto_add($nome)) {
+
+            try{
+                $g->grupo_produto_add($nome);
                 $data['msg_sucesso'] = "Grupo de Produto Salvo Com Sucesso.";
-            } else {
+            } catch(Exception $e){
                 $data['msg_erro'] = "Já Existe Este Grupo de Produto.";
             }
         }
+        
 
         $this->loadTemplate('grupoProduto/grupo_produto_add', $data);
     }

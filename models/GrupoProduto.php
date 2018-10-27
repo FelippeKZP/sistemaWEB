@@ -68,18 +68,11 @@ class GrupoProduto extends model {
     }
 
     public function grupo_produto_add($nome) {
-        $sql = $this->db->prepare("SELECT id FROM grupo_produto WHERE nome = :nome");
+
+        $sql = $this->db->prepare("INSERT INTO grupo_produto(nome) VALUES(:nome)");
         $sql->bindValue(":nome", $nome);
         $sql->execute();
-
-        if ($sql->rowCount() == 0) {
-            $sql = $this->db->prepare("INSERT INTO grupo_produto(nome) VALUES(:nome)");
-            $sql->bindValue(":nome", $nome);
-            $sql->execute();
-            return true;
-        } else {
-            return false;
-        }
+        
     }
 
 

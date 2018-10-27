@@ -27,7 +27,7 @@
 
     <div class="form-group col-sm-4">
         <label>Email:</label>
-        <input type="text" class="form-control" id="email" name="email" placeholder="Digite Seu Email;" />
+        <input type="text" class="form-control" id="email" name="email" placeholder="Digite Seu Email;" data-type="verificarUsuarioEmail" />
     </div>
 
     <div class="form-group col-sm-4">
@@ -55,7 +55,7 @@
     <div class="form-group col-sm-3">
         <label>Fotos:(suporta apenas foto em png.)</label>
         <div class="fileUpload btn btn-primary">
-            <span><span class="glyphicon glyphicon-picture" aria-hidden="true"></span>Upload</span>
+            <span><span class="glyphicon glyphicon-picture" aria-hidden="true"></span> Upload</span>
             <input type="file" id="fotos" name="fotos[]" class="upload"  multiple/>
         </div>
     </div>
@@ -67,4 +67,5 @@
     
 </form>
 
+<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/usuario/script_usuario_add.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/usuario/script_usuario_validacao.js"></script>

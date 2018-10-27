@@ -135,15 +135,15 @@ class ajaxController extends controller {
         $total = $f->verificarCPF($p);
         
         foreach ($total as $t){
-           $data[] = array(
-             'total' => $t['total']  
-         );
-       }
+         $data[] = array(
+           'total' => $t['total']  
+       );
+     }
 
-       echo json_encode($data);
-   }
+     echo json_encode($data);
+ }
 
-   public function verificarRG(){
+ public function verificarRG(){
     $data = array();
     $u = new Usuario();
     $u->setLoggedUser();
@@ -189,19 +189,19 @@ public function verificarCarteira(){
 }
 
 public function verificarClienteCpfCnpj(){
- $data = array();
- $u = new Usuario();
- $u->setLoggedUser();
+   $data = array();
+   $u = new Usuario();
+   $u->setLoggedUser();
 
- $c = new Cliente();
+   $c = new Cliente();
 
- if (isset($_GET['p']) && !empty($_GET['p'])) {
-     $p = addslashes($_GET['p']);
- }
+   if (isset($_GET['p']) && !empty($_GET['p'])) {
+       $p = addslashes($_GET['p']);
+   }
 
- $total =  $c->verificarClienteCpfCnpj($p);
+   $total =  $c->verificarClienteCpfCnpj($p);
 
- foreach($total as $t){
+   foreach($total as $t){
     $data[] = array(
         'total' => $t['total']
     );
@@ -211,19 +211,19 @@ echo json_encode($data);
 }
 
 public function verificarClienteRgIe(){
- $data = array();
- $u = new Usuario();
- $u->setLoggedUser();
+   $data = array();
+   $u = new Usuario();
+   $u->setLoggedUser();
 
- $c = new Cliente();
+   $c = new Cliente();
 
- if (isset($_GET['p']) && !empty($_GET['p'])) {
-     $p = addslashes($_GET['p']);
- }
+   if (isset($_GET['p']) && !empty($_GET['p'])) {
+       $p = addslashes($_GET['p']);
+   }
 
- $total =  $c->verificarClienteRgIe($p);
+   $total =  $c->verificarClienteRgIe($p);
 
- foreach($total as $t){
+   foreach($total as $t){
     $data[] = array(
         'total' => $t['total']
     );
@@ -233,19 +233,19 @@ echo json_encode($data);
 }
 
 public function verificarClienteEmail(){
- $data = array();
- $u = new Usuario();
- $u->setLoggedUser();
+   $data = array();
+   $u = new Usuario();
+   $u->setLoggedUser();
 
- $c = new Cliente();
+   $c = new Cliente();
 
- if (isset($_GET['p']) && !empty($_GET['p'])) {
-     $p = addslashes($_GET['p']);
- }
+   if (isset($_GET['p']) && !empty($_GET['p'])) {
+       $p = addslashes($_GET['p']);
+   }
 
- $total =  $c->verificarClienteEmail($p);
+   $total =  $c->verificarClienteEmail($p);
 
- foreach($total as $t){
+   foreach($total as $t){
     $data[] = array(
         'total' => $t['total']
     );
@@ -262,12 +262,12 @@ public function verificarFornecedorCnpj(){
     $f = new Fornecedor();
 
     if (isset($_GET['p']) && !empty($_GET['p'])) {
-     $p = addslashes($_GET['p']);
- }
+       $p = addslashes($_GET['p']);
+   }
 
- $total =  $f->verificarFornecedorCnpj($p);
+   $total =  $f->verificarFornecedorCnpj($p);
 
- foreach($total as $t){
+   foreach($total as $t){
     $data[] = array(
         'total' => $t['total']
     );
@@ -284,18 +284,37 @@ public function verificarFornecedorIe(){
     $f = new Fornecedor();
 
     if (isset($_GET['p']) && !empty($_GET['p'])) {
-     $p = addslashes($_GET['p']);
- }
+       $p = addslashes($_GET['p']);
+   }
 
- $total =  $f->verificarFornecedorIe($p);
+   $total =  $f->verificarFornecedorIe($p);
 
- foreach($total as $t){
+   foreach($total as $t){
     $data[] = array(
         'total' => $t['total']
     );
 
 }
 echo json_encode($data);
+}
+
+public function verificarUsuarioEmail(){
+    $data = array();
+    $u = new Usuario();
+    $u->setLoggedUser();
+
+    if(isset($_GET['p']) && !empty($_GET['p'])){
+        $p = addslashes($_GET['p']);
+    }
+
+    $total = $u->verificarUsuarioEmail($p);
+
+    foreach ($total as $t) {
+        $data[] = array(
+            'total' => $t['total']
+        );
+    }
+    echo json_encode($data);
 }
 
 }

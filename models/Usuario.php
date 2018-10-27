@@ -78,6 +78,20 @@ class Usuario extends model {
         }
     }
 
+    public function verificarUsuarioEmail($p){
+        $array =  array();
+        $sql =  $this->db->prepare("SELECT COUNT(id) as total FROM usuario WHERE email = :email");
+        $sql->bindValue(":email", $p);
+        $sql->execute();
+
+        if($sql->rowCount() > 0){
+            $array =  $sql->fetchAll();
+        }
+
+        return $array;
+
+    }
+
 
     public function getInfo($id) {
         $array = array();
@@ -102,67 +116,58 @@ class Usuario extends model {
     }
 
     public function usuario_add($nome, $email, $senha, $id_grupo_permissao,$status, $fotos) {
-        $sql = $this->db->prepare("SELECT *  FROM usuario WHERE email = :email");
+
+        $sql = $this->db->prepare("INSERT INTO usuario(nome,email,senha,id_grupo_permissao,status) 
+            VALUES(:nome,:email,:senha,:id_grupo_permissao,:status)");
+        $sql->bindValue(":nome", $nome);
         $sql->bindValue(":email", $email);
+        $sql->bindValue(":senha", md5($senha));
+        $sql->bindValue(":id_grupo_permissao", $id_grupo_permissao);
+        $sql->bindValue(":status",$status);
         $sql->execute();
 
-        if ($sql->rowCount() == 0) {
-            $sql = $this->db->prepare("INSERT INTO usuario(nome,email,senha,id_grupo_permissao,status) 
-                VALUES(:nome,:email,:senha,:id_grupo_permissao,:status)");
-            $sql->bindValue(":nome", $nome);
-            $sql->bindValue(":email", $email);
-            $sql->bindValue(":senha", md5($senha));
-            $sql->bindValue(":id_grupo_permissao", $id_grupo_permissao);
-            $sql->bindValue(":status",$status);
-            $sql->execute();
+        $id_usuario = $this->db->lastInsertId();
 
-            $id_usuario = $this->db->lastInsertId();
+        if (count($fotos) > 0) {
+            for ($q = 0; $q < count($fotos['tmp_name']); $q++) {
+                $tipo = $fotos['type'][$q];
+                if (in_array($tipo, array('image/jpeg', 'image/png'))) {
+                    $tmpname = md5(time() . rand(0, 9999)) . '.jpg';
+                    move_uploaded_file($fotos['tmp_name'][$q], 'assets/imagens/usuarios/' . $tmpname);
 
-            if (count($fotos) > 0) {
-                for ($q = 0; $q < count($fotos['tmp_name']); $q++) {
-                    $tipo = $fotos['type'][$q];
-                    if (in_array($tipo, array('image/jpeg', 'image/png'))) {
-                        $tmpname = md5(time() . rand(0, 9999)) . '.jpg';
-                        move_uploaded_file($fotos['tmp_name'][$q], 'assets/imagens/usuarios/' . $tmpname);
+                    list($width_orig, $height_orig) = getimagesize('assets/imagens/usuarios/' . $tmpname);
 
-                        list($width_orig, $height_orig) = getimagesize('assets/imagens/usuarios/' . $tmpname);
+                    $ratio = $width_orig / $height_orig;
 
-                        $ratio = $width_orig / $height_orig;
+                    $width = 500;
+                    $height = 500;
 
-                        $width = 500;
-                        $height = 500;
-
-                        if ($width / $height > $ratio) {
-                            $width = $height * $ratio;
-                        } else {
-                            $height = $width / $ratio;
-                        }
-
-                        $img = imagecreatetruecolor($width, $height);
-
-                        if ($tipo == 'image/jpeg') {
-                            $origi = imagecreatefromjpeg('assets/imagens/usuarios/' . $tmpname);
-                        } elseif ($tipo == 'image/png') {
-                            $origi = imagecreatefrompng('assets/imagens/usuarios/' . $tmpname);
-                        }
-
-                        imagecopyresampled($img, $origi, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
-
-                        imagejpeg($img, 'assets/imagens/usuarios/' . $tmpname, 80);
-
-                        $sql = $this->db->prepare("INSERT INTO usuario_imagem(id_usuario,url) VALUES(:id_usuario,:url)");
-                        $sql->bindValue(":id_usuario", $id_usuario);
-                        $sql->bindValue(":url", $tmpname);
-                        $sql->execute();
+                    if ($width / $height > $ratio) {
+                        $width = $height * $ratio;
+                    } else {
+                        $height = $width / $ratio;
                     }
+
+                    $img = imagecreatetruecolor($width, $height);
+
+                    if ($tipo == 'image/jpeg') {
+                        $origi = imagecreatefromjpeg('assets/imagens/usuarios/' . $tmpname);
+                    } elseif ($tipo == 'image/png') {
+                        $origi = imagecreatefrompng('assets/imagens/usuarios/' . $tmpname);
+                    }
+
+                    imagecopyresampled($img, $origi, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
+
+                    imagejpeg($img, 'assets/imagens/usuarios/' . $tmpname, 80);
+
+                    $sql = $this->db->prepare("INSERT INTO usuario_imagem(id_usuario,url) VALUES(:id_usuario,:url)");
+                    $sql->bindValue(":id_usuario", $id_usuario);
+                    $sql->bindValue(":url", $tmpname);
+                    $sql->execute();
                 }
             }
-
-
-            return true;
-        } else {
-            return false;
         }
+
     }
 
     public function usuario_editar($nome, $email, $id_grupo_permissao,$status, $fotos, $id) {

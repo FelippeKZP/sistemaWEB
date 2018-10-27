@@ -95,11 +95,13 @@ class produtoController extends controller {
             $lucro_venda = str_replace(',', '.', $lucro_venda);
 
 
-            if ($p->produto_add($cod_barras, $nome, $id_grupo_produto, $quantidade_min, $preco, $preco_compra, $lucro_venda, $margem_bruta, $status, $fotos, $u->getId())) {
+            try{
+                $p->produto_add($cod_barras, $nome, $id_grupo_produto, $quantidade_min, $preco, $preco_compra, $lucro_venda, $margem_bruta, $status, $fotos, $u->getId());
                 $data['msg_sucesso'] = "Produto Salvo Com Sucesso.";
-            } else {
+            }catch(Exception $e){
                 $data['msg_erro'] = "Já Existe Este Produto.";
             }
+            
         }
 
         $g = new GrupoProduto();

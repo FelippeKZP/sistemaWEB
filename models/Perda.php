@@ -28,6 +28,51 @@ class Perda extends model{
 		return $array;
 	}
 
+	public function getRelatorio($nome, $periodo1, $periodo2) {
+        $array = array();
+
+        if (!empty($nome)) {
+            $sql = $this->db->prepare("SELECT perda.id,lote_produto.numero_lote,produto.nome,perda.data_perda,perda.total
+				FROM perda
+				INNER JOIN  lote_produto on lote_produto.id = perda.id_lote_produto
+				INNER JOIN  produto on produto.id = lote_produto.id_produto
+				WHERE produto.nome LIKE :nome OR  lote_produto.numero_lote");
+            $sql->bindValue(":numero", '%' . $nome . '%');
+            $sql->execute();
+        } else if ($periodo1 && $periodo2) {
+            $sql = $this->db->prepare("SELECT perda.id,lote_produto.numero_lote,produto.nome,perda.data_perda,perda.total
+				FROM perda
+				INNER JOIN  lote_produto on lote_produto.id = perda.id_lote_produto
+				INNER JOIN  produto on produto.id = lote_produto.id_produto
+				WHERE perda.data_perda BETWEEN :periodo1 AND :periodo2");
+            $sql->bindValue(":periodo1", $periodo1);
+            $sql->bindValue(":periodo2", $periodo2);
+            $sql->execute();
+        } else if ($nome && $periodo1 && $periodo2) {
+            $sql = $this->db->prepare("SELECT perda.id,lote_produto.numero_lote,produto.nome,perda.data_perda,perda.total
+				FROM perda
+				INNER JOIN  lote_produto on lote_produto.id = perda.id_lote_produto
+				INNER JOIN  produto on produto.id = lote_produto.id_produto
+				WHERE produto.nome LIKE :nome OR  lote_produto.numero_lote  AND perda.data_perda BETWEEN :periodo1 AND :periodo2");
+            $sql->bindValue(":numero", '%' . $nome . '%');
+            $sql->bindValue(":periodo1", $periodo1);
+            $sql->bindValue(":periodo2", $periodo2);
+            $sql->execute();
+        } else {
+            $sql = $this->db->prepare("SELECT perda.id,lote_produto.numero_lote,produto.nome,perda.data_perda,perda.total
+				FROM perda
+				INNER JOIN  lote_produto on lote_produto.id = perda.id_lote_produto
+				INNER JOIN  produto on produto.id = lote_produto.id_produto ");
+            $sql->execute();
+        }
+
+        if ($sql->rowCount() > 0) {
+            $array = $sql->fetchAll();
+        }
+
+        return $array;
+    }
+
 	public function getTotal($s){
 		if(!empty($s)){
 			$sql = $this->db->prepare("SELECT COUNT(perda.id) as c FROM perda

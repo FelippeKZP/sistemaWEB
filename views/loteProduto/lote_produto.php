@@ -37,7 +37,7 @@ if (isset($filtros['searchs']) && !empty($filtros['searchs'])) {
 </div>
 <?php endif; ?>
 
-<br/><br/>
+
 
 <div class="table-responsive">
     <table id="tabela" class="table table-hover">
@@ -60,13 +60,22 @@ if (isset($filtros['searchs']) && !empty($filtros['searchs'])) {
                     <td><?php echo $l['quantidade']; ?></td>
                     <td><?php echo date('d/m/Y', strtotime($l['data_vencimento'])); ?></td>
                     <td>
+                        <?php
+                        if ($l['status'] == 0) {
+                            echo '<span class="label label-danger">' . ($status[$l['status']]) . '</span>';
+                        } else {
+                            echo '<span class="label label-success">' . ($status[$l['status']]) . '</span>';
+                        }
+                        ?>   
+                    </td>
+                    <td>
                         <a class="btn btn-primary"
                         href="<?php echo BASE_URL; ?>loteProduto/lote_produto_editar/<?php echo $l['id']; ?>">
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                     </a>
                     <a class="btn btn-default"
                     href="<?php echo BASE_URL; ?>loteProduto/lote_produto_perda/<?php echo $l['id']; ?>">
-                    <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></a>
+                    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
                     <a class="btn btn-danger"
                     onclick="return confirm('Deseja Excluir ?');"
                     href="<?php echo BASE_URL; ?>loteProduto/lote_produto_deletar/<?php echo $l['id']; ?>">

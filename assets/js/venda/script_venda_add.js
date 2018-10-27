@@ -1,6 +1,5 @@
 /* global parseFloat */
 
-
 $(document).ready(function () {
 
     $('form').validate({
@@ -15,8 +14,12 @@ $(document).ready(function () {
             }
         }
     });
+});
 
-
+$(document).ready(function(){
+ 
+ $('#desconto').mask('000.000.000.000.000,00' , { reverse : true,placeholder:"0,00"});
+ 
 });
 
 $('#condicao_pag').on('change', function () {
@@ -72,17 +75,17 @@ function desc() {
     var desconto = $('#desconto').val().replace(',', '.');
     var total = $('#total_venda').val().replace(',', '.');
 
-    // if (desconto < total) {
+    if (desconto < total) {
 
-    var totalAtt = parseFloat(total) - parseFloat(desconto);
+        var totalAtt = parseFloat(total) - parseFloat(desconto);
 
-    $('#total_venda').val(totalAtt.toFixed(2).replace('.', ','));
+        $('#total_venda').val(totalAtt.toFixed(2).replace('.', ','));
 
-    //} else {
+    } else {
 
-    //   bootbox.alert("Desconto tem que se menor que o  total da venda");
-    //   $('#desconto').val('');
-//}
+       bootbox.alert("Desconto tem que se menor que o  total da venda");
+       $('#desconto').val('');
+   }
 
 }
 
@@ -196,15 +199,15 @@ function addProd(obj) {
         if ($('input[name="quant[' + id + ']"]').length == 0) {
 
             var tr = '<tr id="itens_vendas">\n\
-        <td>' + numero + '</td>\n\
-        <td>' + nome + '</td>\n\
-        <td>\n\
-        <input id="quant"  min="1" name="quant[' + id + ']" type="text" class="form-control p_quant" onkeypress="return somenteNumero(event);" onchange="atualizarSubTotal(this)"  value="1" data-preco="' + preco + '" data-estoque="' + quant + '" />\n\
-        </td>\n\
-        <td class="price">R$ ' + preco.toFixed(2) + '</td>\n\
-        <td id="subtotal" class="subtotal">R$ ' + preco.toFixed(2) + '</td>\n\
-        <td><a class="btn btn-danger"  href="javascript:;" onclick="delProd(this);"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a></td>\n\
-        </tr>';
+            <td>' + numero + '</td>\n\
+            <td>' + nome + '</td>\n\
+            <td>\n\
+            <input id="quant"  min="1" name="quant[' + id + ']" type="text" class="form-control p_quant" onkeypress="return somenteNumero(event);" onchange="atualizarSubTotal(this)"  value="1" data-preco="' + preco + '" data-estoque="' + quant + '" />\n\
+            </td>\n\
+            <td class="price">R$ ' + preco.toFixed(2) + '</td>\n\
+            <td id="subtotal" class="subtotal">R$ ' + preco.toFixed(2) + '</td>\n\
+            <td><a class="btn btn-danger"  href="javascript:;" onclick="delProd(this);"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a></td>\n\
+            </tr>';
             $('#tabela_produtos').append(tr);
         }
 

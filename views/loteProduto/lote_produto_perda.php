@@ -78,5 +78,3 @@
 </form>
 
 <script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/loteProduto/script_loteProduto_perda.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/loteProduto/script_loteProduto_validacao.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/loteProduto/script_loteProduto_mascara.js"></script>

@@ -17,7 +17,7 @@
 <?php endif; ?>
 
 
-<form method="POST">
+<form id="form" method="POST">
 
     <div class="form-group col-sm-4">
         <label>Nome:</label>
@@ -32,7 +32,7 @@
         <button  class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Salvar</button>
         <a class="btn btn-warning" href="<?php echo BASE_URL; ?>funcaoFuncionario"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Voltar</a>
     </div>
-
-
 </form>
+
+<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/funcaoFuncionario/script_funcao_funcionario_validacao.js"></script>
 

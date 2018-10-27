@@ -75,38 +75,43 @@ class compraController extends controller {
 
             $data_vencimento = $data_vencimento[2].'-'.$data_vencimento[1].'-'.$data_vencimento[0];
 
+            try{
+                $c->compra_add($id_fornecedor, $numero_nota, $data_vencimento, $quant, $u->getId());
+                $data['msg_sucesso'] = "Sucesso Ao Salvar Contas a Pagar.";
+            } catch (Exception $ex) {
+               $data['msg_erro'] = "Ocorreu Um Erro ao Salvar Contas a Pagar";
+           }
 
-            $c->compra_add($id_fornecedor, $numero_nota, $data_vencimento, $quant, $u->getId());
-        }
+       }
 
-        $this->loadTemplate('compra/compra_add', $data);
-    }
+       $this->loadTemplate('compra/compra_add', $data);
+   }
 
-    public function compra_vizualizar($id){
-        $data = array();
-        $u = new Usuario();
-        $n = new Notificacao();
-        $u->setLoggedUser();
-        $data['usuario_nome'] = $u->getNome();
-        $data['usuario_foto'] = $u->getFoto();
-        $data['notificacao'] = $n->verificarNotificacao($u->getId());
+   public function compra_vizualizar($id){
+    $data = array();
+    $u = new Usuario();
+    $n = new Notificacao();
+    $u->setLoggedUser();
+    $data['usuario_nome'] = $u->getNome();
+    $data['usuario_foto'] = $u->getFoto();
+    $data['notificacao'] = $n->verificarNotificacao($u->getId());
 
-        $c = new Compra();
+    $c = new Compra();
 
-        if(isset($id) && !empty($id)){
-            if($c->verificarId($id)){
+    if(isset($id) && !empty($id)){
+        if($c->verificarId($id)){
 
-            }else{
-                header("Location:".BASE_URL.'compra' );
-            }
         }else{
             header("Location:".BASE_URL.'compra' );
         }
-
-        $data['info'] = $c->venda_vizualizar($id);
-
-        $this->loadTemplate('compra/compra_vizualizar', $data);
+    }else{
+        header("Location:".BASE_URL.'compra' );
     }
+
+    $data['info'] = $c->venda_vizualizar($id);
+
+    $this->loadTemplate('compra/compra_vizualizar', $data);
+}
 
 }
 ?>

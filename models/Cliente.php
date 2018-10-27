@@ -96,11 +96,11 @@ class Cliente extends model {
 
     public function verificarId($id){
 
-     $sql = $this->db->prepare("SELECT id FROM cliente WHERE id = :id");
-     $sql->bindValue(":id",$id);
-     $sql->execute();
+       $sql = $this->db->prepare("SELECT id FROM cliente WHERE id = :id");
+       $sql->bindValue(":id",$id);
+       $sql->execute();
 
-     if($sql->rowCount() > 0){
+       if($sql->rowCount() > 0){
         return true;
     }else{
         return false;
@@ -152,42 +152,33 @@ public function verificarClienteEmail($p){
 
 
 public function cliente_add($tipo_pessoa, $nome, $cpf, $rg, $telefone, $email, $data_cadastro,$data_aniversario, $cep, $bairro, $rua, $numero, $cidade, $estado, $pais) {
-    $sql = $this->db->prepare("SELECT id FROM cliente WHERE cpfCnpj = :cpf AND rgIe = :rg");
+
+    $sql = $this->db->prepare("INSERT INTO cliente(tipo_pessoa,nome,cpfCnpj,rgIe,telefone,email,data_cadastro,data_aniversario,cep,bairro,rua,numero,cidade,estado,pais)
+     VALUES(:tipo_pessoa,:nome,:cpf,:rg,:telefone,:email,:data_cadastro,:data_aniversario,:cep,:bairro,:rua,:numero,:cidade,:estado,:pais)");
+    $sql->bindValue(":tipo_pessoa", $tipo_pessoa);
+    $sql->bindValue(":nome", $nome);
     $sql->bindValue(":cpf", $cpf);
     $sql->bindValue(":rg", $rg);
+    $sql->bindValue(":telefone", $telefone);
+    $sql->bindValue(":email", $email);
+    $sql->bindValue(":data_cadastro", $data_cadastro);
+    $sql->bindValue(":data_aniversario", $data_aniversario);
+    $sql->bindValue(":cep", $cep);
+    $sql->bindValue(":bairro", $bairro);
+    $sql->bindValue(":rua", $rua);
+    $sql->bindValue(":numero", $numero);
+    $sql->bindValue(":cidade", $cidade);
+    $sql->bindValue(":estado", $estado);
+    $sql->bindValue(":pais", $pais);
     $sql->execute();
 
-    if ($sql->rowCount() == 0) {
-        $sql = $this->db->prepare("INSERT INTO cliente(tipo_pessoa,nome,cpfCnpj,rgIe,telefone,email,data_cadastro,data_aniversario,cep,bairro,rua,numero,cidade,estado,pais)
-           VALUES(:tipo_pessoa,:nome,:cpf,:rg,:telefone,:email,:data_cadastro,:data_aniversario,:cep,:bairro,:rua,:numero,:cidade,:estado,:pais)");
-        $sql->bindValue(":tipo_pessoa", $tipo_pessoa);
-        $sql->bindValue(":nome", $nome);
-        $sql->bindValue(":cpf", $cpf);
-        $sql->bindValue(":rg", $rg);
-        $sql->bindValue(":telefone", $telefone);
-        $sql->bindValue(":email", $email);
-        $sql->bindValue(":data_cadastro", $data_cadastro);
-        $sql->bindValue(":data_aniversario", $data_aniversario);
-        $sql->bindValue(":cep", $cep);
-        $sql->bindValue(":bairro", $bairro);
-        $sql->bindValue(":rua", $rua);
-        $sql->bindValue(":numero", $numero);
-        $sql->bindValue(":cidade", $cidade);
-        $sql->bindValue(":estado", $estado);
-        $sql->bindValue(":pais", $pais);
-        $sql->execute();
-
-        return true;
-    } else {
-        return false;
-    }
 }
 
 public function cliente_editar($tipo_pessoa, $nome, $cpf, $rg, $telefone, $email, $data_cadastro,$data_aniversario, $cep, $bairro, $rua, $numero, $cidade, $estado, $pais, $id) {
     $sql = $this->db->prepare("UPDATE cliente SET tipo_pessoa = :tipo_pessoa, nome = :nome, cpfCnpj = :cpf, rgIe = :rg, telefone = :telefone,
-       email = :email, data_cadastro = :data_cadastro, data_aniversario = :data_aniversario, cep = :cep, bairro = :bairro, rua = :rua, 
-       numero = :numero, cidade = :cidade,
-       estado = :estado, pais = :pais WHERE id = :id");
+     email = :email, data_cadastro = :data_cadastro, data_aniversario = :data_aniversario, cep = :cep, bairro = :bairro, rua = :rua, 
+     numero = :numero, cidade = :cidade,
+     estado = :estado, pais = :pais WHERE id = :id");
     $sql->bindValue(":tipo_pessoa", $tipo_pessoa);
     $sql->bindValue(":nome", $nome);
     $sql->bindValue(":cpf", $cpf);

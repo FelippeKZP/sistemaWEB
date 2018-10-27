@@ -51,8 +51,8 @@
                             <li><a href="<?php echo BASE_URL; ?>usuario">Usuário</a></li>
                         </ul>
                     </li>
-                    <li><a href="<?php echo BASE_URL; ?>contaPagar">Contas Pagar</a></li>
-                    <li><a href="<?php echo BASE_URL; ?>contaReceber">Contas Receber</a></li>
+                    <li><a href="<?php echo BASE_URL; ?>contaPagar">Contas a Pagar</a></li>
+                    <li><a href="<?php echo BASE_URL; ?>contaReceber">Contas a Receber</a></li>
                     <li><a href="<?php echo BASE_URL; ?>estoque">Estoque</a></li>  
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Movimento<span class="caret"></span></a>

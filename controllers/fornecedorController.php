@@ -84,9 +84,10 @@ class fornecedorController extends controller {
 
             $data_cadastro = $data_cadastro[2] . '-' . $data_cadastro[1] . '-' . $data_cadastro[0];
 
-            if ($f->fornecedor_add($razao_social, $nome_fantasia, $cnpj, $ie, $telefone, $data_cadastro, $cep, $bairro, $rua, $numero, $cidade, $estado, $pais)) {
+            try{
+                $f->fornecedor_add($razao_social, $nome_fantasia, $cnpj, $ie, $telefone, $data_cadastro, $cep, $bairro, $rua, $numero, $cidade, $estado, $pais);
                 $data['msg_sucesso'] = "Fornecedor Salvo Com Sucesso.";
-            } else {
+            }catch(Exception $e){
                 $data['msg_erro'] = "Já Existe Este Fornecedor";
             }
         }
@@ -180,10 +181,32 @@ class fornecedorController extends controller {
             $s = $_GET['searchs'];
         }
 
-        
         $data['filtros'] =  $_GET;
 
-        $data['fornecedor_list'] = $f->getList($s);
+        $limit = 10;
+
+        $data['limit'] = 1;
+
+        $total = $f->getTotal($s);
+
+        $data['total'] = $f->getTotal($s);
+
+        $data['paginas'] = ceil($total / $limit);
+
+        $data['paginaAtual'] = 1;
+        if (!empty($_GET['p'])) {
+            $data['paginaAtual'] = intval($_GET['p']);
+        }
+
+        $offset = ($data['paginaAtual'] * $limit) - $limit;
+
+        $data['offset'] = ($data['paginaAtual'] * $limit) - $limit;
+
+        $data['max'] = 2;
+        
+        $data['fornecedor_list'] = $f->getList($s,$offset,$limit);
+
+        
 
         $this->loadTemplate('fornecedor/fornecedor', $data);
     }

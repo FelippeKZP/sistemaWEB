@@ -22,7 +22,13 @@ class loteProdutoController extends controller {
 
         $l = new LoteProduto();
 
+        $data['status'] = array(
+            '0' => 'Indisponivel',
+            '1' => 'Dísponivel'
+        );
+
         $s = '';
+
         if (!empty($_GET['searchs'])) {
             $s = $_GET['searchs'];
         }
@@ -74,15 +80,18 @@ class loteProdutoController extends controller {
             $quantidade = addslashes($_POST['quantidade']);
             $data_fabricacao = explode('/', addslashes($_POST['data_fabricacao']));
             $data_vencimento = explode('/', addslashes($_POST['data_vencimento']));
+            $status = addslashes($_POST['status']);
 
             $data_fabricacao = $data_fabricacao[2] . '-' . $data_fabricacao[1] . '-' . $data_fabricacao[0];
             $data_vencimento = $data_vencimento[2] . '-' . $data_vencimento[1] . '-' . $data_vencimento[0];
 
-            if ($l->lote_produto_add($numero_lote, $id_produto, $id_fornecedor, $quantidade, $data_fabricacao, $data_vencimento, $u->getId())) {
+            try{
+                $l->lote_produto_add($numero_lote, $id_produto, $id_fornecedor, $quantidade, $data_fabricacao, $data_vencimento,$status, $u->getId());
                 $data['msg_sucesso'] = "Lote de Produto Salvo Com Sucesso.";
-            } else {
+            } catch(Exception $e){
                 $data['msg_erro'] = "Já Existe Este Lote de Produto.";
             }
+            
         }
 
         $this->loadTemplate('loteProduto/lote_produto_add', $data);
@@ -115,12 +124,13 @@ class loteProdutoController extends controller {
             $id_fornecedor = addslashes($_POST['id_fornecedor']);
             $data_fabricacao = explode('/', addslashes($_POST['data_fabricacao']));
             $data_vencimento = explode('/', addslashes($_POST['data_vencimento']));
+            $status = addslashes($_POST['status']);
 
             $data_fabricacao = $data_fabricacao[2] . '-' . $data_fabricacao[1] . '-' . $data_fabricacao[0];
             $data_vencimento = $data_vencimento[2] . '-' . $data_vencimento[1] . '-' . $data_vencimento[0];
 
             try {
-                $l->lote_produto_editar($numero_lote, $id_produto, $id_fornecedor, $data_fabricacao, $data_vencimento, $id);
+                $l->lote_produto_editar($numero_lote, $id_produto, $id_fornecedor, $data_fabricacao, $data_vencimento,$status, $id);
                 $data['msg_sucesso'] = "Sucesso ao Editar o Lote de Produto.";
             } catch (Exception $ex) {
                 $data['msg_erro'] = "Ocorreu um Erro ao Editar o Lote de Produto";
@@ -142,6 +152,11 @@ class loteProdutoController extends controller {
         $data['notificacao'] = $n->verificarNotificacao($u->getId());
 
         $l = new LoteProduto();
+
+        $data['status'] = array(
+            '0' => 'Indisponivel',
+            '1' => 'Dísponivel'
+        );
 
         if(isset($id) && !empty($id)){
             if($l->verificarId($id)){
@@ -204,6 +219,7 @@ class loteProdutoController extends controller {
         $data['notificacao'] = $n->verificarNotificacao($u->getId());
 
         $l = new LoteProduto();
+
 
         if(isset($id) && !empty($id)){
             if($l->verificarId($id)){

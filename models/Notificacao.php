@@ -19,9 +19,9 @@ class Notificacao extends model {
         $array = array();
 
         $sql = $this->db->prepare("SELECT notificacao.id, notificacao.tipo_notificacao,usuario.nome,notificacao.data_notificacao,notificacao.propriedades,notificacao.status
-               FROM notificacao
-               INNER JOIN usuario on usuario.id = notificacao.id_usuario
-               WHERE notificacao.id_usuarioEnviar = :id_usuario AND notificacao.status = 0");
+         FROM notificacao
+         INNER JOIN usuario on usuario.id = notificacao.id_usuario
+         WHERE notificacao.id_usuarioEnviar = :id_usuario AND notificacao.status = 0");
         $sql->bindValue(":id_usuario",$id_usuario);
         $sql->execute();
 
@@ -38,17 +38,16 @@ class Notificacao extends model {
 
     public function notificacao_add($usuarios, $tipo_notificacao, $notificacao, $id_usuario) {
 
-
         $id_usuarioEnviar = implode(',', $usuarios);
 
-        $sql = $this->db->prepare("INSERT INTO notificacao(id_usuario,id_usuarioEnviar,data_notificacao,tipo_notificacao,propriedades,status)
-               VALUES(:id_usuario,:id_usuarioEnviar,NOW(),:tipo_notificacao,:notificacao,0)");
-        $sql->bindValue(":id_usuario", $id_usuario);
-        $sql->bindValue(":id_usuarioEnviar", $id_usuarioEnviar);
-        $sql->bindValue(":tipo_notificacao", $tipo_notificacao);
-        $sql->bindValue(":notificacao", $notificacao);
-        $sql->execute();
-    }
+       $sql = $this->db->prepare("INSERT INTO notificacao(id_usuario,id_usuarioEnviar,data_notificacao,tipo_notificacao,propriedades,status)
+         VALUES(:id_usuario,:id_usuarioEnviar,NOW(),:tipo_notificacao,:notificacao,0)");
+       $sql->bindValue(":id_usuario", $id_usuario);
+       $sql->bindValue(":id_usuarioEnviar", $id_usuarioEnviar);
+       $sql->bindValue(":tipo_notificacao", $tipo_notificacao);
+       $sql->bindValue(":notificacao", $notificacao);
+       $sql->execute();
+   }
 
 }
 

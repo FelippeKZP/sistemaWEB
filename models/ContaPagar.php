@@ -21,6 +21,36 @@ class ContaPagar extends model {
         return $array;
     }
 
+    public function getRelatorio($nome, $periodo1, $periodo2) {
+        $array = array();
+
+        if (!empty($nome)) {
+            $sql = $this->db->prepare("SELECT * FROM contas_pagar WHERE descricao LIKE :nome");
+            $sql->bindValue(":nome",'%', $nome.'%');
+            $sql->execute();
+        } elseif (!empty($periodo1 && $periodo2)) {
+            $sql = $this->db->prepare("SELECT * FROM contas_pagar WHERE data_conta BETWEEN :periodo1 AND :periodo2");
+            $sql->bindValue(":periodo1", $periodo1);
+            $sql->bindValue(":periodo2", $periodo2);
+            $sql->execute();
+        } elseif (!empty($nome && $periodo1 && $periodo2)) {
+            $sql = $this->db->prepare("SELECT * FROM contas_pagar WHERE descricao LIKE :nome  AND  data_conta BETWEEN :periodo1 AND :periodo2");
+            $sql->bindValue(":nome",'%'. $nome.'%');
+            $sql->bindValue(":periodo1", $periodo1);
+            $sql->bindValue(":periodo2", $periodo2);
+            $sql->execute();
+        } else {
+            $sql = $this->db->prepare("SELECT * FROM contas_pagar");
+            $sql->execute();
+        }
+
+        if ($sql->rowCount() > 0) {
+            $array = $sql->fetchAll();
+        }
+
+        return $array;
+    }
+
     public function getTotal($s){
         if(!empty($s)){
             $sql = $this->db->prepare("SELECT COUNT(id) as c FROM contas_pagar WHERE descricao LIKE :descricao");

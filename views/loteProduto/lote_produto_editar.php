@@ -46,14 +46,22 @@
         <input type="text" id="quantidade"  class="form-control" name="quantidade" value="<?php echo $lote_produto_editar_list['quantidade']; ?>" placeholder="Digite a Quantidade" disabled="true"/>
     </div>
 
-    <div class="form-group col-sm-3">
+    <div class="form-group col-sm-2">
         <label>Data de Fabricação:</label>
         <input type="text" id="data_fabricacao"  class="form-control" name="data_fabricacao" value="<?php echo date('d/m/Y', strtotime($lote_produto_editar_list['data_fabricacao'])); ?>" placeholder="Digite a Data de Fabricação."/>
     </div>
 
-    <div class="form-group col-sm-3">
+    <div class="form-group col-sm-2">
         <label>Data de Vencimento:</label>
         <input type="text" id="data_vencimento" name="data_vencimento"  class="form-control" value="<?php echo date('d/m/Y', strtotime($lote_produto_editar_list['data_vencimento'])); ?>" placeholder="Digite a Data de Vencimento"/>
+    </div>
+
+    <div class="form-group col-sm-3">
+        <label>Status:</label>
+        <select id="status" name="status" class="form-control">
+            <option value="1" <?php echo ($lote_produto_editar_list['status'] == '1') ? 'selected ="selected"' : ''; ?>>Dísponivel</option>
+            <option value="0" <?php echo ($lote_produto_editar_list['status'] == '0') ? 'selected="selected"' : '';  ?>>Indisponivel</option>
+        </select>
     </div>
 
     <div class=" form-group col-sm-12" style="margin-left: -15px;">

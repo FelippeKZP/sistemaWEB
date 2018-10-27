@@ -109,14 +109,14 @@ class contaPagarController extends controller {
                 $c->conta_pagar_add($tipo, $descricao, $data_conta, $data_vencimento, $data_pagamento, $total, $status, $u->getId());
                 $data['msg_sucesso'] = "Sucesso Ao Salvar Contas a Pagar.";
             } catch (Exception $ex) {
-             $data['msg_erro'] = "Ocorreu Um Erro ao Salvar Contas a Pagar";
-         }
-     }
+               $data['msg_erro'] = "Ocorreu Um Erro ao Salvar Contas a Pagar";
+           }
+       }
 
-     $this->loadTemplate('contaPagar/conta_pagar_add', $data);
- }
+       $this->loadTemplate('contaPagar/conta_pagar_add', $data);
+   }
 
- public function conta_pagar_receber($id) {
+   public function conta_pagar_receber($id) {
     $data = array();
     $u = new Usuario();
     $n = new Notificacao();
@@ -141,10 +141,10 @@ class contaPagarController extends controller {
         $c->conta_pagar_receber($id);
         $data['msg_sucesso'] = "Sucesso Ao Pagar A Conta.";
     } catch (Exception $ex) {
-     $data['msg_erro'] = "Ocorreu Um Erro Ao Pagar a Conta.";
- }
+       $data['msg_erro'] = "Ocorreu Um Erro Ao Pagar a Conta.";
+   }
 
- $data['tipo'] = array(
+   $data['tipo'] = array(
     '0' => 'Água',
     '1' => 'Aluguel',
     '2' => 'Compra',
@@ -154,14 +154,14 @@ class contaPagarController extends controller {
     '6' => 'Outros tipo de conta'
 );
 
- $data['status'] = array(
+   $data['status'] = array(
     '0' => 'Pendente',
     '1' => 'Pago'
 );
 
- $s = '';
+   $s = '';
 
- if (!empty($_GET['searchs'])) {
+   if (!empty($_GET['searchs'])) {
     $s = $_GET['searchs'];
 }
 
@@ -218,13 +218,33 @@ public function conta_pagar_excluir($id) {
 
     $data['filtros'] =  $_GET;
 
+    $limit = 10;
+
+    $data['limit'] = 10;
+
+    $total = $c->getTotal($s);
+
+    $data['total'] = $c->getTotal($s);
+
+    $data['paginas'] = ceil($total /  $limit);
+
+    $data['paginaAtual'] = 1;
+    if(!empty($_GET['p'])){
+        $data['paginaAtual'] = intval($_GET['p']);
+    }
+
+    $offset = ($data['paginaAtual'] * $limit) - $limit;
+
+    $data['offset'] = ($data['paginaAtual'] * $limit) - $limit;
+
+    $data['max'] = 2;
+
     if (!empty($_GET['searchs'])) {
         $s = $_GET['searchs'];
     }
 
-    $data['conta_pagar_list'] = $c->getList($s);
-
-
+    $data['conta_pagar_list'] = $c->getList($s, $offset,$limit);
+    
 
     $this->loadTemplate('contaPagar/conta_pagar', $data);
 }

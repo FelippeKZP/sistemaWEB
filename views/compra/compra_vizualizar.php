@@ -1,20 +1,20 @@
-<h1>Vizuaalizar Compra</h1>
+<h1 class="h1">Vizualizar Compra</h1>
 
 <br/>
 
-<div class="form-group col-sm-3">
+<div class="form-group col-sm-3" style="float: left; margin-left: -8px;">
 	<label>Fornecedor:</label>
 	<p class="form-control-static"><?php echo $info['info']['razao_social']; ?></p>
 	<div style="clear: both"></div>
 </div>
 
-<div class="form-group col-sm-3">
+<div class="form-group col-sm-3" style="float: left; margin-left: -8px;">
 	<label>CNPJ:</label>
 	<p class="form-control-static"><?php echo $info['info']['cnpj']; ?></p>
 	<div style="clear: both"></div>
 </div>
 
-<div class="form-group col-sm-3">
+<div class="form-group col-sm-3" style="float: left; margin-left: -8px;">
 	<label>Número da Nota:</label>
 	<p class="form-control-static"><?php echo $info['info']['numero_nota']; ?></p>
 	<div style="clear: both"></div>
@@ -26,7 +26,7 @@
 
 <label style="float: right; margin-right: 47px;">Total da Compra:</label><br/>
 <div style="clear: both"></div>
-<p class="form-control-static" id="total_compra">R$ <?php echo number_format($info['info']['total_compra'], 2, ',', '.'); ?></p>
+<p class="form-control-static" id="total_compra" style="float: right; margin-right: 10px;">R$ <?php echo number_format($info['info']['total_compra'], 2, ',', '.'); ?></p>
 
 <br/>
 
@@ -55,4 +55,10 @@
 			</tbody>
 		<?php endforeach; ?>
 	</table>
+</div>
+
+<br/>
+
+<div class="form-group col-sm-12" style="margin-left: -15px;">
+    <a class="btn btn-warning" href="<?php echo BASE_URL; ?>compra"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Voltar</a>
 </div>

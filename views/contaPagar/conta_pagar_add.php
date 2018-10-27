@@ -29,7 +29,7 @@
             <option value="6">Outros Tipos de Conta</option>
         </select>
     </div>
-    <div class="form-group col-sm-3">
+    <div class="form-group col-sm-4">
         <label>Descrição:</label>
         <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Digite a descrição"/>
     </div>
@@ -45,6 +45,7 @@
         <label>Data de Pagamento:</label>
         <input type="text" class="form-control" id="data_pagamento" name="data_pagamento" placeholder="00/00/0000"/>
     </div>
+
     <div class="form-group col-sm-2">
         <label>Total:</label>
         <input type="text" class="form-control" id="total" name="total" placeholder="0,00"/>
@@ -63,3 +64,6 @@
     </div>
     
 </form>
+
+<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/contaPagar/script_conta_pagar_validacao.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/contaPagar/script_conta_pagar_mascara.js"></script>

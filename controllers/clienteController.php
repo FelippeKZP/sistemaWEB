@@ -88,9 +88,10 @@ class clienteController extends controller {
             $data_cadastro = $data_cadastro[2] . '-' . $data_cadastro[1] . '-' . $data_cadastro[0];
             $data_aniversario = $data_aniversario[2] . '-' . $data_aniversario[1] . '-' . $data_aniversario[0];
 
-            if ($c->cliente_add($tipo_pessoa, $nome, $cpf, $rg, $telefone, $email, $data_cadastro,$data_aniversario, $cep, $bairro, $rua, $numero, $cidade, $estado, $pais)) {
+            try{
+                $c->cliente_add($tipo_pessoa, $nome, $cpf, $rg, $telefone, $email, $data_cadastro,$data_aniversario, $cep, $bairro, $rua, $numero, $cidade, $estado, $pais);
                 $data['msg_sucesso'] = "Cliente Salvo Com Sucesso.";
-            } else {
+            }catch(Exception $e) {
                 $data['msg_erro'] = "Já Existe Este Cliente";
             }
         }
@@ -139,7 +140,7 @@ class clienteController extends controller {
             $pais = addslashes($_POST['pais']);
 
             $data_cadastro = $data_cadastro[2] . '-' . $data_cadastro[1] . '-' . $data_cadastro[0];
-            $data_aniversario = $data_aniversario[2] . '-' . $data_aniversarioo[1] . '-' . $data_aniversario[0];
+            $data_aniversario = $data_aniversario[2] . '-' . $data_aniversario[1] . '-' . $data_aniversario[0];
 
             try {
                 $c->cliente_editar($tipo_pessoa, $nome, $cpf, $rg, $telefone, $email, $data_cadastro,$data_aniversario, $cep, $bairro, $rua, $numero, $cidade, $estado, $pais, $id);

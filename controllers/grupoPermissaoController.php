@@ -73,11 +73,13 @@ class grupoPermissaoController extends controller {
             $nome = addslashes($_POST['nome']);
             $id_permissao = $_POST['permissao'];
 
-            if ($p->grupo_permissao_add($nome, $id_permissao)) {
+            try{
+                $p->grupo_permissao_add($nome, $id_permissao);
                 $data['msg_sucesso'] = "Grupo de Permissão Salvo Com Sucesso.";
-            } else {
+            }catch(Exception $e){
                 $data['msg_erro'] = "Já Existe Este Grupo De Permissão.";
             }
+            
         }
         $data['permissao_lista'] = $permissao->getInfo();
         $this->loadTemplate('grupoPermissao/grupo_permissao_add', $data);

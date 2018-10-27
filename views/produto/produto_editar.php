@@ -72,7 +72,7 @@
         <div class="form-group col-sm-3">
             <label>Status:</label>
             <select id="status" class="form-control" name="status" required="true">
-                <option value="1" <?php echo ($produto_editar_list['status'] == '0') ? 'selected="selected"' : ''; ?>>Disponível</option>
+                <option value="1" <?php echo ($produto_editar_list['status'] == '1') ? 'selected="selected"' : ''; ?>>Disponível</option>
                 <option value="0" <?php echo ($produto_editar_list['status'] == '0') ? 'selected="selected"' : ''; ?> >Indisponivel</option>
             </select>
         </div>

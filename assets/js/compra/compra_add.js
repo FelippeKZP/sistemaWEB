@@ -3,15 +3,36 @@ $(document).ready(function () {
         rules: {
             fornecedor_razao: {
                 required: true
+            },
+            numero_nota:{
+                required:true
+            },
+            data_vencimento:{
+                required:true
             }
         },
         messages: {
             fornecedor_razao: {
-                required: "A Escolha do Fornecedor é Obrigatório. "
+                required: "A Escolha do Fornecedor é Obrigatório."
+            },
+            numero_nota:{
+                required: "Este campo é Obrigatório."
+            },
+            data_vencimento:{
+                required: "Este campo é Obrigatório."
             }
         }
     });
 });
+
+
+jQuery(function ($) {
+
+    $("#numero_nota").mask("99999999999999999");
+    $('#data_vencimento').mask("99/99/9999");
+
+});
+
 
 function validacao() {
     var valor = document.getElementById('total_compra').value;
@@ -98,15 +119,15 @@ function addProdCompra(obj) {
 
     if ($('input [name="quant[' + id + ']"]').length == 0) {
         var tr = '<tr id="itens_compra">\n\
-         <td>' + numero + '</td>\n\
-         <td>' + nome + '</td>\n\
-         <td>\n\
-         <input id="quant"  min="1" name="quant[' + id + ']" type="text" class="form-control p_quant" onkeypress="return somenteNumero(event);" onchange="atualizarSubTotal(this)"  value="1" data-precoCompra="' + preco + '"  />\n\
-         </td>\n\
-         <td class="preco">R$ ' + preco.toFixed(2) + '</td>\n\
-         <td class="subtotal">' + preco.toFixed(2) + '</td>\n\
-         <td><a class="btn btn-danger" href="javascript:;" onclick="delProd(this);"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a></td>\n\
-         </tr>';
+        <td>' + numero + '</td>\n\
+        <td>' + nome + '</td>\n\
+        <td>\n\
+        <input id="quant"  min="1" name="quant[' + id + ']" type="text" class="form-control p_quant" onkeypress="return somenteNumero(event);" onchange="atualizarSubTotal(this)"  value="1" data-precoCompra="' + preco + '"  />\n\
+        </td>\n\
+        <td class="preco">R$ ' + preco.toFixed(2) + '</td>\n\
+        <td class="subtotal">' + preco.toFixed(2) + '</td>\n\
+        <td><a class="btn btn-danger" href="javascript:;" onclick="delProd(this);"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a></td>\n\
+        </tr>';
 
         $('#tabela_produtos').append(tr);
 

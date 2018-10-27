@@ -82,11 +82,13 @@ class usuarioController extends controller {
                 $fotos = array();
             }
 
-            if ($u->usuario_add($nome, $email, $senha, $id_grupo_permissao,$status, $fotos)) {
+            try{
+                $u->usuario_add($nome, $email, $senha, $id_grupo_permissao,$status, $fotos);
                 $data['msg_sucesso'] = "Usuário Salvo Com Sucesso.";
-            } else {
+            } catch(Exception $ex){
                 $data['msg_erro'] = "Já Existe Este Usuário Com Esse Email.";
             }
+            
         }
 
         $data['grupo_permissao_list'] = $p->getGrupoPermissao();
@@ -152,9 +154,13 @@ class usuarioController extends controller {
         $data['usuario_foto'] = $u->getFoto();
         $data['notificacao'] = $n->verificarNotificacao($u->getId());
 
+        $data['status'] = array(
+            '0' => 'Inativo',
+            '1' => 'Ativo');
+
 
         if(isset($id) && !empty($id)){
-            if($u>verificarId($id)){
+            if($u->verificarId($id)){
 
             }else{
                 header("Location:".BASE_URL.'usuario' );

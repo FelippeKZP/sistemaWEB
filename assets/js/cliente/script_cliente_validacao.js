@@ -20,6 +20,9 @@ $(document).ready(function () {
             data_cadastro: {
                 required: true
             },
+            data_aniversario:{
+                required:true
+            },
             cep: {
                 required: true
             },
@@ -61,6 +64,9 @@ $(document).ready(function () {
             },
             data_cadastro: {
                 required: "Este Campo é Obrigatório."
+            },
+            data_aniversario:{
+                required: "Este campo é Obrigatório"
             },
             cep: {
                 required: "Este Campo é Obrigatório."

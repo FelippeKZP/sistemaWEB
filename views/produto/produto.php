@@ -37,7 +37,6 @@ if (isset($filtros['searchs']) && !empty($filtros['searchs'])) {
 </div>
 <?php endif; ?>
 
-<br/><br/>
 
 <div class="table-responsive">
     <table id="tabela" class="table table-hover">

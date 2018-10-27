@@ -1,3 +1,30 @@
+jQuery(function ($) {
+
+	$("#quantidade_perda").mask("99999999");
+
+});
+
+$(document).ready(function () {
+    $('form').validate({
+        rules: {
+            quantidade_perda: {
+                required: true
+            },
+            motivo: {
+                required: true
+            }
+        },
+        messages: {
+            quantidade_perda: {
+                required: "Este campo é obrigatório."
+            },
+            motivo: {
+                required: "Este campo é obrigatório."
+            }
+        }
+    });
+});
+
 function soma(){
 	
 	var quantidade = $('#quantidade').val();
@@ -21,3 +48,5 @@ function soma(){
 	}
 
 }
+
+

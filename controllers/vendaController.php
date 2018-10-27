@@ -28,6 +28,8 @@ class vendaController extends controller {
             $s = $_GET['searchs'];
         }
 
+        $data['filtros'] =  $_GET;
+
         $limit = 10;
 
         $data['limit'] = 1;
@@ -110,6 +112,17 @@ class vendaController extends controller {
 
         $v = new Venda();
 
+        if(isset($id) && !empty($id)){
+            if($v->verificarId($id)){
+
+            }else{
+                header("Location:".BASE_URL.'venda' );
+            }
+        }else{
+            header("Location:".BASE_URL.'venda' );
+        }
+
+
         $data['info'] = $v->venda_vizualizar($id);
 
         $this->loadTemplate('venda/venda_vizualizar', $data);
@@ -126,6 +139,17 @@ class vendaController extends controller {
 
         $v = new Venda();
 
+        if(isset($id) && !empty($id)){
+            if($v->verificarId($id)){
+
+            }else{
+                header("Location:".BASE_URL.'venda' );
+            }
+        }else{
+            header("Location:".BASE_URL.'venda' );
+        }
+
+
         try {
             $v->venda_cancelar($id);
             $data['msg_sucesso'] = "Esta Venda Foi Cancelada, Junto Com Conta A Receber.";
@@ -138,6 +162,8 @@ class vendaController extends controller {
         if (!empty($_GET['searchs'])) {
             $s = $_GET['searchs'];
         }
+
+        $data['filtros'] =  $_GET;
 
         $limit = 10;
 

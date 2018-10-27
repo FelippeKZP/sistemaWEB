@@ -109,7 +109,7 @@
     </div>
 </form>
 
-<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/funcionario/script_funcionario_add.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/funcionario/script_funcionario_editar.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/funcionario/script_funcionario_validacao.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/funcionario/script_funcionario_mascara.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/funcionario/script_funcionario_maskMoney.js"></script>

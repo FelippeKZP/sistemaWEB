@@ -1,6 +1,7 @@
 <h1 class="h1">Relatórios</h1>
 
 <br/> 
+
 <fieldset>
 
     <legend>Relatórios Cadastrais</legend>
@@ -18,6 +19,22 @@
             <img src="<?php echo BASE_URL; ?>assets/imagens/fornecedor.png" border="0" height="80"  />
             <br/><br/>
             Relatório de Fornecedores
+        </a>
+    </div>
+
+    <div class="relatorio_item">
+        <a href="<?php echo BASE_URL; ?>relatorio/relatorio_funcaoFuncionario">
+            <img src="<?php echo BASE_URL; ?>assets/imagens/funcaoFuncionario.png" border="0" height="80"  />
+            <br/><br/>
+            Relatório de Funções de Func.
+        </a>
+    </div>
+
+    <div class="relatorio_item">
+        <a href="<?php echo BASE_URL; ?>relatorio/relatorio_funcionario">
+            <img src="<?php echo BASE_URL; ?>assets/imagens/funcionario.png" border="0" height="80"  />
+            <br/><br/>
+            Relatório de Funcionários
         </a>
     </div>
 
@@ -93,6 +110,48 @@
 
 <fieldset>
     <legend>Relatórios de Movimentos</legend>
+    
+    <div class="relatorio_item">
+        <a href="<?php echo BASE_URL; ?>relatorio/relatorio_compra">
+            <img src="<?php echo BASE_URL; ?>assets/imagens/compra.png" border="0" height="80"  />
+            <br/><br/>
+            Relatório de Compras
+        </a>
+    </div>
+
+    <div class="relatorio_item">
+        <a href="<?php echo BASE_URL; ?>relatorio/relatorio_contas_pagar">
+            <img src="<?php echo BASE_URL; ?>assets/imagens/contas_pagar.png" border="0" height="80"  />
+            <br/><br/>
+            Relatório de Contas a Pagar
+        </a>
+    </div>
+
+    <div class="relatorio_item">
+        <a href="<?php echo BASE_URL; ?>relatorio/relatorio_contas_receber">
+            <img src="<?php echo BASE_URL; ?>assets/imagens/contas_receber.png" border="0" height="80"  />
+            <br/><br/>
+            Relatório de Contas a Receber
+        </a>
+    </div>
+
+    <div class="relatorio_item">
+        <a href="<?php echo BASE_URL; ?>relatorio/relatorio_venda">
+            <img src="<?php echo BASE_URL; ?>assets/imagens/venda.png" border="0" height="80"  />
+            <br/><br/>
+            Relatório de Vendas
+        </a>
+    </div>
+
+    <div class="relatorio_item">
+        <a href="<?php echo BASE_URL; ?>relatorio/relatorio_perda">
+            <img src="<?php echo BASE_URL; ?>assets/imagens/perda.png" border="0" height="80"  />
+            <br/><br/>
+            Relatório de Perdas
+        </a>
+    </div>
+
+
 </fieldset>
 
 

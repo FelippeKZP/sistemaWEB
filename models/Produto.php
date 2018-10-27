@@ -74,37 +74,37 @@ class Produto extends model {
         $array = array();
 
         if (!empty($numero)) {
-            $sql = $this->db->prepare("select pro.nome,pro.cod_barras,pro.preco, sum(i.quantidade) as qtd, i.id_lote_produto
-                from venda p 
-                left join item_venda i on p.id = i.id_venda
-                inner join lote_produto lot on i.id_lote_produto = lot.id 
-                inner join produto pro on pro.id = lot.id_produto
+            $sql = $this->db->prepare("SELECT pro.nome,pro.cod_barras,pro.preco, sum(i.quantidade) AS qtd, i.id_lote_produto
+                FROM venda p 
+                LEFT JOIN item_venda i on p.id = i.id_venda
+                INNER JOIN  lote_produto lot on i.id_lote_produto = lot.id 
+                INNER JOIN produto pro on pro.id = lot.id_produto
                 WHERE pro.cod_barras LIKE :numero
-                group by i.id_lote_produto
-                order by i.quantidade desc");
-            $sql->bindValue(":numero", '&' . $numero . '%');
+                GROUP BY i.id_lote_produto
+                ORDER BY i.quantidade DESC");
+            $sql->bindValue(":numero", '%' . $numero . '%');
             $sql->execute();
         } else if (!empty($periodo1 && $periodo2)) {
-            $sql = $this->db->prepare("select pro.nome, sum(i.quantidade) as qtd, i.id_lote_produto
-                from venda p
-                left join item_venda i on p.id = i.id_venda
-                inner join lote_produto lot on i.id_lote_produto = lot.id
-                inner join produto pro on pro.id = lot.id_produto
+            $sql = $this->db->prepare("SELECT pro.nome,pro.cod_barras,pro.preco, sum(i.quantidade) AS qtd, i.id_lote_produto
+                FROM venda p
+                LEFT JOIN item_venda i on p.id = i.id_venda
+                INNER JOIN lote_produto lot on i.id_lote_produto = lot.id
+                INNER JOIN produto pro on pro.id = lot.id_produto
                 WHERE p.data_venda BETWEEN :periodo1 AND :periodo2
-                group by i.id_lote_produto
-                order by i.quantidade desc ");
+                GROUP BY i.id_lote_produto
+                ORDER BY i.quantidade DESC");
             $sql->bindValue(":periodo1", $periodo1);
             $sql->bindValue(":periodo2", $periodo2);
             $sql->execute();
         } else if (!empty($numero && $periodo1 && $periodo2)) {
-            $sql = $this->db->prepare("select pro.nome, sum(i.quantidade) as qtd, i.id_lote_produto
-                from venda p
-                left join item_venda i on p.id = i.id_venda
-                inner join lote_produto lot on i.id_lote_produto = lot.id
-                inner join produto pro on pro.id = lot.id_produto
+            $sql = $this->db->prepare("SELECT  pro.nome,pro.cod_barras,pro.preco, sum(i.quantidade) AS qtd, i.id_lote_produto
+                FROM venda p
+                LEFT JOIN item_venda i on p.id = i.id_venda
+                INNER JOIN lote_produto lot on i.id_lote_produto = lot.id
+                INNER JOIN produto pro on pro.id = lot.id_produto
                 WHERE p.numero LIKE :numero AND p.data_venda BETWEEN :periodo1 AND :periodo2
-                group by i.id_lote_produto
-                order by i.quantidade desc ");
+                GROUP BY i.id_lote_produto
+                ORDER BY i.quantidade DESC");
             $sql->bindValue(":numero", '%' . $numero . '%');
             $sql->bindValue(":periodo1", $periodo1);
             $sql->bindValue(":periodo2", $periodo2);
@@ -179,13 +179,6 @@ class Produto extends model {
     }
 
     public function produto_add($cod_barras, $nome, $id_grupo_produto, $quantidade_min, $preco, $preco_compra,$lucro_venda,$margem_bruta,$status, $fotos, $id_usuario) {
-        $sql = $this->db->prepare("SELECT id FROM produto WHERE cod_barras = :cod_barras AND nome = :nome");
-        $sql->bindValue(":cod_barras", $cod_barras);
-        $sql->bindValue(":nome", $nome);
-        $sql->execute();
-
-        if ($sql->rowCount() == 0) {
-
             $sql = $this->db->prepare("INSERT INTO produto(cod_barras,nome,id_grupo_produto,quantidade,quantidade_min,preco,preco_compra,lucro_venda,margem_bruta,status)
                 VALUES(:cod_barras,:nome,:id_grupo_produto,0,:quantidade_min,:preco,:preco_compra,:lucro,:margem,:status)");
             $sql->bindValue(":cod_barras", $cod_barras);
@@ -248,10 +241,6 @@ class Produto extends model {
                 }
             }
 
-            return true;
-        } else {
-            return false;
-        }
     }
 
     public function produto_editar($cod_barras, $nome, $id_grupo_produto, $quantidade_min, $preco, $preco_compra,$lucro_venda,$margem_bruta, $fotos, $id_usuario, $id) {

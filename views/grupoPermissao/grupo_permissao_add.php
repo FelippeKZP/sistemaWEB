@@ -25,9 +25,9 @@
     </div>
 
     <div class="form-group col-sm-6">
-        <label>Permissões:</label>
+        <label>Permissões:</label><br/>
         <?php foreach ($permissao_lista as $p): ?>
-            <div class="checkbox ">
+            <div class="checkbox-inline">
                 <label  for="<?php echo $p['id']; ?>"><input type="checkbox" class="permissao" id="<?php echo $p['id']; ?>" name="permissao[]" value="<?php echo $p['id']; ?>"/><?php echo $p['nome']; ?></label>
             </div>
         <?php endforeach; ?>

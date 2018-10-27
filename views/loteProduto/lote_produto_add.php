@@ -46,14 +46,22 @@
         <input type="text" class="form-control" id="quantidade" name="quantidade" placeholder="Digite a Quantidade"/>
     </div>
 
-    <div class="form-group col-sm-3">
+    <div class="form-group col-sm-2">
         <label>Data de Fabricação:</label>
         <input type="text" class="form-control" id="data_fabricacao" name="data_fabricacao" placeholder="Digite a Data de Fabricação."/>
     </div>
 
-    <div class="form-group col-sm-3">
+    <div class="form-group col-sm-2">
         <label>Data de Vencimento:</label>
         <input type="text" class="form-control" id="data_vencimento" name="data_vencimento" placeholder="Digite a Data de Vencimento"/>
+    </div>
+
+    <div class="form-group col-sm-3">
+        <label>Status:</label>
+        <select id="status" name="status" class="form-control">
+            <option value="1">Diposnível</option>
+            <option value="0">Indisponivel</option>
+        </select>
     </div>
 
 

@@ -92,7 +92,7 @@ $('#email').on('change', function () {
                     return true;
                 } else {
                     bootbox.alert('O Email informado já existe no banco de dados.');
-                    $('#rg').val('');
+                    $('#email').val('');
                 }
             }
         });

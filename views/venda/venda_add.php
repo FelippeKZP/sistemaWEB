@@ -22,10 +22,11 @@
     <label>Cliente:</label><br/>
     <input type="hidden" name="id_cliente"/>
     <input type="text" class="form-control" id="cliente_nome" name="cliente_nome" autocomplete="off" data-type="pesquisar_clientes"/>
-    <div style="clear: both"></div>
+    
 
-    <br/>
+    <div style="clear:both"></div>
 
+    <br/><br/>
 
     <div class="form-group col-sm-4" style="padding-left: 0px;">
         <label>Vendendor:</label>
@@ -38,7 +39,7 @@
 
     <div class="form-group col-sm-2">
         <label>Desconto:</label>
-        <input type="text" class="form-control" id="desconto" onblur="desc();" name="desconto" value="0,00" placeholder="0,00"/>
+        <input type="text" class="form-control" id="desconto" onblur="desc();" name="desconto" value="0,00"  placeholder="0,00"/>
     </div>
 
     <div style="clear: both"></div>
@@ -61,7 +62,7 @@
 
     <div  id="data_venc" class="form-group col-sm-3">
         <label>Data de Vencimento:</label>
-        <input type="date" class="form-control" id="data_vencimento" name="data_vencimento" />
+        <input type="date" class="form-control" id="data_vencimento" name="data_vencimento" required="true" />
     </div>
 
     <div id="parcelas" class="form-group col-sm-2" style="display: none;">

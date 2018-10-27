@@ -35,6 +35,59 @@ class ContaReceber extends model {
     return $array;
   }
 
+  public function getRelatorio($nome, $periodo1, $periodo2) {
+    $array = array();
+
+    if (!empty($nome)) {
+      $sql = $this->db->prepare("SELECT contas_receber.id, cliente.nome,cliente.cpfCnpj,venda.tipo_pag,contas_receber.parcela,
+       contas_receber.valor, contas_receber.data_vencimento,contas_receber.data_recebimento,contas_receber.status
+       FROM contas_receber
+       INNER JOIN venda on venda.id = contas_receber.id_venda
+       INNER JOIN cliente on cliente.id = venda.id_cliente
+       WHERE cliente.nome LIKE :nome OR cliente.cpfCnpj LIKE :nome
+       ORDER BY contas_receber.id ASC");
+      $sql->bindValue(":nome",'%', $nome.'%');
+      $sql->execute();
+    } elseif (!empty($periodo1 && $periodo2)) {
+      $sql = $this->db->prepare("SELECT contas_receber.id, cliente.nome,cliente.cpfCnpj,venda.tipo_pag,contas_receber.parcela,
+       contas_receber.valor, contas_receber.data_vencimento,contas_receber.data_recebimento,contas_receber.status
+       FROM contas_receber
+       INNER JOIN venda on venda.id = contas_receber.id_venda
+       INNER JOIN cliente on cliente.id = venda.id_cliente
+       WHERE venda.data_venda BETWEEN :periodo1 AND :periodo2
+       ORDER BY contas_receber.id ASC");
+      $sql->bindValue(":periodo1", $periodo1);
+      $sql->bindValue(":periodo2", $periodo2);
+      $sql->execute();
+    } elseif (!empty($nome && $periodo1 && $periodo2)) {
+      $sql = $this->db->prepare("SELECT contas_receber.id, cliente.nome,cliente.cpfCnpj,venda.tipo_pag,contas_receber.parcela,
+       contas_receber.valor, contas_receber.data_vencimento,contas_receber.data_recebimento,contas_receber.status
+       FROM contas_receber
+       INNER JOIN venda on venda.id = contas_receber.id_venda
+       INNER JOIN cliente on cliente.id = venda.id_cliente
+       WHERE cliente.nome LIKE :nome OR cliente.cpfCnpj LIKE :nome AND venda.data_venda BETWEEN :periodo1 AND :periodo2
+       ORDER BY contas_receber.id ASC");
+      $sql->bindValue(":nome",'%'. $nome.'%');
+      $sql->bindValue(":periodo1", $periodo1);
+      $sql->bindValue(":periodo2", $periodo2);
+      $sql->execute();
+    } else {
+      $sql = $this->db->prepare("SELECT contas_receber.id, cliente.nome,cliente.cpfCnpj,venda.tipo_pag,contas_receber.parcela,
+       contas_receber.valor, contas_receber.data_vencimento,contas_receber.data_recebimento,contas_receber.status
+       FROM contas_receber
+       INNER JOIN venda on venda.id = contas_receber.id_venda
+       INNER JOIN cliente on cliente.id = venda.id_cliente
+       ORDER BY contas_receber.id ASC");
+      $sql->execute();
+    }
+
+    if ($sql->rowCount() > 0) {
+      $array = $sql->fetchAll();
+    }
+
+    return $array;
+  }
+
   public function getTotal($s) {
     if (!empty($s)) {
       $sql = $this->db->prepare("SELECT COUNT(*)as c 

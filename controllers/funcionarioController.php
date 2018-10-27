@@ -132,8 +132,6 @@ class funcionarioController extends controller {
         }
 
 
-        $data['funcionario_list_edit'] = $f->getInfo($id);
-
         if (isset($_POST['nome']) && !empty($_POST['nome'])) {
             $nome = addslashes($_POST['nome']);
             $cpf = addslashes($_POST['cpf']);
@@ -170,6 +168,9 @@ class funcionarioController extends controller {
 
 
         $funcao = new FuncaoFuncionario();
+
+        
+        $data['funcionario_list_edit'] = $f->getInfo($id);
 
         $data['funcao_list'] = $funcao->getCombo();
 
@@ -216,7 +217,31 @@ class funcionarioController extends controller {
 
         $data['filtros'] =  $_GET;
         
-        $data['funcionario_list'] = $f->getList($s);
+        $limit = 10;
+
+        $data['limit'] = 10;
+
+        $total = $f->getTotal($s);
+
+        $data['total'] = $f->getTotal($s);
+
+        $data['paginas'] = ceil($total / $limit);
+
+        $data['paginaAtual'] = 1;
+        if (!empty($_GET['p'])) {
+            $data['paginaAtual'] = intval($_GET['p']);
+        }
+
+        $offset = ($data['paginaAtual'] * $limit) - $limit;
+
+        $data['offset'] = ($data['paginaAtual'] * $limit) - $limit;
+
+        $data['max'] = 2;
+
+        $data['funcionario_list'] = $f->getList($s,$offset,$limit);
+
+
+        $data['funcionario_list'] = $f->getList($s,$offset,$limit);
 
         $this->loadTemplate('funcionario/funcionario', $data);
     }

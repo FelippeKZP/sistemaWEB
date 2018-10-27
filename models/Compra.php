@@ -26,6 +26,47 @@ class Compra extends model {
         return $array;
     }
 
+    public function getRelatorio($nome, $periodo1, $periodo2) {
+        $array = array();
+
+        if (!empty($nome)) {
+            $sql = $this->db->prepare("SELECT compra.id,compra.numero_nota,compra.data_compra,compra.total_compra,fornecedor.razao_social
+               FROM compra
+               INNER JOIN fornecedor on fornecedor.id = compra.id_fornecedor
+               WHERE fornecedor.razao_social LIKE :razao_social");
+            $sql->bindValue(":nome",'%', $nome.'%');
+            $sql->execute();
+        } elseif (!empty($periodo1 && $periodo2)) {
+            $sql = $this->db->prepare("SELECT compra.id,compra.numero_nota,compra.data_compra,compra.total_compra,fornecedor.razao_social
+               FROM compra
+               INNER JOIN fornecedor on fornecedor.id = compra.id_fornecedor
+               WHERE compra.data_compra BETWEEN :periodo1 AND :periodo2");
+            $sql->bindValue(":periodo1", $periodo1);
+            $sql->bindValue(":periodo2", $periodo2);
+            $sql->execute();
+        } elseif (!empty($nome && $periodo1 && $periodo2)) {
+            $sql = $this->db->prepare("SELECT compra.id,compra.numero_nota,compra.data_compra,compra.total_compra,fornecedor.razao_social
+               FROM compra
+               INNER JOIN fornecedor on fornecedor.id = compra.id_fornecedor
+               WHERE fornecedor.razao_social LIKE :razao_social AND compra.data_compra BETWEEN :periodo1 AND :periodo2");
+            $sql->bindValue(":nome",'%'. $nome.'%');
+            $sql->bindValue(":periodo1", $periodo1);
+            $sql->bindValue(":periodo2", $periodo2);
+            $sql->execute();
+        } else {
+            $sql = $this->db->prepare("SELECT compra.id,compra.numero_nota,compra.data_compra,compra.total_compra,fornecedor.razao_social
+               FROM compra
+               INNER JOIN fornecedor on fornecedor.id = compra.id_fornecedor");
+            $sql->execute();
+        }
+
+        if ($sql->rowCount() > 0) {
+            $array = $sql->fetchAll();
+        }
+
+        return $array;
+    }
+
     public function getTotal($s){
         if(!empty($s)){
             $sql = $this->db->prepare("SELECT COUNT(id) as c FROM compra 

@@ -16,4 +16,4 @@
 </div>
 <?php endif; ?>
 
-<a class="btn btn-success" href="<?php echo BASE_URL; ?>backup/gerar_backup">Gerar Backup</a>
+<a class="btn btn-success" href="<?php echo BASE_URL; ?>backup/gerar_backup"><span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span> Gerar Backup</a>

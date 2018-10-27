@@ -75,7 +75,7 @@ class funcaoFuncionarioController extends controller {
 
                 $data['msg_sucesso'] = "Função de Funcionário Salvo Com Sucesso.";
             } catch (Exception $ex) {
-                $data['msg_erro'] = "Já Existe Esta Função de Funcionário.";
+                $data['msg_erro'] = "Ocorreu ao salvar essa função de funcionário";
             }
         }
 
@@ -137,7 +137,7 @@ class funcaoFuncionarioController extends controller {
         $f = new FuncaoFuncionario();
 
         if(isset($id) && !empty($id)){
-            if($c->verificarId($id)){
+            if($f->verificarId($id)){
 
             }else{
                 header("Location:".BASE_URL.'funcaoFuncionario' );
@@ -162,9 +162,26 @@ class funcaoFuncionarioController extends controller {
 
         $data['filtros'] =  $_GET;
 
-        $data['funcao_list'] = $f->getList($s);
+        $limit = 10;
 
+        $data['limit'] = 10;
 
+        $total = $f->getTotal($s);
+
+        $data['paginas'] = ceil($total / $limit);
+
+        $data['paginaAtual'] = 1;
+        if(!empty($_GET['p'])){
+            $data['paginaAtual'] = intval($_GET['p']);
+        }
+
+        $offset = ($data['paginaAtual'] * $limit) - $limit;
+
+        $data['offset'] = ($data['paginaAtual'] * $limit) - $limit;
+
+        $data['max'] = 2;
+
+        $data['funcao_list'] = $f->getList($s,$limit,$offset);
 
         $this->loadTemplate('funcaoFuncionario/funcao_funcionario', $data);
     }

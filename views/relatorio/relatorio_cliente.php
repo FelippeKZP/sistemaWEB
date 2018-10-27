@@ -4,6 +4,14 @@
 
 <br/><br/>
 
+
+<?php if (isset($msg_erro) && !empty($msg_erro)): ?>
+<div class="alert alert-danger alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong><?php echo $msg_erro; ?></strong>
+</div>
+<?php endif; ?>
+
 <form method="GET" onsubmit="return openPopup(this);">
 
 
