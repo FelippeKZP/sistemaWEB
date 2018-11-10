@@ -75,7 +75,7 @@ function desc() {
     var desconto = $('#desconto').val().replace(',', '.');
     var total = $('#total_venda').val().replace(',', '.');
 
-    if (desconto < total) {
+    if (parseFloat(desconto) < parseFloat(total)) {
 
         var totalAtt = parseFloat(total) - parseFloat(desconto);
 
@@ -86,7 +86,6 @@ function desc() {
        bootbox.alert("Desconto tem que se menor que o  total da venda");
        $('#desconto').val('');
    }
-
 }
 
 function validacao() {

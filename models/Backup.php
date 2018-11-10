@@ -29,7 +29,7 @@ class Backup extends model{
 
 		$mail->isHTML(true);
 		
-		$mail->Subject = 'Backup do site ' . date('d/m/Y');
+		$mail->Subject = 'Backup do sistema ' . date('d/m/Y');
 		$mail->Body    = 'Backup do sistema';
 		$mail->AddAttachment($backupzip, $backupzip);
 

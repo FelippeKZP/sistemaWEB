@@ -4,6 +4,7 @@
 
 <a class="btn btn-info" href="<?php echo BASE_URL; ?>grupoPermissao/grupo_permissao_add"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Adicionar</a>
 
+
 <br/><br/>
 
 <form  method="GET">
@@ -15,7 +16,7 @@
 
 <?php
 if (isset($filtros['searchs']) && !empty($filtros['searchs'])) {
-	echo "Filtrado pelo cliente: " . $filtros['searchs'] . "<br/>";
+	echo "Filtrado pelo Grupo: " . $filtros['searchs'] . "<br/>";
 }
 ?>
 
@@ -54,41 +55,41 @@ if (isset($filtros['searchs']) && !empty($filtros['searchs'])) {
 					<td>
 						<a class="btn btn-primary"
 						href="<?php echo BASE_URL; ?>grupoPermissao/grupo_permissao_editar/<?php echo $g['id']; ?>">
-						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
-
-						<a class="btn btn-danger"
-						onclick="return confirm('Deseja Excluir ?');"
-						href="<?php echo BASE_URL; ?>grupoPermissao/grupo_permissao_deletar/<?php echo $g['id']; ?>">
-						<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 					</a>
-				</td>
-			</tr>
-		</tbody>
-	<?php endforeach; ?>
+					<a class="btn btn-danger"
+					onclick="return confirm('Deseja Excluir ?');"
+					href="<?php echo BASE_URL; ?>grupoPermissao/grupo_permissao_deletar/<?php echo $g['id']; ?>">
+					<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+				</a>
+			</td>
+		</tr>
+	</tbody>
+<?php endforeach; ?>
 </table>
 </div>
 
 <ul class="pagination">
- <?php if ($paginaAtual != 1): ?>
-    <li><a href="<?php echo BASE_URL; ?>grupoPermissao?p=1">Primeira Pagina</a></li>
-<?php endif; ?>
-<?php if ($paginaAtual != 1): ?>
-    <li><a href="<?php echo BASE_URL; ?>grupoPermissao?p=<?php echo $paginaAtual - 1?>"><span  class="glyphicon glyphicon-backward" aria-hidden="true" style="height: 20px;"></span></a></li>
-<?php endif;?>
-<?php for ($q = 1; $q <= $paginas; $q++): ?>
-    <?php if ($paginaAtual == $q): ?>
-        <li class="active"><a href="<?php echo BASE_URL; ?>grupoPermissao?p=<?php echo $q; ?>"><?php echo $q; ?></a></li>
-        <?php else: ?>
-            <li><a href="<?php echo BASE_URL; ?>grupoPermissao?p=<?php echo $q; ?>"><?php echo $q; ?></a></li>
-        <?php endif; ?>
-    <?php endfor; ?>
-    <?php for ($q = $paginaAtual + $max; $q <= $paginaAtual + 1; $q++): ?>
-        <li class="active"><a href="<?php echo BASE_URL; ?>grupoPermissao?p=<?php echo $q; ?>"><?php echo $q; ?></a></li>
-    <?php endfor; ?>
-    <?php if($paginaAtual < $paginas): ?>
-        <li><a href="<?php echo BASE_URL; ?>grupoPermissao?p=<?php echo $paginaAtual + 1?>"><span style="height: 20px;" class="glyphicon glyphicon-forward" aria-hidden="true"></span></a></li>
-    <?php endif; ?>
-    <?php if($paginas > 1): ?>
-        <li><a href="<?php echo BASE_URL; ?>grupoPermissao?p=<?php echo $paginas; ?>">Ultima Pagina</a></li>
-    <?php endif; ?>
-</ul>
+	<?php if ($paginaAtual != 1): ?>
+		<li><a href="<?php echo BASE_URL; ?>grupoPermissao?p=1">Primeira Pagina</a></li>
+	<?php endif; ?>
+	<?php if ($paginaAtual != 1): ?>
+		<li><a href="<?php echo BASE_URL; ?>grupoPermissao?p=<?php echo $paginaAtual - 1?>"><span  class="glyphicon glyphicon-backward" aria-hidden="true" style="height: 20px;"></span></a></li>
+	<?php endif;?>
+	<?php for ($q = 1; $q <= $paginas; $q++): ?>
+		<?php if ($paginaAtual == $q): ?>
+			<li class="active"><a href="<?php echo BASE_URL; ?>grupoPermissao?p=<?php echo $q; ?>"><?php echo $q; ?></a></li>
+			<?php else: ?>
+				<li><a href="<?php echo BASE_URL; ?>grupoPermissao?p=<?php echo $q; ?>"><?php echo $q; ?></a></li>
+			<?php endif; ?>
+		<?php endfor; ?>
+		<?php for ($q = $paginaAtual + $max; $q <= $paginaAtual + 1; $q++): ?>
+			<li class="active"><a href="<?php echo BASE_URL; ?>grupoPermissao?p=<?php echo $q; ?>"><?php echo $q; ?></a></li>
+		<?php endfor; ?>
+		<?php if($paginaAtual < $paginas): ?>
+			<li><a href="<?php echo BASE_URL; ?>grupoPermissao?p=<?php echo $paginaAtual + 1?>"><span style="height: 20px;" class="glyphicon glyphicon-forward" aria-hidden="true"></span></a></li>
+		<?php endif; ?>
+		<?php if($paginas > 1): ?>
+			<li><a href="<?php echo BASE_URL; ?>grupoPermissao?p=<?php echo $paginas; ?>">Ultima Pagina</a></li>
+		<?php endif; ?>
+	</ul>

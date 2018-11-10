@@ -68,7 +68,7 @@ class Fornecedor extends model {
 
         if (!empty($nome)) {
             $sql = $this->db->prepare("SELECT *  FROM fornecedor WHERE razao_social LIKE :nome");
-            $sql->bindValue(":nome",'%.' $nome.'%');
+            $sql->bindValue(":nome",'%'. $nome.'%');
             $sql->execute();
         } elseif (!empty($periodo1 && $periodo2)) {
             $sql = $this->db->prepare("SELECT * FROM fornecedor WHERE data_cadastro BETWEEN :periodo1 AND :periodo2");

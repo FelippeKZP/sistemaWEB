@@ -18,45 +18,71 @@ class funcionarioController extends controller {
         $data['usuario_nome'] = $u->getNome();
         $data['usuario_foto'] = $u->getFoto();
         $data['notificacao'] = $n->verificarNotificacao($u->getId());
+        $data['usuario_nome'] = $u->getNome();
+        $data['usuario_foto'] = $u->getFoto();
+        $data['notificacao'] = $n->verificarNotificacao($u->getId());
+        $data['balanço'] = $u->hasPermission('balanço');
+        $data['backup'] = $u->hasPermission('backup');
+        $data['cliente'] = $u->hasPermission('cliente');
+        $data['fornecedor'] = $u->hasPermission('fornecedor');
+        $data['função de funcionário'] = $u->hasPermission('função de funcionário');
+        $data['funcionário'] = $u->hasPermission('funcionário');
+        $data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
+        $data['grupo de produto'] = $u->hasPermission('grupo de produto');
+        $data['lote de produto'] = $u->hasPermission('lote de produto');
+        $data['produto'] = $u->hasPermission('produto');
+        $data['usuário'] = $u->hasPermission('usuário');
+        $data['contas a pagar'] = $u->hasPermission('contas a pagar');
+        $data['contas a receber'] = $u->hasPermission('contas a receber');
+        $data['estoque'] = $u->hasPermission('estoque');
+        $data['compra'] = $u->hasPermission('compra');
+        $data['venda'] = $u->hasPermission('venda');
+        $data['perda'] = $u->hasPermission('perda');
+        $data['relatório'] = $u->hasPermission('relatório');
 
+        if($u->hasPermission('funcionário')){
 
-        $f = new Funcionario();
+            $f = new Funcionario();
 
-        $s = '';
+            $s = '';
 
-        if (!empty($_GET['searchs'])) {
-            $s = $_GET['searchs'];
+            if (!empty($_GET['searchs'])) {
+                $s = $_GET['searchs'];
+            }
+
+            $data['filtros'] =  $_GET;
+
+            $limit = 10;
+
+            $data['limit'] = 10;
+
+            $total = $f->getTotal($s);
+
+            $data['total'] = $f->getTotal($s);
+
+            $data['paginas'] = ceil($total / $limit);
+
+            $data['paginaAtual'] = 1;
+            if (!empty($_GET['p'])) {
+                $data['paginaAtual'] = intval($_GET['p']);
+            }
+
+            $offset = ($data['paginaAtual'] * $limit) - $limit;
+
+            $data['offset'] = ($data['paginaAtual'] * $limit) - $limit;
+
+            $data['max'] = 2;
+
+            $data['funcionario_list'] = $f->getList($s,$offset,$limit);
+
+            $data['funcionario_list'] = $f->getList($s,$offset,$limit);
+
+            $this->loadTemplate('funcionario/funcionario', $data);
+
+        }else{
+            header("Location:".BASE_URL);
+            exit;
         }
-
-        $data['filtros'] =  $_GET;
-
-        $limit = 10;
-
-        $data['limit'] = 10;
-
-        $total = $f->getTotal($s);
-
-        $data['total'] = $f->getTotal($s);
-
-        $data['paginas'] = ceil($total / $limit);
-
-        $data['paginaAtual'] = 1;
-        if (!empty($_GET['p'])) {
-            $data['paginaAtual'] = intval($_GET['p']);
-        }
-
-        $offset = ($data['paginaAtual'] * $limit) - $limit;
-
-        $data['offset'] = ($data['paginaAtual'] * $limit) - $limit;
-
-        $data['max'] = 2;
-
-        $data['funcionario_list'] = $f->getList($s,$offset,$limit);
-
-
-        $data['funcionario_list'] = $f->getList($s,$offset,$limit);
-
-        $this->loadTemplate('funcionario/funcionario', $data);
     }
 
     public function funcionario_add() {
@@ -67,47 +93,75 @@ class funcionarioController extends controller {
         $data['usuario_nome'] = $u->getNome();
         $data['usuario_foto'] = $u->getFoto();
         $data['notificacao'] = $n->verificarNotificacao($u->getId());
+        $data['usuario_nome'] = $u->getNome();
+        $data['usuario_foto'] = $u->getFoto();
+        $data['notificacao'] = $n->verificarNotificacao($u->getId());
+        $data['balanço'] = $u->hasPermission('balanço');
+        $data['backup'] = $u->hasPermission('backup');
+        $data['cliente'] = $u->hasPermission('cliente');
+        $data['fornecedor'] = $u->hasPermission('fornecedor');
+        $data['função de funcionário'] = $u->hasPermission('função de funcionário');
+        $data['funcionário'] = $u->hasPermission('funcionário');
+        $data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
+        $data['grupo de produto'] = $u->hasPermission('grupo de produto');
+        $data['lote de produto'] = $u->hasPermission('lote de produto');
+        $data['produto'] = $u->hasPermission('produto');
+        $data['usuário'] = $u->hasPermission('usuário');
+        $data['contas a pagar'] = $u->hasPermission('contas a pagar');
+        $data['contas a receber'] = $u->hasPermission('contas a receber');
+        $data['estoque'] = $u->hasPermission('estoque');
+        $data['compra'] = $u->hasPermission('compra');
+        $data['venda'] = $u->hasPermission('venda');
+        $data['venda'] = $u->hasPermission('venda');
+        $data['perda'] = $u->hasPermission('perda');
+        $data['relatório'] = $u->hasPermission('relatório');
 
-        $f = new Funcionario();
+        if($u->hasPermission('funcionário')){
 
-        if (isset($_POST['nome']) && !empty($_POST['nome'])) {
-            $nome = addslashes($_POST['nome']);
-            $cpf = addslashes($_POST['cpf']);
-            $rg = addslashes($_POST['rg']);
-            $telefone = addslashes($_POST['telefone']);
-            $data_admissao = explode('/', addslashes($_POST['data_admissao']));
-            $data_aniversario = explode('/', addslashes($_POST['data_aniversario']));
-            $id_funcao = addslashes($_POST['id_funcao']);
-            $carteira_trabalho = addslashes($_POST['carteira']);
-            $salario = addslashes($_POST['salario']);
-            $cep = addslashes($_POST['cep']);
-            $bairro = addslashes($_POST['bairro']);
-            $rua = addslashes($_POST['rua']);
-            $numero = addslashes($_POST['numero']);
-            $cidade = addslashes($_POST['cidade']);
-            $estado = addslashes($_POST['estado']);
-            $pais = addslashes($_POST['pais']);
+            $f = new Funcionario();
 
-            $data_admissao = $data_admissao[2] . '-' . $data_admissao[1] . '-' . $data_admissao[0];
-            $data_aniversario = $data_aniversario[2] . '-' . $data_aniversario[1] . '-' . $data_aniversario[0];
+            if (isset($_POST['nome']) && !empty($_POST['nome'])) {
+                $nome = addslashes($_POST['nome']);
+                $cpf = addslashes($_POST['cpf']);
+                $rg = addslashes($_POST['rg']);
+                $telefone = addslashes($_POST['telefone']);
+                $data_admissao = explode('/', addslashes($_POST['data_admissao']));
+                $data_aniversario = explode('/', addslashes($_POST['data_aniversario']));
+                $id_funcao = addslashes($_POST['id_funcao']);
+                $carteira_trabalho = addslashes($_POST['carteira']);
+                $salario = addslashes($_POST['salario']);
+                $cep = addslashes($_POST['cep']);
+                $bairro = addslashes($_POST['bairro']);
+                $rua = addslashes($_POST['rua']);
+                $numero = addslashes($_POST['numero']);
+                $cidade = addslashes($_POST['cidade']);
+                $estado = addslashes($_POST['estado']);
+                $pais = addslashes($_POST['pais']);
 
-            $salario = str_replace('.', '', $salario);
-            $salario = str_replace(',', '.', $salario);
+                $data_admissao = $data_admissao[2] . '-' . $data_admissao[1] . '-' . $data_admissao[0];
+                $data_aniversario = $data_aniversario[2] . '-' . $data_aniversario[1] . '-' . $data_aniversario[0];
 
-            try {
-                $f->funcionario_add($nome, $cpf, $rg, $telefone, $data_admissao, $data_aniversario, $id_funcao, $carteira_trabalho, $salario, $cep, $bairro, $rua, $numero, $estado, $cidade, $pais);
+                $salario = str_replace('.', '', $salario);
+                $salario = str_replace(',', '.', $salario);
 
-                $data['msg_sucesso'] = "Sucesso Ao Salvar Funcionário";
-            } catch (Exception $ex) {
-                $data['msg_erro'] = "Já Existe Este Funcionário";
+                try {
+                    $f->funcionario_add($nome, $cpf, $rg, $telefone, $data_admissao, $data_aniversario, $id_funcao, $carteira_trabalho, $salario, $cep, $bairro, $rua, $numero, $estado, $cidade, $pais);
+
+                    $data['msg_sucesso'] = "Sucesso Ao Salvar Funcionário";
+                } catch (Exception $ex) {
+                    $data['msg_erro'] = "Já Existe Este Funcionário";
+                }
             }
+
+            $funcao = new FuncaoFuncionario();
+            $data['funcao_list'] = $funcao->getCombo();
+
+            $this->loadTemplate('funcionario/funcionario_add', $data);
+
+        }else{
+            header("Location:".BASE_URL);
+            exit;
         }
-
-
-        $funcao = new FuncaoFuncionario();
-        $data['funcao_list'] = $funcao->getCombo();
-
-        $this->loadTemplate('funcionario/funcionario_add', $data);
     }
 
     public function funcionario_editar($id) {
@@ -118,63 +172,90 @@ class funcionarioController extends controller {
         $data['usuario_nome'] = $u->getNome();
         $data['usuario_foto'] = $u->getFoto();
         $data['notificacao'] = $n->verificarNotificacao($u->getId());
+        $data['usuario_nome'] = $u->getNome();
+        $data['usuario_foto'] = $u->getFoto();
+        $data['notificacao'] = $n->verificarNotificacao($u->getId());
+        $data['balanço'] = $u->hasPermission('balanço');
+        $data['backup'] = $u->hasPermission('backup');
+        $data['cliente'] = $u->hasPermission('cliente');
+        $data['fornecedor'] = $u->hasPermission('fornecedor');
+        $data['função de funcionário'] = $u->hasPermission('função de funcionário');
+        $data['funcionário'] = $u->hasPermission('funcionário');
+        $data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
+        $data['grupo de produto'] = $u->hasPermission('grupo de produto');
+        $data['lote de produto'] = $u->hasPermission('lote de produto');
+        $data['produto'] = $u->hasPermission('produto');
+        $data['usuário'] = $u->hasPermission('usuário');
+        $data['contas a pagar'] = $u->hasPermission('contas a pagar');
+        $data['contas a receber'] = $u->hasPermission('contas a receber');
+        $data['estoque'] = $u->hasPermission('estoque');
+        $data['compra'] = $u->hasPermission('compra');
+        $data['venda'] = $u->hasPermission('venda');
+        $data['perda'] = $u->hasPermission('perda');
+        $data['relatório'] = $u->hasPermission('relatório');
 
-        $f = new Funcionario();
+        if($u->hasPermission('funcionário')){
 
-        if(isset($id) && !empty($id)){
-            if($f->verificarId($id)){
+            $f = new Funcionario();
 
+            if(isset($id) && !empty($id)){
+                if($f->verificarId($id)){
+
+                }else{
+                    header("Location:".BASE_URL.'funcionario' );
+                }
             }else{
                 header("Location:".BASE_URL.'funcionario' );
             }
-        }else{
-            header("Location:".BASE_URL.'funcionario' );
-        }
 
+            if (isset($_POST['nome']) && !empty($_POST['nome'])) {
+                $nome = addslashes($_POST['nome']);
+                $cpf = addslashes($_POST['cpf']);
+                $rg = addslashes($_POST['rg']);
+                $telefone = addslashes($_POST['telefone']);
+                $data_admissao = explode('/', addslashes($_POST['data_admissao']));
+                $data_aniversario = explode('/', addslashes($_POST['data_aniversario']));
+                $id_funcao = addslashes($_POST['id_funcao']);
+                $carteira_trabalho = addslashes($_POST['carteira']);
+                $salario = addslashes($_POST['salario']);
+                $cep = addslashes($_POST['cep']);
+                $bairro = addslashes($_POST['bairro']);
+                $rua = addslashes($_POST['rua']);
+                $numero = addslashes($_POST['numero']);
+                $cidade = addslashes($_POST['cidade']);
+                $estado = addslashes($_POST['estado']);
+                $pais = addslashes($_POST['pais']);
 
-        if (isset($_POST['nome']) && !empty($_POST['nome'])) {
-            $nome = addslashes($_POST['nome']);
-            $cpf = addslashes($_POST['cpf']);
-            $rg = addslashes($_POST['rg']);
-            $telefone = addslashes($_POST['telefone']);
-            $data_admissao = explode('/', addslashes($_POST['data_admissao']));
-            $data_aniversario = explode('/', addslashes($_POST['data_aniversario']));
-            $id_funcao = addslashes($_POST['id_funcao']);
-            $carteira_trabalho = addslashes($_POST['carteira']);
-            $salario = addslashes($_POST['salario']);
-            $cep = addslashes($_POST['cep']);
-            $bairro = addslashes($_POST['bairro']);
-            $rua = addslashes($_POST['rua']);
-            $numero = addslashes($_POST['numero']);
-            $cidade = addslashes($_POST['cidade']);
-            $estado = addslashes($_POST['estado']);
-            $pais = addslashes($_POST['pais']);
+                $data_admissao = $data_admissao[2] . '-' . $data_admissao[1] . '-' . $data_admissao[0];
+                $data_aniversario = $data_aniversario[2] . '-' . $data_aniversario[1] . '-' . $data_aniversario[0];
 
-            $data_admissao = $data_admissao[2] . '-' . $data_admissao[1] . '-' . $data_admissao[0];
-            $data_aniversario = $data_aniversario[2] . '-' . $data_aniversario[1] . '-' . $data_aniversario[0];
+                $salario = str_replace('.', '', $salario);
+                $salario = str_replace(',', '.', $salario);
 
-            $salario = str_replace('.', '', $salario);
-            $salario = str_replace(',', '.', $salario);
+                try {
+                    $f->funcionario_editar($nome, $cpf, $rg, $telefone, $data_admissao, $data_aniversario, $id_funcao, $carteira_trabalho, $salario, $cep, $bairro, $rua, $numero, $estado, $cidade, $pais, $id);
 
-
-            try {
-                $f->funcionario_editar($nome, $cpf, $rg, $telefone, $data_admissao, $data_aniversario, $id_funcao, $carteira_trabalho, $salario, $cep, $bairro, $rua, $numero, $estado, $cidade, $pais, $id);
-
-                $data['msg_sucesso'] = "Sucesso Ao Editar Funcionário";
-            } catch (Exception $ex) {
-                $data['msg_erro'] = "Ocorreu Um Erro Ao Editar Funcionário.";
+                    $data['msg_sucesso'] = "Sucesso Ao Editar Funcionário";
+                } catch (Exception $ex) {
+                    $data['msg_erro'] = "Ocorreu Um Erro Ao Editar Funcionário.";
+                }
             }
+
+
+            $funcao = new FuncaoFuncionario();
+
+
+            $data['funcionario_list_edit'] = $f->getInfo($id);
+
+            $data['funcao_list'] = $funcao->getCombo();
+
+            $this->loadTemplate('funcionario/funcionario_editar', $data);
+
+        }else{
+            header("Location:".BASE_URL);
+            exit;
         }
 
-
-        $funcao = new FuncaoFuncionario();
-
-        
-        $data['funcionario_list_edit'] = $f->getInfo($id);
-
-        $data['funcao_list'] = $funcao->getCombo();
-
-        $this->loadTemplate('funcionario/funcionario_editar', $data);
     }
 
     public function funcionario_deletar($id) {
@@ -185,65 +266,92 @@ class funcionarioController extends controller {
         $data['usuario_nome'] = $u->getNome();
         $data['usuario_foto'] = $u->getFoto();
         $data['notificacao'] = $n->verificarNotificacao($u->getId());
+        $data['usuario_nome'] = $u->getNome();
+        $data['usuario_foto'] = $u->getFoto();
+        $data['notificacao'] = $n->verificarNotificacao($u->getId());
+        $data['balanço'] = $u->hasPermission('balanço');
+        $data['backup'] = $u->hasPermission('backup');
+        $data['cliente'] = $u->hasPermission('cliente');
+        $data['fornecedor'] = $u->hasPermission('fornecedor');
+        $data['função de funcionário'] = $u->hasPermission('função de funcionário');
+        $data['funcionário'] = $u->hasPermission('funcionário');
+        $data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
+        $data['grupo de produto'] = $u->hasPermission('grupo de produto');
+        $data['lote de produto'] = $u->hasPermission('lote de produto');
+        $data['produto'] = $u->hasPermission('produto');
+        $data['usuário'] = $u->hasPermission('usuário');
+        $data['contas a pagar'] = $u->hasPermission('contas a pagar');
+        $data['contas a receber'] = $u->hasPermission('contas a receber');
+        $data['estoque'] = $u->hasPermission('estoque');
+        $data['compra'] = $u->hasPermission('compra');
+        $data['venda'] = $u->hasPermission('venda');
+        $data['perda'] = $u->hasPermission('perda');
+        $data['relatório'] = $u->hasPermission('relatório');
 
+        if($u->hasPermission('funcionário')){
 
-        $f = new Funcionario();
+            $f = new Funcionario();
 
-        
-        if(isset($id) && !empty($id)){
-            if($f->verificarId($id)){
+            if(isset($id) && !empty($id)){
+                if($f->verificarId($id)){
 
+                }else{
+                    header("Location:".BASE_URL.'funcionario' );
+                }
             }else{
                 header("Location:".BASE_URL.'funcionario' );
             }
+
+
+            try {
+                $f->funcionario_deletar($id);
+
+                $data['msg_sucesso'] = "Sucesso Ao Excluir Funcionário.";
+            } catch (Exception $ex) {
+                $data['msg_erro'] = "Este Funcionário Já Esta Associado.";
+            }
+
+            $s = '';
+
+            if (!empty($_GET['searchs'])) {
+                $s = $_GET['searchs'];
+            }
+
+            $data['filtros'] =  $_GET;
+
+            $limit = 10;
+
+            $data['limit'] = 10;
+
+            $total = $f->getTotal($s);
+
+            $data['total'] = $f->getTotal($s);
+
+            $data['paginas'] = ceil($total / $limit);
+
+            $data['paginaAtual'] = 1;
+            if (!empty($_GET['p'])) {
+                $data['paginaAtual'] = intval($_GET['p']);
+            }
+
+            $offset = ($data['paginaAtual'] * $limit) - $limit;
+
+            $data['offset'] = ($data['paginaAtual'] * $limit) - $limit;
+
+            $data['max'] = 2;
+
+            $data['funcionario_list'] = $f->getList($s,$offset,$limit);
+
+
+            $data['funcionario_list'] = $f->getList($s,$offset,$limit);
+
+            $this->loadTemplate('funcionario/funcionario', $data);
+
         }else{
-            header("Location:".BASE_URL.'funcionario' );
+            header("Location:".BASE_URL);
+            exit;
         }
 
-
-        try {
-            $f->funcionario_deletar($id);
-
-            $data['msg_sucesso'] = "Sucesso Ao Excluir Funcionário.";
-        } catch (Exception $ex) {
-            $data['msg_erro'] = "Este Funcionário Já Esta Associado.";
-        }
-
-        $s = '';
-
-        if (!empty($_GET['searchs'])) {
-            $s = $_GET['searchs'];
-        }
-
-        $data['filtros'] =  $_GET;
-        
-        $limit = 10;
-
-        $data['limit'] = 10;
-
-        $total = $f->getTotal($s);
-
-        $data['total'] = $f->getTotal($s);
-
-        $data['paginas'] = ceil($total / $limit);
-
-        $data['paginaAtual'] = 1;
-        if (!empty($_GET['p'])) {
-            $data['paginaAtual'] = intval($_GET['p']);
-        }
-
-        $offset = ($data['paginaAtual'] * $limit) - $limit;
-
-        $data['offset'] = ($data['paginaAtual'] * $limit) - $limit;
-
-        $data['max'] = 2;
-
-        $data['funcionario_list'] = $f->getList($s,$offset,$limit);
-
-
-        $data['funcionario_list'] = $f->getList($s,$offset,$limit);
-
-        $this->loadTemplate('funcionario/funcionario', $data);
     }
 
 }

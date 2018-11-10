@@ -81,46 +81,49 @@ if (isset($filtros['searchs']) && !empty($filtros['searchs'])) {
                         <?php if ($c['status'] == 0): ?>
                             <a class="btn  btn-success"
                             onclick="return confirm('Deseja Pagar Esta Compra ?');"
-                            href="<?php echo BASE_URL; ?>contaPagar/conta_pagar_receber/<?php echo $c['id']; ?>"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span></a>
-                            <?php elseif($c['status'] == 1): ?>
-                                <a class="btn btn-primary"
-                                href="<?php echo BASE_URL; ?>contaPagar/conta_pagar_vizualizar/<?php echo $c['id']; ?>"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-                            <?php endif; ?>
-                            <a class="btn btn-danger"
-                            onclick="return confirm('Deseja Excluir ?');"
-                            href="<?php echo BASE_URL; ?>contaPagar/conta_pagar_excluir/<?php echo $c['id']; ?>"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-                        </td>
-                    </tr>
-                </tbody>
-            <?php endforeach; ?>
-        </table>
-    </div>
+                            href="<?php echo BASE_URL; ?>contaPagar/conta_pagar_receber/<?php echo $c['id']; ?>"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
+                        </a>
+                        <?php elseif($c['status'] == 1): ?>
+                            <a class="btn btn-primary"
+                            href="<?php echo BASE_URL; ?>contaPagar/conta_pagar_vizualizar/<?php echo $c['id']; ?>"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                        </a>
+                    <?php endif; ?>
+                    <a class="btn btn-danger"
+                    onclick="return confirm('Deseja Excluir ?');"
+                    href="<?php echo BASE_URL; ?>contaPagar/conta_pagar_excluir/<?php echo $c['id']; ?>"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                </a>
+            </td>
+        </tr>
+    </tbody>
+<?php endforeach; ?>
+</table>
+</div>
 
 
-    <div style="clear: both;"></div>
+<div style="clear: both;"></div>
 
-    <ul class="pagination">
-        <?php if($paginaAtual != 1): ?>
-            <li><a href="<?php echo BASE_URL; ?>contaPagar?p=1">´Primeira Pagina</a></li>
-        <?php endif; ?>
-        <?php if($paginaAtual != 1): ?>
-            <li><a href="<?php echo BASE_URL; ?>contaPagar?p=<?php echo $paginaAtual - 1 ?>"><span  class="glyphicon glyphicon-backward" aria-hidden="true" style="height: 20px;"></span></a></li>
-        <?php endif; ?>
-        <?php for($q = 1; $q <= $paginas; $q++): ?>
-            <?php if($paginaAtual == $q): ?>
-                <li class="active"><a href="<?php echo BASE_URL; ?>contaPagar?p=<?php echo $q; ?>"><?php echo $q; ?></a></li>
-                <?php else: ?>
-                    <li><a href="<?php echo BASE_URL; ?>contaPagar?p=<?php echo $q; ?>"><?php echo $q; ?></a></li>
-                <?php endif; ?>
-            <?php endfor; ?>
-            <?php for($q = $paginaAtual + $max; $q<= $paginaAtual + 1; $q++): ?>
-                <li class="active"><a href="<?php echo BASE_URL; ?>contaPagar?p=<?php echo $q; ?>"><?php echo $q; ?></a></li>
-            <?php endfor; ?>
-            <?php if($paginaAtual < $paginas): ?>
-                <li><a href="<?php echo BASE_URL; ?>contaPagar?p=<?php echo $paginaAtual + 1; ?>"><span style="height: 20px;" class="glyphicon glyphicon-forward" aria-hidden="true"></span></a></li>
-            <?php endif;?>
-            <?php if($paginas > 1): ?>
-                <li><a href="<?php echo BASE_URL; ?>contaPagar?p=<?php echo $paginas; ?>">Ultima Pagina</a></li>
+<ul class="pagination">
+    <?php if($paginaAtual != 1): ?>
+        <li><a href="<?php echo BASE_URL; ?>contaPagar?p=1">´Primeira Pagina</a></li>
+    <?php endif; ?>
+    <?php if($paginaAtual != 1): ?>
+        <li><a href="<?php echo BASE_URL; ?>contaPagar?p=<?php echo $paginaAtual - 1 ?>"><span  class="glyphicon glyphicon-backward" aria-hidden="true" style="height: 20px;"></span></a></li>
+    <?php endif; ?>
+    <?php for($q = 1; $q <= $paginas; $q++): ?>
+        <?php if($paginaAtual == $q): ?>
+            <li class="active"><a href="<?php echo BASE_URL; ?>contaPagar?p=<?php echo $q; ?>"><?php echo $q; ?></a></li>
+            <?php else: ?>
+                <li><a href="<?php echo BASE_URL; ?>contaPagar?p=<?php echo $q; ?>"><?php echo $q; ?></a></li>
             <?php endif; ?>
+        <?php endfor; ?>
+        <?php for($q = $paginaAtual + $max; $q<= $paginaAtual + 1; $q++): ?>
+            <li class="active"><a href="<?php echo BASE_URL; ?>contaPagar?p=<?php echo $q; ?>"><?php echo $q; ?></a></li>
+        <?php endfor; ?>
+        <?php if($paginaAtual < $paginas): ?>
+            <li><a href="<?php echo BASE_URL; ?>contaPagar?p=<?php echo $paginaAtual + 1; ?>"><span style="height: 20px;" class="glyphicon glyphicon-forward" aria-hidden="true"></span></a></li>
+        <?php endif;?>
+        <?php if($paginas > 1): ?>
+            <li><a href="<?php echo BASE_URL; ?>contaPagar?p=<?php echo $paginas; ?>">Ultima Pagina</a></li>
+        <?php endif; ?>
 
-        </ul>
+    </ul>

@@ -7,7 +7,7 @@
 <div class="formulario">
 
  <?php if (isset($msg_sucesso) && !empty($msg_sucesso)): ?>
-    <div class="sucesso"><?php echo $msg_sucesso; ?></div>
+    <div class="sucesso"><?php echo $msg_sucesso; ?><a href="<?php echo BASE_URL; ?>login" style="text-decoration: none;">Clique Aqui</a></div>
 <?php endif; ?>
 
 <?php if (isset($msg_erro) && !empty($msg_erro)): ?>

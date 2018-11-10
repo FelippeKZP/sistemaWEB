@@ -95,4 +95,4 @@ if (isset($filtros['searchs']) && !empty($filtros['searchs'])) {
         <?php if($paginas > 1): ?>
             <li><a href="<?php echo BASE_URL; ?>funcaoFuncionario?p=<?php echo $paginas; ?>">Ultima Pagina</a></li>
         <?php endif; ?>
- </ul>
+    </ul>

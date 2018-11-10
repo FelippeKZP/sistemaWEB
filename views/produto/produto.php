@@ -85,19 +85,19 @@ if (isset($filtros['searchs']) && !empty($filtros['searchs'])) {
                             ?>   
                         </td>
                         <td>
-                            <a class="btn btn-primary"
-                            href="<?php echo BASE_URL; ?>produto/produto_editar/<?php echo $p['id']; ?>">
-                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                        </a>
-                        <a class="btn btn-danger"
-                        onclick="return confirm('Deseja Confirmar ?');"
-                        href="<?php echo BASE_URL; ?>produto/produto_deletar/<?php echo $p['id']; ?>">
-                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                    </a>
-                </td>
-            </tr>
-        </tbody>
-    <?php endforeach; ?>
+                          <a class="btn btn-primary"
+                          href="<?php echo BASE_URL; ?>produto/produto_editar/<?php echo $p['id']; ?>">
+                          <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                      </a>
+                      <a class="btn btn-danger"
+                      onclick="return confirm('Deseja Confirmar ?');"
+                      href="<?php echo BASE_URL; ?>produto/produto_deletar/<?php echo $p['id']; ?>">
+                      <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                  </a>
+              </td>
+          </tr>
+      </tbody>
+  <?php endforeach; ?>
 </table> 
 </div>
 

@@ -74,24 +74,26 @@ if (isset($filtros['searchs']) && !empty($filtros['searchs'])) {
                     }
                     ?></td>
                     <td>
-                       <?php if ($c['status'] == 0): ?>
-                        <a class="btn btn-success"
-                        href="<?php echo BASE_URL; ?>contaReceber/receber/<?php echo $c['id']; ?>"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span></a>
-                        <?php elseif ($c['status'] == 1): ?>
+                     <?php if ($c['status'] == 0): ?>
+                            <a class="btn btn-success"
+                            href="<?php echo BASE_URL; ?>contaReceber/receber/<?php echo $c['id']; ?>"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
+                        </a>
+                    <?php elseif ($c['status'] == 1): ?>
                             <a class="btn btn-primary"
-                            href="<?php echo BASE_URL; ?>contaReceber/receber/<?php echo $c['id']; ?>"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-                        <?php endif; ?>
-                    </td>
-                </tr>
-            </tbody>
-        <?php endforeach; ?>
-    </table>
+                            href="<?php echo BASE_URL; ?>contaReceber/receber/<?php echo $c['id']; ?>"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                        </a>
+                    <?php endif; ?>
+            </td>
+        </tr>
+    </tbody>
+<?php endforeach; ?>
+</table>
 </div>
 
 <div style="clear:both"></div>
 
 <ul class="pagination">
-   <?php if ($paginaAtual != 1): ?>
+ <?php if ($paginaAtual != 1): ?>
     <li><a href="<?php echo BASE_URL; ?>contaReceber?p=1">Primeira Pagina</a></li>
 <?php endif; ?>
 <?php if ($paginaAtual != 1): ?>

@@ -8,6 +8,7 @@ $(document).ready(function(){
 				required: true
 			},
 			senha_nov:{
+				required:true,
 				equalTo: "#senha"
 			}
 		},

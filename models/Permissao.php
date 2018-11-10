@@ -6,7 +6,7 @@ class Permissao extends model{
         
         $array  = array();
         
-        $sql = $this->db->prepare("SELECT * FROM permissao");
+        $sql = $this->db->prepare("SELECT * FROM permissao ORDER BY nome ASC");
         $sql->execute();
         
         if($sql->rowCount() > 0){

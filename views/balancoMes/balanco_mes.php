@@ -2,13 +2,13 @@
 
 <br/>
 
-<ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#corrente">Balanço Corrente</a></li>
-</ul>
+    <ul class="nav nav-tabs">
+      <li class="active"><a data-toggle="tab" href="#corrente">Balanço Corrente</a></li>
+  </ul>
 
-<br/><br/>
+  <br/><br/>
 
-<div class="tab-content">
+  <div class="tab-content">
     <div id="corrente" class="tab-pane fade in active">
         <div class="col-sm-6">
             <div class="panel panel-primary">

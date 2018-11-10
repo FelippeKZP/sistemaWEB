@@ -56,7 +56,7 @@ class loginController extends controller {
             $senha = addslashes($_POST['senha']);
             try {
                 $u->mudarSenha($senha, $token);
-             $data['msg_sucesso'] = "Sucesso ao trocar a senha, Volte para tela de logi".BASE_URL;
+             $data['msg_sucesso'] = "Sucesso ao trocar a senha, Volte para tela de login";
            } catch (Exception $ex) {
                $data['msg_erro'] = "Ocorreu um erro ao trocar a senha";
           }

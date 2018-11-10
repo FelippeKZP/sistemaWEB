@@ -15,7 +15,7 @@
 
 <?php
 if (isset($filtros['searchs']) && !empty($filtros['searchs'])) {
-    echo "Filtrado pelo cliente: " . $filtros['searchs'] . "<br/>";
+    echo "Filtrado pelo Grupo: " . $filtros['searchs'] . "<br/>";
 }
 ?>
 

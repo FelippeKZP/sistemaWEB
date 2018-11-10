@@ -19,41 +19,67 @@ class fornecedorController extends controller {
         $data['usuario_nome'] = $u->getNome();
         $data['usuario_foto'] = $u->getFoto();
         $data['notificacao'] = $n->verificarNotificacao($u->getId());
-        $f = new Fornecedor();
+        $data['balanço'] = $u->hasPermission('balanço');
+        $data['backup'] = $u->hasPermission('backup');
+        $data['cliente'] = $u->hasPermission('cliente');
+        $data['fornecedor'] = $u->hasPermission('fornecedor');
+        $data['função de funcionário'] = $u->hasPermission('função de funcionário');
+        $data['funcionário'] = $u->hasPermission('funcionário');
+        $data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
+        $data['grupo de produto'] = $u->hasPermission('grupo de produto');
+        $data['lote de produto'] = $u->hasPermission('lote de produto');
+        $data['produto'] = $u->hasPermission('produto');
+        $data['usuário'] = $u->hasPermission('usuário');
+        $data['contas a pagar'] = $u->hasPermission('contas a pagar');
+        $data['contas a receber'] = $u->hasPermission('contas a receber');
+        $data['estoque'] = $u->hasPermission('estoque');
+        $data['compra'] = $u->hasPermission('compra');
+        $data['venda'] = $u->hasPermission('venda');
+        $data['perda'] = $u->hasPermission('perda');
+        $data['relatório'] = $u->hasPermission('relatório');
 
-        $s = '';
+        if($u->hasPermission('fornecedor')){
 
-        if (!empty($_GET['searchs'])) {
-            $s = $_GET['searchs'];
+            $f = new Fornecedor();
+
+            $s = '';
+
+            if (!empty($_GET['searchs'])) {
+                $s = $_GET['searchs'];
+            }
+
+
+            $data['filtros'] =  $_GET;
+
+            $limit = 10;
+
+            $data['limit'] = 1;
+
+            $total = $f->getTotal($s);
+
+            $data['total'] = $f->getTotal($s);
+
+            $data['paginas'] = ceil($total / $limit);
+
+            $data['paginaAtual'] = 1;
+            if (!empty($_GET['p'])) {
+                $data['paginaAtual'] = intval($_GET['p']);
+            }
+
+            $offset = ($data['paginaAtual'] * $limit) - $limit;
+
+            $data['offset'] = ($data['paginaAtual'] * $limit) - $limit;
+
+            $data['max'] = 2;
+
+            $data['fornecedor_list'] = $f->getList($s,$offset,$limit);
+
+            $this->loadTemplate('fornecedor/fornecedor', $data);
+
+        }else{
+            header("Location:".BASE_URL);
+            exit;
         }
-
-
-        $data['filtros'] =  $_GET;
-
-        $limit = 10;
-
-        $data['limit'] = 1;
-
-        $total = $f->getTotal($s);
-
-        $data['total'] = $f->getTotal($s);
-
-        $data['paginas'] = ceil($total / $limit);
-
-        $data['paginaAtual'] = 1;
-        if (!empty($_GET['p'])) {
-            $data['paginaAtual'] = intval($_GET['p']);
-        }
-
-        $offset = ($data['paginaAtual'] * $limit) - $limit;
-
-        $data['offset'] = ($data['paginaAtual'] * $limit) - $limit;
-
-        $data['max'] = 2;
-        
-        $data['fornecedor_list'] = $f->getList($s,$offset,$limit);
-
-        $this->loadTemplate('fornecedor/fornecedor', $data);
     }
 
     public function fornecedor_add() {
@@ -64,10 +90,30 @@ class fornecedorController extends controller {
         $data['usuario_nome'] = $u->getNome();
         $data['usuario_foto'] = $u->getFoto();
         $data['notificacao'] = $n->verificarNotificacao($u->getId());
-        
-        $f = new Fornecedor();
+        $data['balanço'] = $u->hasPermission('balanço');
+        $data['backup'] = $u->hasPermission('backup');
+        $data['cliente'] = $u->hasPermission('cliente');
+        $data['fornecedor'] = $u->hasPermission('fornecedor');
+        $data['função de funcionário'] = $u->hasPermission('função de funcionário');
+        $data['funcionário'] = $u->hasPermission('funcionário');
+        $data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
+        $data['grupo de produto'] = $u->hasPermission('grupo de produto');
+        $data['lote de produto'] = $u->hasPermission('lote de produto');
+        $data['produto'] = $u->hasPermission('produto');
+        $data['usuário'] = $u->hasPermission('usuário');
+        $data['contas a pagar'] = $u->hasPermission('contas a pagar');
+        $data['contas a receber'] = $u->hasPermission('contas a receber');
+        $data['estoque'] = $u->hasPermission('estoque');
+        $data['compra'] = $u->hasPermission('compra');
+        $data['venda'] = $u->hasPermission('venda');
+        $data['perda'] = $u->hasPermission('perda');
+        $data['relatório'] = $u->hasPermission('relatório');
 
-        if (isset($_POST['razao_social']) && !empty($_POST['razao_social'])) {
+        if($u->hasPermission('fornecedor')){
+
+          $f = new Fornecedor();
+
+          if (isset($_POST['razao_social']) && !empty($_POST['razao_social'])) {
             $razao_social = addslashes($_POST['razao_social']);
             $nome_fantasia = addslashes($_POST['nome_fantasia']);
             $cnpj = addslashes($_POST['cnpj']);
@@ -93,17 +139,42 @@ class fornecedorController extends controller {
         }
 
         $this->loadTemplate('fornecedor/fornecedor_add', $data);
-    }
 
-    public function fornecedor_editar($id) {
-        $data = array();
-        $u = new Usuario();
-        $n = new Notificacao();
-        $u->setLoggedUser();
-        $data['usuario_nome'] = $u->getNome();
-        $data['usuario_foto'] = $u->getFoto();
-        $data['notificacao'] = $n->verificarNotificacao($u->getId());
-        
+    }else{
+        header("Location:".BASE_URL);
+        exit;
+    }
+}
+
+public function fornecedor_editar($id) {
+    $data = array();
+    $u = new Usuario();
+    $n = new Notificacao();
+    $u->setLoggedUser();
+    $data['usuario_nome'] = $u->getNome();
+    $data['usuario_foto'] = $u->getFoto();
+    $data['notificacao'] = $n->verificarNotificacao($u->getId());
+    $data['balanço'] = $u->hasPermission('balanço');
+    $data['backup'] = $u->hasPermission('backup');
+    $data['cliente'] = $u->hasPermission('cliente');
+    $data['fornecedor'] = $u->hasPermission('fornecedor');
+    $data['função de funcionário'] = $u->hasPermission('função de funcionário');
+    $data['funcionário'] = $u->hasPermission('funcionário');
+    $data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
+    $data['grupo de produto'] = $u->hasPermission('grupo de produto');
+    $data['lote de produto'] = $u->hasPermission('lote de produto');
+    $data['produto'] = $u->hasPermission('produto');
+    $data['usuário'] = $u->hasPermission('usuário');
+    $data['contas a pagar'] = $u->hasPermission('contas a pagar');
+    $data['contas a receber'] = $u->hasPermission('contas a receber');
+    $data['estoque'] = $u->hasPermission('estoque');
+    $data['compra'] = $u->hasPermission('compra');
+    $data['venda'] = $u->hasPermission('venda');
+    $data['perda'] = $u->hasPermission('perda');
+    $data['relatório'] = $u->hasPermission('relatório');
+
+    if($u->hasPermission('fornecedor')){
+
         $f = new Fornecedor();
 
         if(isset($id) && !empty($id)){
@@ -144,17 +215,41 @@ class fornecedorController extends controller {
         $data['fornecedor_editar_list'] = $f->getFornecedor($id);
 
         $this->loadTemplate('fornecedor/fornecedor_editar', $data);
-    }
 
-    public function fornecedor_deletar($id) {
-        $data = array();
-        $u = new Usuario();
-        $n = new Notificacao();
-        $u->setLoggedUser();
-        $data['usuario_nome'] = $u->getNome();
-        $data['usuario_foto'] = $u->getFoto();
-        $data['notificacao'] = $n->verificarNotificacao($u->getId());
-        
+    }else{
+        header("Location:".BASE_URL.'fornecedor');
+    }
+}
+
+public function fornecedor_deletar($id) {
+    $data = array();
+    $u = new Usuario();
+    $n = new Notificacao();
+    $u->setLoggedUser();
+    $data['usuario_nome'] = $u->getNome();
+    $data['usuario_foto'] = $u->getFoto();
+    $data['notificacao'] = $n->verificarNotificacao($u->getId());
+    $data['balanço'] = $u->hasPermission('balanço');
+    $data['backup'] = $u->hasPermission('backup');
+    $data['cliente'] = $u->hasPermission('cliente');
+    $data['fornecedor'] = $u->hasPermission('fornecedor');
+    $data['função de funcionário'] = $u->hasPermission('função de funcionário');
+    $data['funcionário'] = $u->hasPermission('funcionário');
+    $data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
+    $data['grupo de produto'] = $u->hasPermission('grupo de produto');
+    $data['lote de produto'] = $u->hasPermission('lote de produto');
+    $data['produto'] = $u->hasPermission('produto');
+    $data['usuário'] = $u->hasPermission('usuário');
+    $data['contas a pagar'] = $u->hasPermission('contas a pagar');
+    $data['contas a receber'] = $u->hasPermission('contas a receber');
+    $data['estoque'] = $u->hasPermission('estoque');
+    $data['compra'] = $u->hasPermission('compra');
+    $data['venda'] = $u->hasPermission('venda');
+    $data['perda'] = $u->hasPermission('perda');
+    $data['relatório'] = $u->hasPermission('relatório');
+
+    if($u->hasPermission('fornecedor')){
+
         $f = new Fornecedor();
 
         if(isset($id) && !empty($id)){
@@ -203,13 +298,15 @@ class fornecedorController extends controller {
         $data['offset'] = ($data['paginaAtual'] * $limit) - $limit;
 
         $data['max'] = 2;
-        
+
         $data['fornecedor_list'] = $f->getList($s,$offset,$limit);
 
-        
-
         $this->loadTemplate('fornecedor/fornecedor', $data);
+    }else{
+        header("Location:".BASE_URL);
+        exit;
     }
+}
 
 }
 

@@ -8,17 +8,17 @@ $config = array();
 if(ENVIRONMENT == 'development') {
 	define("BASE_URL", "http://localhost/farmacia/");
 	$config['dbname'] = 'farmacia';
-	$config['host'] = 'localhost:3306';
+	$config['dbhost'] = 'localhost:3306';
 	$config['dbuser'] = 'root';
 	$config['dbpass'] = 'root';
 } else {
 	define("BASE_URL", "http://localhost/farmacia/");
 	$config['dbname'] = 'farmacia';
-	$config['host'] = 'localhost:3306';
+	$config['dbhost'] = 'localhost:3306';
 	$config['dbuser'] = 'root';
 	$config['dbpass'] = 'root';
 }
 
-$db = new PDO("mysql:dbname=".$config['dbname'].";host=".$config['host'], $config['dbuser'], $config['dbpass']);
+$db = new PDO("mysql:dbname=".$config['dbname'].";host=".$config['dbhost'], $config['dbuser'], $config['dbpass'],array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 ?>

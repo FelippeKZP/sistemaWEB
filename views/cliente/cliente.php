@@ -79,7 +79,7 @@ if (isset($filtros['searchs']) && !empty($filtros['searchs'])) {
 <div style="clear:both"></div>
 
 <ul class="pagination">
- <?php if ($paginaAtual != 1): ?>
+   <?php if ($paginaAtual != 1): ?>
     <li><a href="<?php echo BASE_URL; ?>cliente?p=1">Primeira Pagina</a></li>
 <?php endif; ?>
 <?php if ($paginaAtual != 1): ?>

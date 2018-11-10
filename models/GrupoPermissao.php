@@ -18,14 +18,13 @@ class GrupoPermissao extends model {
         return $array;
     }
 
-    public function hasPermission($name) {
-        if (in_array($name, $this->permissions)) {
+    public function hasPermission($nome) {
+        if(in_array($nome, $this->permissions)) {
             return true;
         } else {
             return false;
         }
     }
-
     public function getInfo($id) {
         $array = array();
 
@@ -106,61 +105,59 @@ class GrupoPermissao extends model {
 
     }
 
-
     public function grupo_permissao_add($nome, $id_permissao) {
 
-       $id_permissao = implode(',', $id_permissao);
+        $params = implode(',', $id_permissao);
 
-       $sql = $this->db->prepare("INSERT INTO grupo_permissao(nome,id_permissao) VALUES(:nome,:id_permissao)");
-       $sql->bindValue(":nome", $nome);
-       $sql->bindValue(":id_permissao", $id_permissao);
-       $sql->execute();
-
-   }
-
-   public function grupo_permissao_editar($nome, $id_permissao, $id) {
-    $params = implode(',', $id_permissao);
-    $sql = $this->db->prepare("UPDATE grupo_permissao SET nome = :nome, id_permissao = :id_permissao WHERE id = :id");
-    $sql->bindValue(":nome", $nome);
-    $sql->bindValue(":id_permissao", $params);
-    $sql->bindValue(":id", $id);
-    $sql->execute();
-}
-
-public function grupo_permissao_deletar($id) {
-    $sql = $this->db->prepare("DELETE FROM grupo_permissao WHERE id = :id");
-    $sql->bindValue(":id", $id);
-    $sql->execute();
-}
-
-public function setGroup($id) {
-    $this->group = $id;
-    $this->permissions = array();
-
-    $sql = $this->db->prepare("SELECT id_permissao FROM grupo_permissao WHERE id = :id ");
-    $sql->bindValue(":id", $id);
-    $sql->execute();
-
-    if ($sql->rowCount() > 0) {
-        $row = $sql->fetch();
-
-        if (empty($row['id_permissao'])) {
-            $row['id_permissao'] = '0';
-        }
-
-        $params = $row['id_permissao'];
-
-        $sql = $this->db->prepare("SELECT nome FROM permissao WHERE id IN($params)");
+        $sql = $this->db->prepare("INSERT INTO grupo_permissao(nome,id_permissao) VALUES(:nome,:id_permissao)");
+        $sql->bindValue(":nome", $nome);
+        $sql->bindValue(":id_permissao", $params);
         $sql->execute();
 
-        if ($sql->rowCount() > 0) {
+    }
 
-            foreach ($sql->fetchAll() as $item) {
-                $this->permissions[] = $item['nome'];
+    public function grupo_permissao_editar($nome, $id_permissao, $id) {
+        $params = implode(',', $id_permissao);
+        $sql = $this->db->prepare("UPDATE grupo_permissao SET nome = :nome, id_permissao = :id_permissao WHERE id = :id");
+        $sql->bindValue(":nome", $nome);
+        $sql->bindValue(":id_permissao", $params);
+        $sql->bindValue(":id", $id);
+        $sql->execute();
+    }
+
+    public function grupo_permissao_deletar($id) {
+        $sql = $this->db->prepare("DELETE FROM grupo_permissao WHERE id = :id");
+        $sql->bindValue(":id", $id);
+        $sql->execute();
+    }
+
+    public function setGroup($id) {
+        $this->group = $id;
+        $this->permissions = array();
+
+        $sql = $this->db->prepare("SELECT id_permissao FROM grupo_permissao WHERE id = :id");
+        $sql->bindValue(':id', $id);
+        $sql->execute();
+
+        if($sql->rowCount() > 0) {
+            $row = $sql->fetch();
+
+            if(empty($row['id_permissao'])) {
+                $row['id_permissao'] = '0';
+            }
+
+            $id_permissao = $row['id_permissao'];
+
+            $sql = $this->db->prepare("SELECT nome FROM permissao WHERE id IN ($id_permissao)");
+            $sql->execute();
+
+            if($sql->rowCount() > 0) {
+                foreach($sql->fetchAll() as $item) {
+                    $this->permissions[] = $item['nome'];
+                }
             }
         }
     }
-}
 
 }
 

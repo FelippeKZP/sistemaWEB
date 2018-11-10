@@ -19,8 +19,33 @@ class relatorioController extends controller {
         $data['usuario_nome'] = $u->getNome();
         $data['usuario_foto'] = $u->getFoto();
         $data['notificacao'] = $n->verificarNotificacao($u->getId());
+        $data['balanço'] = $u->hasPermission('balanço');
+        $data['backup'] = $u->hasPermission('backup');
+        $data['cliente'] = $u->hasPermission('cliente');
+        $data['fornecedor'] = $u->hasPermission('fornecedor');
+        $data['função de funcionário'] = $u->hasPermission('função de funcionário');
+        $data['funcionário'] = $u->hasPermission('funcionário');
+        $data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
+        $data['grupo de produto'] = $u->hasPermission('grupo de produto');
+        $data['lote de produto'] = $u->hasPermission('lote de produto');
+        $data['produto'] = $u->hasPermission('produto');
+        $data['usuário'] = $u->hasPermission('usuário');
+        $data['contas a pagar'] = $u->hasPermission('contas a pagar');
+        $data['contas a receber'] = $u->hasPermission('contas a receber');
+        $data['estoque'] = $u->hasPermission('estoque');
+        $data['compra'] = $u->hasPermission('compra');
+        $data['venda'] = $u->hasPermission('venda');
+        $data['perda'] = $u->hasPermission('perda');
+        $data['relatório'] = $u->hasPermission('relatório');
 
-        $this->loadTemplate('relatorio/relatorio', $data);
+        if($u->hasPermission('relatório')){
+
+            $this->loadTemplate('relatorio/relatorio', $data);
+
+        }else{
+            header("Location:".BASE_URL);
+            exit;
+        }
     }
 
     public function relatorio_cliente() {
@@ -31,9 +56,33 @@ class relatorioController extends controller {
         $data['usuario_nome'] = $u->getNome();
         $data['usuario_foto'] = $u->getFoto();
         $data['notificacao'] = $n->verificarNotificacao($u->getId());
+        $data['balanço'] = $u->hasPermission('balanço');
+        $data['backup'] = $u->hasPermission('backup');
+        $data['cliente'] = $u->hasPermission('cliente');
+        $data['fornecedor'] = $u->hasPermission('fornecedor');
+        $data['função de funcionário'] = $u->hasPermission('função de funcionário');
+        $data['funcionário'] = $u->hasPermission('funcionário');
+        $data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
+        $data['grupo de produto'] = $u->hasPermission('grupo de produto');
+        $data['lote de produto'] = $u->hasPermission('lote de produto');
+        $data['produto'] = $u->hasPermission('produto');
+        $data['usuário'] = $u->hasPermission('usuário');
+        $data['contas a pagar'] = $u->hasPermission('contas a pagar');
+        $data['contas a receber'] = $u->hasPermission('contas a receber');
+        $data['estoque'] = $u->hasPermission('estoque');
+        $data['compra'] = $u->hasPermission('compra');
+        $data['venda'] = $u->hasPermission('venda');
+        $data['perda'] = $u->hasPermission('perda');
+        $data['relatório'] = $u->hasPermission('relatório');
 
+        if($u->hasPermission('relatório')){
 
-        $this->loadTemplate('relatorio/relatorio_cliente', $data);
+            $this->loadTemplate('relatorio/relatorio_cliente', $data);
+
+        }else{
+            header("Location:".BASE_URL);
+            exit;
+        }
     }
 
     public function relatorio_cliente_pdf() {
@@ -45,37 +94,42 @@ class relatorioController extends controller {
         $data['usuario_foto'] = $u->getFoto();
 
         
-        $nome = addslashes($_GET['nome']);
-        $periodo1 = addslashes($_GET['periodo1']);
-        $periodo2 = addslashes($_GET['periodo2']);
+        if($u->hasPermission('relatório')){
 
-        $c = new Cliente();
+            $nome = addslashes($_GET['nome']);
+            $periodo1 = addslashes($_GET['periodo1']);
+            $periodo2 = addslashes($_GET['periodo2']);
 
-        if($c->getRelatorio($nome,$periodo1,$periodo2) == null){
-            echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
-        }else{
-           $data['cliente_list'] = $c->getRelatorio($nome, $periodo1, $periodo2);
+            $c = new Cliente();
 
-           $data['filtros'] = $_GET;
+            if($c->getRelatorio($nome,$periodo1,$periodo2) == null){
+                echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
+            }else{
+               $data['cliente_list'] = $c->getRelatorio($nome, $periodo1, $periodo2);
 
-           $this->loadLibrary('mpdf60/mpdf');
+               $data['filtros'] = $_GET;
 
-           ob_start();
-           $this->loadView('relatorio/relatorio_cliente_pdf', $data);
-           $html = ob_get_contents();
+               $this->loadLibrary('mpdf60/mpdf');
+
+               ob_start();
+               $this->loadView('relatorio/relatorio_cliente_pdf', $data);
+               $html = ob_get_contents();
       //  $html = utf8_encode($html);
-           ob_end_clean();
+               ob_end_clean();
 
-           $mpdf = new mPDF();
-           $mpdf->WriteHTML($html);
-           $mpdf->Output();
+               $mpdf = new mPDF();
+               $mpdf->WriteHTML($html);
+               $mpdf->Output();
 
-       }
+           }
 
+       }else{
+        header("Location:".BASE_URL);
+        exit;
+    }
+}
 
-   }
-
-   public function relatorio_fornecedor() {
+public function relatorio_fornecedor() {
     $data = array();
     $u = new Usuario();
     $n = new Notificacao();
@@ -83,8 +137,32 @@ class relatorioController extends controller {
     $data['usuario_nome'] = $u->getNome();
     $data['usuario_foto'] = $u->getFoto();
     $data['notificacao'] = $n->verificarNotificacao($u->getId());
+    $data['balanço'] = $u->hasPermission('balanço');
+    $data['backup'] = $u->hasPermission('backup');
+    $data['cliente'] = $u->hasPermission('cliente');
+    $data['fornecedor'] = $u->hasPermission('fornecedor');
+    $data['função de funcionário'] = $u->hasPermission('função de funcionário');
+    $data['funcionário'] = $u->hasPermission('funcionário');
+    $data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
+    $data['grupo de produto'] = $u->hasPermission('grupo de produto');
+    $data['lote de produto'] = $u->hasPermission('lote de produto');
+    $data['produto'] = $u->hasPermission('produto');
+    $data['usuário'] = $u->hasPermission('usuário');
+    $data['contas a pagar'] = $u->hasPermission('contas a pagar');
+    $data['contas a receber'] = $u->hasPermission('contas a receber');
+    $data['estoque'] = $u->hasPermission('estoque');
+    $data['compra'] = $u->hasPermission('compra');
+    $data['venda'] = $u->hasPermission('venda');
+    $data['relatório'] = $u->hasPermission('relatório');
 
-    $this->loadTemplate('relatorio/relatorio_fornecedor', $data);
+    if($u->hasPermission('relatório')){
+
+        $this->loadTemplate('relatorio/relatorio_fornecedor', $data);
+
+    }else{
+        header("Location:".BASE_URL);
+        exit;
+    }
 }
 
 public function relatorio_fornecedor_pdf() {
@@ -95,32 +173,38 @@ public function relatorio_fornecedor_pdf() {
     $data['usuario_foto'] = $u->getFoto();
 
 
-    $nome = addslashes($_GET['nome']);
-    $periodo1 = addslashes($_GET['periodo1']);
-    $periodo2 = addslashes($_GET['periodo2']);
+    if($u->hasPermission('relatório')){
 
-    $f = new Fornecedor();
+        $nome = addslashes($_GET['nome']);
+        $periodo1 = addslashes($_GET['periodo1']);
+        $periodo2 = addslashes($_GET['periodo2']);
 
-    if($f->getRelatorio($nome,$periodo1,$periodo2) == false){
-     echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
- }else{
-    $data['fornecedor_list'] = $f->getRelatorio($nome, $periodo1, $periodo2);
-    $data['filtros'] = $_GET;
+        $f = new Fornecedor();
 
-    $this->loadLibrary('mpdf60/mpdf');
+        if($f->getRelatorio($nome,$periodo1,$periodo2) == false){
+         echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
+     }else{
+        $data['fornecedor_list'] = $f->getRelatorio($nome, $periodo1, $periodo2);
+        $data['filtros'] = $_GET;
 
-    ob_start();
-    $this->loadView('relatorio/relatorio_fornecedor_pdf', $data);
-    $html = ob_get_contents();
+        $this->loadLibrary('mpdf60/mpdf');
+
+        ob_start();
+        $this->loadView('relatorio/relatorio_fornecedor_pdf', $data);
+        $html = ob_get_contents();
        // $html = utf8_encode($html);
-    ob_end_clean();
+        ob_end_clean();
 
-    $mpdf = new mPDF();
-    $mpdf->WriteHTML($html);
-    $mpdf->Output();
+        $mpdf = new mPDF();
+        $mpdf->WriteHTML($html);
+        $mpdf->Output();
 
-} 
+    }
 
+}else{
+    header("Location:".BASE_URL);
+    exit;
+}
 }
 
 public function relatorio_funcaoFuncionario() {
@@ -131,8 +215,33 @@ public function relatorio_funcaoFuncionario() {
     $data['usuario_nome'] = $u->getNome();
     $data['usuario_foto'] = $u->getFoto();
     $data['notificacao'] = $n->verificarNotificacao($u->getId());
+    $data['balanço'] = $u->hasPermission('balanço');
+    $data['backup'] = $u->hasPermission('backup');
+    $data['cliente'] = $u->hasPermission('cliente');
+    $data['fornecedor'] = $u->hasPermission('fornecedor');
+    $data['função de funcionário'] = $u->hasPermission('função de funcionário');
+    $data['funcionário'] = $u->hasPermission('funcionário');
+    $data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
+    $data['grupo de produto'] = $u->hasPermission('grupo de produto');
+    $data['lote de produto'] = $u->hasPermission('lote de produto');
+    $data['produto'] = $u->hasPermission('produto');
+    $data['usuário'] = $u->hasPermission('usuário');
+    $data['contas a pagar'] = $u->hasPermission('contas a pagar');
+    $data['contas a receber'] = $u->hasPermission('contas a receber');
+    $data['estoque'] = $u->hasPermission('estoque');
+    $data['compra'] = $u->hasPermission('compra');
+    $data['venda'] = $u->hasPermission('venda');
+    $data['perda'] = $u->hasPermission('perda');
+    $data['relatório'] = $u->hasPermission('relatório');
 
-    $this->loadTemplate('relatorio/relatorio_funcaoFuncionario', $data);
+    if($u->hasPermission('relatório')){
+
+        $this->loadTemplate('relatorio/relatorio_funcaoFuncionario', $data);
+
+    }else{
+        header("Location:".BASE_URL);
+        exit;
+    }
 }
 
 public function relatorio_funcaoFuncionario_pdf() {
@@ -140,28 +249,35 @@ public function relatorio_funcaoFuncionario_pdf() {
     $u = new Usuario();
     $u->setLoggedUser();
 
-    $nome = addslashes($_GET['nome']);
+    if($u->hasPermission('relatório')){
 
-    $f = new FuncaoFuncionario();
+        $nome = addslashes($_GET['nome']);
 
-    if($f->getRelatorio($nome) == null){
-       echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
-   }else{
+        $f = new FuncaoFuncionario();
 
-    $data['funcao_funcionario_list'] = $f->getRelatorio($nome);
-    $data['filtros'] = $_GET;
+        if($f->getRelatorio($nome) == null){
+           echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
+       }else{
 
-    $this->loadLibrary('mpdf60/mpdf');
+        $data['funcao_funcionario_list'] = $f->getRelatorio($nome);
+        $data['filtros'] = $_GET;
 
-    ob_start();
-    $this->loadView('relatorio/relatorio_funcaoFuncionario_pdf', $data);
-    $html = ob_get_contents();
+        $this->loadLibrary('mpdf60/mpdf');
+
+        ob_start();
+        $this->loadView('relatorio/relatorio_funcaoFuncionario_pdf', $data);
+        $html = ob_get_contents();
        // $html = utf8_encode($html);
-    ob_end_clean();
+        ob_end_clean();
 
-    $m = new mPDF();
-    $m->WriteHTML($html);
-    $m->Output();
+        $m = new mPDF();
+        $m->WriteHTML($html);
+        $m->Output();
+    }
+
+}else{
+    header("Location:".BASE_URL);
+    exit;
 }
 }
 
@@ -173,9 +289,33 @@ public function relatorio_funcionario() {
     $data['usuario_nome'] = $u->getNome();
     $data['usuario_foto'] = $u->getFoto();
     $data['notificacao'] = $n->verificarNotificacao($u->getId());
+    $data['balanço'] = $u->hasPermission('balanço');
+    $data['backup'] = $u->hasPermission('backup');
+    $data['cliente'] = $u->hasPermission('cliente');
+    $data['fornecedor'] = $u->hasPermission('fornecedor');
+    $data['função de funcionário'] = $u->hasPermission('função de funcionário');
+    $data['funcionário'] = $u->hasPermission('funcionário');
+    $data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
+    $data['grupo de produto'] = $u->hasPermission('grupo de produto');
+    $data['lote de produto'] = $u->hasPermission('lote de produto');
+    $data['produto'] = $u->hasPermission('produto');
+    $data['usuário'] = $u->hasPermission('usuário');
+    $data['contas a pagar'] = $u->hasPermission('contas a pagar');
+    $data['contas a receber'] = $u->hasPermission('contas a receber');
+    $data['estoque'] = $u->hasPermission('estoque');
+    $data['compra'] = $u->hasPermission('compra');
+    $data['venda'] = $u->hasPermission('venda');
+    $data['perda'] = $u->hasPermission('perda');
+    $data['relatório'] = $u->hasPermission('relatório');
 
+    if($u->hasPermission('relatório')){
 
-    $this->loadTemplate('relatorio/relatorio_funcionario', $data);
+        $this->loadTemplate('relatorio/relatorio_funcionario', $data);
+
+    }else{
+        header("Location:".BASE_URL);
+        exit;
+    }
 }
 
 public function relatorio_funcionario_pdf() {
@@ -184,29 +324,36 @@ public function relatorio_funcionario_pdf() {
     $n = new Notificacao();
     $u->setLoggedUser();
 
-    $nome = addslashes($_GET['nome']);
-    $periodo1 = addslashes($_GET['periodo1']);
-    $periodo2 = addslashes($_GET['periodo2']);
+    if($u->hasPermission('relatório')){
 
-    $f = new Funcionario();
+        $nome = addslashes($_GET['nome']);
+        $periodo1 = addslashes($_GET['periodo1']);
+        $periodo2 = addslashes($_GET['periodo2']);
 
-    if($f->getRelatorio($nome,$periodo1,$periodo2) == null){
-     echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
- }else{
-    $data['funcionario_list'] = $f->getRelatorio($nome, $periodo1, $periodo2);
-    $data['filtros'] = $_GET;
+        $f = new Funcionario();
 
-    $this->loadLibrary('mpdf60/mpdf');
+        if($f->getRelatorio($nome,$periodo1,$periodo2) == null){
+         echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
+     }else{
+        $data['funcionario_list'] = $f->getRelatorio($nome, $periodo1, $periodo2);
+        $data['filtros'] = $_GET;
 
-    ob_start();
-    $this->loadView('relatorio/relatorio_funcionario_pdf', $data);
-    $html = ob_get_contents();
+        $this->loadLibrary('mpdf60/mpdf');
+
+        ob_start();
+        $this->loadView('relatorio/relatorio_funcionario_pdf', $data);
+        $html = ob_get_contents();
       //  $html = utf8_encode($html);
-    ob_end_clean();
+        ob_end_clean();
 
-    $mpdf = new mPDF();
-    $mpdf->WriteHTML($html);
-    $mpdf->Output();
+        $mpdf = new mPDF();
+        $mpdf->WriteHTML($html);
+        $mpdf->Output();
+    }
+
+}else{
+    header("Location:".BASE_URL);
+    exit;
 }
 
 }
@@ -220,9 +367,33 @@ public function relatorio_grupoPermissao() {
     $data['usuario_nome'] = $u->getNome();
     $data['usuario_foto'] = $u->getFoto();
     $data['notificacao'] = $n->verificarNotificacao($u->getId());
+    $data['balanço'] = $u->hasPermission('balanço');
+    $data['backup'] = $u->hasPermission('backup');
+    $data['cliente'] = $u->hasPermission('cliente');
+    $data['fornecedor'] = $u->hasPermission('fornecedor');
+    $data['função de funcionário'] = $u->hasPermission('função de funcionário');
+    $data['funcionário'] = $u->hasPermission('funcionário');
+    $data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
+    $data['grupo de produto'] = $u->hasPermission('grupo de produto');
+    $data['lote de produto'] = $u->hasPermission('lote de produto');
+    $data['produto'] = $u->hasPermission('produto');
+    $data['usuário'] = $u->hasPermission('usuário');
+    $data['contas a pagar'] = $u->hasPermission('contas a pagar');
+    $data['contas a receber'] = $u->hasPermission('contas a receber');
+    $data['estoque'] = $u->hasPermission('estoque');
+    $data['compra'] = $u->hasPermission('compra');
+    $data['venda'] = $u->hasPermission('venda');
+    $data['perda'] = $u->hasPermission('perda');
+    $data['relatório'] = $u->hasPermission('relatório');
 
+    if($u->hasPermission('relatório')){
 
-    $this->loadTemplate('relatorio/relatorio_grupoPermissao', $data);
+        $this->loadTemplate('relatorio/relatorio_grupoPermissao', $data);
+
+    }else{
+        header("Location:".BASE_URL);
+        exit;
+    }
 }
 
 public function relatorio_grupoPermissao_pdf() {
@@ -232,28 +403,35 @@ public function relatorio_grupoPermissao_pdf() {
     $data['usuario_nome'] = $u->getNome();
     $data['usuario_foto'] = $u->getFoto();
 
-    $nome = addslashes($_GET['nome']);
+    if($u->hasPermission('relatório')){
 
-    $g = new GrupoPermissao();
+        $nome = addslashes($_GET['nome']);
 
-    if($g->getRelatorio($nome) == null){
-       echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
-   }else{
+        $g = new GrupoPermissao();
 
-    $data['grupo_permissao_list'] = $g->getRelatorio($nome);
-    $data['filtros'] = $_GET;
+        if($g->getRelatorio($nome) == null){
+           echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
+       }else{
 
-    $this->loadLibrary('mpdf60/mpdf');
+        $data['grupo_permissao_list'] = $g->getRelatorio($nome);
+        $data['filtros'] = $_GET;
 
-    ob_start();
-    $this->loadView('relatorio/relatorio_grupoPermissao_pdf', $data);
-    $html = ob_get_contents();
+        $this->loadLibrary('mpdf60/mpdf');
+
+        ob_start();
+        $this->loadView('relatorio/relatorio_grupoPermissao_pdf', $data);
+        $html = ob_get_contents();
        // $html = utf8_encode($html);
-    ob_end_clean();
+        ob_end_clean();
 
-    $m = new mPDF();
-    $m->WriteHTML($html);
-    $m->Output();
+        $m = new mPDF();
+        $m->WriteHTML($html);
+        $m->Output();
+    }
+
+}else{
+    header("Location:".BASE_URL);
+    exit;
 }
 }
 
@@ -265,10 +443,32 @@ public function relatorio_grupoProduto() {
     $data['usuario_nome'] = $u->getNome();
     $data['usuario_foto'] = $u->getFoto();
     $data['notificacao'] = $n->verificarNotificacao($u->getId());
+    $data['balanço'] = $u->hasPermission('balanço');
+    $data['backup'] = $u->hasPermission('backup');
+    $data['cliente'] = $u->hasPermission('cliente');
+    $data['fornecedor'] = $u->hasPermission('fornecedor');
+    $data['função de funcionário'] = $u->hasPermission('função de funcionário');
+    $data['funcionário'] = $u->hasPermission('funcionário');
+    $data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
+    $data['grupo de produto'] = $u->hasPermission('grupo de produto');
+    $data['lote de produto'] = $u->hasPermission('lote de produto');
+    $data['produto'] = $u->hasPermission('produto');
+    $data['usuário'] = $u->hasPermission('usuário');
+    $data['contas a pagar'] = $u->hasPermission('contas a pagar');
+    $data['contas a receber'] = $u->hasPermission('contas a receber');
+    $data['estoque'] = $u->hasPermission('estoque');
+    $data['compra'] = $u->hasPermission('compra');
+    $data['venda'] = $u->hasPermission('venda');
+    $data['perda'] = $u->hasPermission('perda');
+    $data['relatório'] = $u->hasPermission('relatório');
 
+    if($u->hasPermission('relatório')){
 
-
-    $this->loadTemplate('relatorio/relatorio_grupoProduto', $data);
+        $this->loadTemplate('relatorio/relatorio_grupoProduto', $data);
+    }else{
+        header("Location:".BASE_URL);
+        exit;
+    }
 }
 
 public function relatorio_grupoProduto_pdf() {
@@ -276,28 +476,36 @@ public function relatorio_grupoProduto_pdf() {
     $u = new Usuario();
     $u->setLoggedUser();
 
-    $nome = addslashes($_GET['nome']);
+    if($u->hasPermission('relatório')){
 
-    $g = new GrupoProduto();
+        $nome = addslashes($_GET['nome']);
 
-    if($g->getRelatorio($nome) == null){
-     echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
- }else{
+        $g = new GrupoProduto();
 
-    $data['grupo_produto_list'] = $g->getRelatorio($nome);
-    $data['filtros'] = $_GET;
+        if($g->getRelatorio($nome) == null){
+         echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
+     }else{
 
-    $this->loadLibrary('mpdf60/mpdf');
+        $data['grupo_produto_list'] = $g->getRelatorio($nome);
+        $data['filtros'] = $_GET;
 
-    ob_start();
-    $this->loadView('relatorio/relatorio_grupoProduto_pdf', $data);
-    $html = ob_get_contents();
+        $this->loadLibrary('mpdf60/mpdf');
+
+        ob_start();
+        $this->loadView('relatorio/relatorio_grupoProduto_pdf', $data);
+        $html = ob_get_contents();
        // $html = utf8_encode($html);
-    ob_end_clean();
+        ob_end_clean();
 
-    $m = new mPDF();
-    $m->WriteHTML($html);
-    $m->Output();
+        $m = new mPDF();
+        $m->WriteHTML($html);
+        $m->Output();
+
+    }
+
+}else{
+    header("Location:".BASE_URL);
+    exit;
 }
 }
 
@@ -309,8 +517,33 @@ public function relatorio_loteProdutos() {
     $data['usuario_nome'] = $u->getNome();
     $data['usuario_foto'] = $u->getFoto();
     $data['notificacao'] = $n->verificarNotificacao($u->getId());
+    $data['balanço'] = $u->hasPermission('balanço');
+    $data['backup'] = $u->hasPermission('backup');
+    $data['cliente'] = $u->hasPermission('cliente');
+    $data['fornecedor'] = $u->hasPermission('fornecedor');
+    $data['função de funcionário'] = $u->hasPermission('função de funcionário');
+    $data['funcionário'] = $u->hasPermission('funcionário');
+    $data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
+    $data['grupo de produto'] = $u->hasPermission('grupo de produto');
+    $data['lote de produto'] = $u->hasPermission('lote de produto');
+    $data['produto'] = $u->hasPermission('produto');
+    $data['usuário'] = $u->hasPermission('usuário');
+    $data['contas a pagar'] = $u->hasPermission('contas a pagar');
+    $data['contas a receber'] = $u->hasPermission('contas a receber');
+    $data['estoque'] = $u->hasPermission('estoque');
+    $data['compra'] = $u->hasPermission('compra');
+    $data['venda'] = $u->hasPermission('venda');
+    $data['perda'] = $u->hasPermission('perda');
+    $data['relatório'] = $u->hasPermission('relatório');
 
-    $this->loadTemplate('relatorio/relatorio_loteProduto', $data);
+    if($u->hasPermission('relatório')){
+
+        $this->loadTemplate('relatorio/relatorio_loteProduto', $data);
+
+    }else{
+        header("Location:".BASE_URL);
+        exit;
+    }
 }
 
 public function relatorio_loteProdutos_pdf() {
@@ -320,30 +553,38 @@ public function relatorio_loteProdutos_pdf() {
     $data['usuario_nome'] = $u->getNome();
     $data['usuario_foto'] = $u->getFoto();
 
-    $numero = addslashes($_GET['nome']);
-    $periodo1 = addslashes($_GET['periodo1']);
-    $periodo2 = addslashes($_GET['periodo2']);
+    if($u->hasPermission('relatório')){
 
-    $l = new LoteProduto();
+        $numero = addslashes($_GET['nome']);
+        $periodo1 = addslashes($_GET['periodo1']);
+        $periodo2 = addslashes($_GET['periodo2']);
 
-    if($l->getRelatorio($nome,$periodo1,$periodo1)){
-       echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
-   }else{
+        $l = new LoteProduto();
 
-    $data['lote_produto_list'] = $l->getRelatorio($numero, $periodo1, $periodo2);
-    $data['filtros'] = $_GET;
+        if($l->getRelatorio($nome,$periodo1,$periodo1)){
+           echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
+       }else{
 
-    $this->loadLibrary('mpdf60/mpdf');
+        $data['lote_produto_list'] = $l->getRelatorio($numero, $periodo1, $periodo2);
+        $data['filtros'] = $_GET;
 
-    ob_start();
-    $this->loadView('relatorio/relatorio_loteProduto_pdf', $data);
-    $html = ob_get_contents();
+        $this->loadLibrary('mpdf60/mpdf');
+
+        ob_start();
+        $this->loadView('relatorio/relatorio_loteProduto_pdf', $data);
+        $html = ob_get_contents();
        // $html = utf8_encode($html);
-    ob_end_clean();
+        ob_end_clean();
 
-    $m = new mPDF();
-    $m->WriteHTML($html);
-    $m->Output();
+        $m = new mPDF();
+        $m->WriteHTML($html);
+        $m->Output();
+
+    }
+
+}else{
+    header("Location:".BASE_URL);
+    exit;
 }
 }
 
@@ -355,8 +596,33 @@ public function relatorio_produto() {
     $data['usuario_nome'] = $u->getNome();
     $data['usuario_foto'] = $u->getFoto();
     $data['notificacao'] = $n->verificarNotificacao($u->getId());
+    $data['balanço'] = $u->hasPermission('balanço');
+    $data['backup'] = $u->hasPermission('backup');
+    $data['cliente'] = $u->hasPermission('cliente');
+    $data['fornecedor'] = $u->hasPermission('fornecedor');
+    $data['função de funcionário'] = $u->hasPermission('função de funcionário');
+    $data['funcionário'] = $u->hasPermission('funcionário');
+    $data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
+    $data['grupo de produto'] = $u->hasPermission('grupo de produto');
+    $data['lote de produto'] = $u->hasPermission('lote de produto');
+    $data['produto'] = $u->hasPermission('produto');
+    $data['usuário'] = $u->hasPermission('usuário');
+    $data['contas a pagar'] = $u->hasPermission('contas a pagar');
+    $data['contas a receber'] = $u->hasPermission('contas a receber');
+    $data['estoque'] = $u->hasPermission('estoque');
+    $data['compra'] = $u->hasPermission('compra');
+    $data['venda'] = $u->hasPermission('venda');
+    $data['perda'] = $u->hasPermission('perda');
+    $data['relatório'] = $u->hasPermission('relatório');
 
-    $this->loadTemplate('relatorio/relatorio_produto', $data);
+    if($u->hasPermission('relatório')){
+
+        $this->loadTemplate('relatorio/relatorio_produto', $data);
+
+    }else{
+        header("Location:".BASE_URL);
+        exit;
+    }
 }
 
 public function relatorio_produto_pdf() {
@@ -366,30 +632,36 @@ public function relatorio_produto_pdf() {
     $data['usuario_nome'] = $u->getNome();
     $data['usuario_foto'] = $u->getFoto();
 
-    $numero = addslashes($_GET['nome']);
+    if($u->hasPermission('relatório')){
 
+        $numero = addslashes($_GET['nome']);
 
-    $p = new Produto();
+        $p = new Produto();
 
-    if($p->getRelatorio($numero) == null){
-     echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
- }else{
+        if($p->getRelatorio($numero) == null){
+         echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
+     }else{
 
-    $data['produto_list'] = $p->getRelatorio($numero);
-    $data['filtros'] = $_GET;
+        $data['produto_list'] = $p->getRelatorio($numero);
+        $data['filtros'] = $_GET;
 
-    $this->loadLibrary('mpdf60/mpdf');
+        $this->loadLibrary('mpdf60/mpdf');
 
-    ob_start();
-    $this->loadView('relatorio/relatorio_produto_pdf', $data);
-    $html = ob_get_contents();
+        ob_start();
+        $this->loadView('relatorio/relatorio_produto_pdf', $data);
+        $html = ob_get_contents();
       //  $html = utf8_encode($html);
-    ob_end_clean();
+        ob_end_clean();
 
-    $m = new mPDF();
-    $m->WriteHTML($html);
-    $m->Output();
+        $m = new mPDF();
+        $m->WriteHTML($html);
+        $m->Output();
 
+    }
+
+}else{
+    header("Location:".BASE_URL);
+    exit;
 }
 }
 
@@ -401,8 +673,33 @@ public function relatorio_usuario() {
     $data['usuario_nome'] = $u->getNome();
     $data['usuario_foto'] = $u->getFoto();
     $data['notificacao'] = $n->verificarNotificacao($u->getId());
+    $data['balanço'] = $u->hasPermission('balanço');
+    $data['backup'] = $u->hasPermission('backup');
+    $data['cliente'] = $u->hasPermission('cliente');
+    $data['fornecedor'] = $u->hasPermission('fornecedor');
+    $data['função de funcionário'] = $u->hasPermission('função de funcionário');
+    $data['funcionário'] = $u->hasPermission('funcionário');
+    $data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
+    $data['grupo de produto'] = $u->hasPermission('grupo de produto');
+    $data['lote de produto'] = $u->hasPermission('lote de produto');
+    $data['produto'] = $u->hasPermission('produto');
+    $data['usuário'] = $u->hasPermission('usuário');
+    $data['contas a pagar'] = $u->hasPermission('contas a pagar');
+    $data['contas a receber'] = $u->hasPermission('contas a receber');
+    $data['estoque'] = $u->hasPermission('estoque');
+    $data['compra'] = $u->hasPermission('compra');
+    $data['venda'] = $u->hasPermission('venda');
+    $data['perda'] = $u->hasPermission('perda');
+    $data['relatório'] = $u->hasPermission('relatório');
 
-    $this->loadTemplate('relatorio/relatorio_usuario', $data);
+    if($u->hasPermission('relatório')){
+
+        $this->loadTemplate('relatorio/relatorio_usuario', $data);
+
+    }else{
+        header("Location:".BASE_URL);
+        exit;
+    }
 }
 
 public function relatorio_usuario_pdf() {
@@ -412,26 +709,33 @@ public function relatorio_usuario_pdf() {
     $data['usuario_nome'] = $u->getNome();
     $data['usuario_foto'] = $u->getFoto();
 
-    $email = addslashes($_GET['nome']);
+    if($u->hasPermission('relatório')){
 
-    if($u->getRelatorio($email) == false){
-     echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
- }else{
+        $email = addslashes($_GET['nome']);
 
-    $data['usuario_list'] = $u->getRelatorio($email);
-    $data['filtros'] = $_GET;
+        if($u->getRelatorio($email) == false){
+         echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
+     }else{
 
-    $this->loadLibrary('mpdf60/mpdf');
+        $data['usuario_list'] = $u->getRelatorio($email);
+        $data['filtros'] = $_GET;
 
-    ob_start();
-    $this->loadView('relatorio/relatorio_usuario_pdf', $data);
-    $html = ob_get_contents();
+        $this->loadLibrary('mpdf60/mpdf');
+
+        ob_start();
+        $this->loadView('relatorio/relatorio_usuario_pdf', $data);
+        $html = ob_get_contents();
       //  $html = utf8_encode($html);
-    ob_end_clean();
+        ob_end_clean();
 
-    $m = new mPDF();
-    $m->WriteHTML($html);
-    $m->Output();
+        $m = new mPDF();
+        $m->WriteHTML($html);
+        $m->Output();
+    }
+
+}else{
+    header("Location:".BASE_URL);
+    exit;
 }
 }
 
@@ -443,6 +747,24 @@ public function relatorio_loteProduto() {
     $data['usuario_nome'] = $u->getNome();
     $data['usuario_foto'] = $u->getFoto();
     $data['notificacao'] = $n->verificarNotificacao($u->getId());
+    $data['balanço'] = $u->hasPermission('balanço');
+    $data['backup'] = $u->hasPermission('backup');
+    $data['cliente'] = $u->hasPermission('cliente');
+    $data['fornecedor'] = $u->hasPermission('fornecedor');
+    $data['função de funcionário'] = $u->hasPermission('função de funcionário');
+    $data['funcionário'] = $u->hasPermission('funcionário');
+    $data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
+    $data['grupo de produto'] = $u->hasPermission('grupo de produto');
+    $data['lote de produto'] = $u->hasPermission('lote de produto');
+    $data['produto'] = $u->hasPermission('produto');
+    $data['usuário'] = $u->hasPermission('usuário');
+    $data['contas a pagar'] = $u->hasPermission('contas a pagar');
+    $data['contas a receber'] = $u->hasPermission('contas a receber');
+    $data['estoque'] = $u->hasPermission('estoque');
+    $data['compra'] = $u->hasPermission('compra');
+    $data['venda'] = $u->hasPermission('venda');
+    $data['perda'] = $u->hasPermission('perda');
+    $data['relatório'] = $u->hasPermission('relatório');
 
     $this->loadTemplate('relatorio/relatorio_loteProduto', $data);
 }
@@ -454,30 +776,37 @@ public function relatorio_loteProduto_pdf() {
     $data['usuario_nome'] = $u->getNome();
     $data['usuario_foto'] = $u->getFoto();
 
-    $numero = addslashes($_GET['nome']);
-    $periodo1 = addslashes($_GET['periodo1']);
-    $periodo2 = addslashes($_GET['periodo2']);
+    if($u->hasPermission('relatório')){
 
-    $l = new LoteProduto();
+        $numero = addslashes($_GET['nome']);
+        $periodo1 = addslashes($_GET['periodo1']);
+        $periodo2 = addslashes($_GET['periodo2']);
 
-    if($l->getRelatorio($numero,$periodo1,$periodo2) == null){
-       echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
-   }else{
+        $l = new LoteProduto();
 
-    $data['lote_produto_list'] = $l->getRelatorio($numero, $periodo1, $periodo2);
-    $data['filtros'] = $_GET;
+        if($l->getRelatorio($numero,$periodo1,$periodo2) == null){
+           echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
+       }else{
 
-    $this->loadLibrary('mpdf60/mpdf');
+        $data['lote_produto_list'] = $l->getRelatorio($numero, $periodo1, $periodo2);
+        $data['filtros'] = $_GET;
 
-    ob_start();
-    $this->loadView('relatorio/relatorio_loteProduto_pdf', $data);
-    $html = ob_get_contents();
+        $this->loadLibrary('mpdf60/mpdf');
+
+        ob_start();
+        $this->loadView('relatorio/relatorio_loteProduto_pdf', $data);
+        $html = ob_get_contents();
         //$html = utf8_encode($html);
-    ob_end_clean();
+        ob_end_clean();
 
-    $m = new mPDF();
-    $m->WriteHTML($html);
-    $m->Output();
+        $m = new mPDF();
+        $m->WriteHTML($html);
+        $m->Output();
+    }
+
+}else{
+    header("Location:".BASE_URL);
+    exit;
 }
 }
 
@@ -489,8 +818,33 @@ public function relatorio_estoqueBaixo() {
     $data['usuario_nome'] = $u->getNome();
     $data['usuario_foto'] = $u->getFoto();
     $data['notificacao'] = $n->verificarNotificacao($u->getId());
+    $data['balanço'] = $u->hasPermission('balanço');
+    $data['backup'] = $u->hasPermission('backup');
+    $data['cliente'] = $u->hasPermission('cliente');
+    $data['fornecedor'] = $u->hasPermission('fornecedor');
+    $data['função de funcionário'] = $u->hasPermission('função de funcionário');
+    $data['funcionário'] = $u->hasPermission('funcionário');
+    $data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
+    $data['grupo de produto'] = $u->hasPermission('grupo de produto');
+    $data['lote de produto'] = $u->hasPermission('lote de produto');
+    $data['produto'] = $u->hasPermission('produto');
+    $data['usuário'] = $u->hasPermission('usuário');
+    $data['contas a pagar'] = $u->hasPermission('contas a pagar');
+    $data['contas a receber'] = $u->hasPermission('contas a receber');
+    $data['estoque'] = $u->hasPermission('estoque');
+    $data['compra'] = $u->hasPermission('compra');
+    $data['venda'] = $u->hasPermission('venda');
+    $data['perda'] = $u->hasPermission('perda');
+    $data['relatório'] = $u->hasPermission('relatório');
 
-    $this->loadTemplate('relatorio/relatorio_estoqueBaixo', $data);
+    if($u->hasPermission('relatório')){
+
+        $this->loadTemplate('relatorio/relatorio_estoqueBaixo', $data);
+
+    }else{
+        header("Location:".BASE_URL);
+        exit;
+    }
 }
 
 public function relatorio_estoquebaixo_pdf() {
@@ -500,25 +854,32 @@ public function relatorio_estoquebaixo_pdf() {
     $data['usuario_nome'] = $u->getNome();
     $data['usuario_foto'] = $u->getFoto();
 
-    $p = new Produto();
+    if($u->hasPermission('relatório')){
 
-    if($p->getRelatorioEstoqueBaixo() ==null){
-     echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
- }else{
+        $p = new Produto();
 
-    $data['produto_list'] = $p->getRelatorioEstoqueBaixo();
+        if($p->getRelatorioEstoqueBaixo() ==null){
+         echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
+     }else{
 
-    $this->loadLibrary('mpdf60/mpdf');
+        $data['produto_list'] = $p->getRelatorioEstoqueBaixo();
 
-    ob_start();
-    $this->loadView('relatorio/relatorio_estoqueBaixo_pdf', $data);
-    $html = ob_get_contents();
+        $this->loadLibrary('mpdf60/mpdf');
+
+        ob_start();
+        $this->loadView('relatorio/relatorio_estoqueBaixo_pdf', $data);
+        $html = ob_get_contents();
         //$html = utf8_encode($html);
-    ob_end_clean();
+        ob_end_clean();
 
-    $m = new mPDF();
-    $m->WriteHTML($html);
-    $m->Output();
+        $m = new mPDF();
+        $m->WriteHTML($html);
+        $m->Output();
+    }
+
+}else{
+    header("Location:".BASE_URL);
+    exit;
 }
 }
 
@@ -530,8 +891,33 @@ public function relatorio_produtoMaisVendido() {
     $data['usuario_nome'] = $u->getNome();
     $data['usuario_foto'] = $u->getFoto();
     $data['notificacao'] = $n->verificarNotificacao($u->getId());
+    $data['balanço'] = $u->hasPermission('balanço');
+    $data['backup'] = $u->hasPermission('backup');
+    $data['cliente'] = $u->hasPermission('cliente');
+    $data['fornecedor'] = $u->hasPermission('fornecedor');
+    $data['função de funcionário'] = $u->hasPermission('função de funcionário');
+    $data['funcionário'] = $u->hasPermission('funcionário');
+    $data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
+    $data['grupo de produto'] = $u->hasPermission('grupo de produto');
+    $data['lote de produto'] = $u->hasPermission('lote de produto');
+    $data['produto'] = $u->hasPermission('produto');
+    $data['usuário'] = $u->hasPermission('usuário');
+    $data['contas a pagar'] = $u->hasPermission('contas a pagar');
+    $data['contas a receber'] = $u->hasPermission('contas a receber');
+    $data['estoque'] = $u->hasPermission('estoque');
+    $data['compra'] = $u->hasPermission('compra');
+    $data['venda'] = $u->hasPermission('venda');
+    $data['perda'] = $u->hasPermission('perda');
+    $data['relatório'] = $u->hasPermission('relatório');
 
-    $this->loadTemplate('relatorio/relatorio_produtoMaisVendido', $data);
+    if($u->hasPermission('relatório')){
+
+        $this->loadTemplate('relatorio/relatorio_produtoMaisVendido', $data);
+
+    }else{
+        header("Location:".BASE_URL);
+        exit;
+    }
 }
 
 public function relatorio_produtoMaisVendido_pdf() {
@@ -541,31 +927,38 @@ public function relatorio_produtoMaisVendido_pdf() {
     $data['usuario_nome'] = $u->getNome();
     $data['usuario_foto'] = $u->getFoto();
 
-    $numero = addslashes($_GET['nome']);
-    $periodo1 = addslashes($_GET['periodo1']);
-    $periodo2 = addslashes($_GET['periodo2']);
+    if($u->hasPermission('relatório')){
 
-    $p = new Produto();
+        $numero = addslashes($_GET['nome']);
+        $periodo1 = addslashes($_GET['periodo1']);
+        $periodo2 = addslashes($_GET['periodo2']);
 
-    if($p->getRelatorioProdutoMaisVendido($numero,$periodo1,$periodo2) == null){
-       echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
-   }else{
+        $p = new Produto();
 
-    $data['produto_mais_vendido_list'] = $p->getRelatorioProdutoMaisVendido($numero, $periodo1, $periodo2);
-    $data['filtros'] = $_GET;
+        if($p->getRelatorioProdutoMaisVendido($numero,$periodo1,$periodo2) == null){
+           echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
+       }else{
 
-    $this->loadLibrary('mpdf60/mpdf');
+        $data['produto_mais_vendido_list'] = $p->getRelatorioProdutoMaisVendido($numero, $periodo1, $periodo2);
+        $data['filtros'] = $_GET;
 
-    ob_start();
-    $this->loadView('relatorio/relatorio_produtoMaisVendido_pdf', $data);
-    $html = ob_get_contents();
+        $this->loadLibrary('mpdf60/mpdf');
+
+        ob_start();
+        $this->loadView('relatorio/relatorio_produtoMaisVendido_pdf', $data);
+        $html = ob_get_contents();
        // $html = utf8_encode($html);
-    ob_end_clean();
+        ob_end_clean();
 
-    $m = new mPDF();
-    $m->WriteHTML($html);
-    $m->Output();
+        $m = new mPDF();
+        $m->WriteHTML($html);
+        $m->Output();
 
+    }
+
+}else{
+    header("Location:".BASE_URL);
+    exit;
 }
 }
 
@@ -577,8 +970,33 @@ public function relatorio_historicoEstoque() {
     $data['usuario_nome'] = $u->getNome();
     $data['usuario_foto'] = $u->getFoto();
     $data['notificacao'] = $n->verificarNotificacao($u->getId());
+    $data['balanço'] = $u->hasPermission('balanço');
+    $data['backup'] = $u->hasPermission('backup');
+    $data['cliente'] = $u->hasPermission('cliente');
+    $data['fornecedor'] = $u->hasPermission('fornecedor');
+    $data['função de funcionário'] = $u->hasPermission('função de funcionário');
+    $data['funcionário'] = $u->hasPermission('funcionário');
+    $data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
+    $data['grupo de produto'] = $u->hasPermission('grupo de produto');
+    $data['lote de produto'] = $u->hasPermission('lote de produto');
+    $data['produto'] = $u->hasPermission('produto');
+    $data['usuário'] = $u->hasPermission('usuário');
+    $data['contas a pagar'] = $u->hasPermission('contas a pagar');
+    $data['contas a receber'] = $u->hasPermission('contas a receber');
+    $data['estoque'] = $u->hasPermission('estoque');
+    $data['compra'] = $u->hasPermission('compra');
+    $data['venda'] = $u->hasPermission('venda');
+    $data['perda'] = $u->hasPermission('perda');
+    $data['relatório'] = $u->hasPermission('relatório');
 
-    $this->loadTemplate('relatorio/relatorio_historicoEstoque', $data);
+    if($U->hasPermission('relatório')){
+
+        $this->loadTemplate('relatorio/relatorio_historicoEstoque', $data);
+
+    }else{
+        header("Location:".BASE_URL);
+        exit;
+    }
 }
 
 public function relatorio_historicoEstoque_pdf() {
@@ -586,29 +1004,37 @@ public function relatorio_historicoEstoque_pdf() {
     $u = new Usuario();
     $u->setLoggedUser();
 
-    $h = new HistoricoEstoque();
 
-    $periodo1 = addslashes($_GET['periodo1']);
-    $periodo2 = addslashes($_GET['periodo2']);
+    if($u->hasPermission('relatório')){
+
+        $h = new HistoricoEstoque();
+
+        $periodo1 = addslashes($_GET['periodo1']);
+        $periodo2 = addslashes($_GET['periodo2']);
 
 
-    if($h->getRelatorio($periodo1,$periodo2) == null){
-     echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
- }else{
-    $data['historico_estoque_list'] = $h->getRelatorio($periodo1, $periodo2);
-    $data['filtros'] = $_GET;
+        if($h->getRelatorio($periodo1,$periodo2) == null){
+         echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
+     }else{
+        $data['historico_estoque_list'] = $h->getRelatorio($periodo1, $periodo2);
+        $data['filtros'] = $_GET;
 
-    $this->loadLibrary('mpdf60/mpdf');
+        $this->loadLibrary('mpdf60/mpdf');
 
-    ob_start();
-    $this->loadView('relatorio/relatorio_historicoEstoque_pdf', $data);
-    $html = ob_get_contents();
+        ob_start();
+        $this->loadView('relatorio/relatorio_historicoEstoque_pdf', $data);
+        $html = ob_get_contents();
         //$html = utf8_encode($html);
-    ob_clean();
+        ob_clean();
 
-    $m = new mPDF();
-    $m->WriteHTML($html);
-    $m->Output();
+        $m = new mPDF();
+        $m->WriteHTML($html);
+        $m->Output();
+    }
+
+}else{
+    header("Location:".BASE_URL);
+    exit;
 }
 }
 
@@ -620,6 +1046,24 @@ public function relatorio_compra() {
     $data['usuario_nome'] = $u->getNome();
     $data['usuario_foto'] = $u->getFoto();
     $data['notificacao'] = $n->verificarNotificacao($u->getId());
+    $data['balanço'] = $u->hasPermission('balanço');
+    $data['backup'] = $u->hasPermission('backup');
+    $data['cliente'] = $u->hasPermission('cliente');
+    $data['fornecedor'] = $u->hasPermission('fornecedor');
+    $data['função de funcionário'] = $u->hasPermission('função de funcionário');
+    $data['funcionário'] = $u->hasPermission('funcionário');
+    $data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
+    $data['grupo de produto'] = $u->hasPermission('grupo de produto');
+    $data['lote de produto'] = $u->hasPermission('lote de produto');
+    $data['produto'] = $u->hasPermission('produto');
+    $data['usuário'] = $u->hasPermission('usuário');
+    $data['contas a pagar'] = $u->hasPermission('contas a pagar');
+    $data['contas a receber'] = $u->hasPermission('contas a receber');
+    $data['estoque'] = $u->hasPermission('estoque');
+    $data['compra'] = $u->hasPermission('compra');
+    $data['venda'] = $u->hasPermission('venda');
+    $data['perda'] = $u->hasPermission('perda');
+    $data['relatório'] = $u->hasPermission('relatório');
 
     $this->loadTemplate('relatorio/relatorio_compra', $data);
 }
@@ -629,30 +1073,37 @@ public function relatorio_compra_pdf() {
     $u = new Usuario();
     $u->setLoggedUser();
 
-    $c = new Compra();
+    if($u->hasPermission('relatório')){
 
-    $nome = addslashes($_GET['nome']);
-    $periodo1 = addslashes($_GET['periodo1']);
-    $periodo2 = addslashes($_GET['periodo2']);
+        $c = new Compra();
 
-    if($c->getRelatorio($nome,$periodo1,$periodo2) == null){
-       echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
-   }else{
+        $nome = addslashes($_GET['nome']);
+        $periodo1 = addslashes($_GET['periodo1']);
+        $periodo2 = addslashes($_GET['periodo2']);
 
-    $data['compra_list'] = $c->getRelatorio($nome,$periodo1, $periodo2);
-    $data['filtros'] = $_GET;
+        if($c->getRelatorio($nome,$periodo1,$periodo2) == null){
+           echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
+       }else{
 
-    $this->loadLibrary('mpdf60/mpdf');
+        $data['compra_list'] = $c->getRelatorio($nome,$periodo1, $periodo2);
+        $data['filtros'] = $_GET;
 
-    ob_start();
-    $this->loadView('relatorio/relatorio_compra_pdf', $data);
-    $html = ob_get_contents();
+        $this->loadLibrary('mpdf60/mpdf');
+
+        ob_start();
+        $this->loadView('relatorio/relatorio_compra_pdf', $data);
+        $html = ob_get_contents();
         //$html = utf8_encode($html);
-    ob_clean();
+        ob_clean();
 
-    $m = new mPDF();
-    $m->WriteHTML($html);
-    $m->Output();
+        $m = new mPDF();
+        $m->WriteHTML($html);
+        $m->Output();
+    }
+
+}else{
+    header("Location:".BASE_URL);
+    exit;
 }
 }
 
@@ -664,8 +1115,33 @@ public function relatorio_contas_pagar() {
     $data['usuario_nome'] = $u->getNome();
     $data['usuario_foto'] = $u->getFoto();
     $data['notificacao'] = $n->verificarNotificacao($u->getId());
+    $data['balanço'] = $u->hasPermission('balanço');
+    $data['backup'] = $u->hasPermission('backup');
+    $data['cliente'] = $u->hasPermission('cliente');
+    $data['fornecedor'] = $u->hasPermission('fornecedor');
+    $data['função de funcionário'] = $u->hasPermission('função de funcionário');
+    $data['funcionário'] = $u->hasPermission('funcionário');
+    $data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
+    $data['grupo de produto'] = $u->hasPermission('grupo de produto');
+    $data['lote de produto'] = $u->hasPermission('lote de produto');
+    $data['produto'] = $u->hasPermission('produto');
+    $data['usuário'] = $u->hasPermission('usuário');
+    $data['contas a pagar'] = $u->hasPermission('contas a pagar');
+    $data['contas a receber'] = $u->hasPermission('contas a receber');
+    $data['estoque'] = $u->hasPermission('estoque');
+    $data['compra'] = $u->hasPermission('compra');
+    $data['venda'] = $u->hasPermission('venda');
+    $data['perda'] = $u->hasPermission('perda');
+    $data['relatório'] = $u->hasPermission('relatório');
 
-    $this->loadTemplate('relatorio/relatorio_contas_pagar', $data);
+    if($u->hasPermission('relatório')){
+
+        $this->loadTemplate('relatorio/relatorio_contas_pagar', $data);
+
+    }else{
+        header("Location:".BASE_URL);
+        exit;
+    }
 }
 
 public function relatorio_contas_pagar_pdf() {
@@ -673,45 +1149,52 @@ public function relatorio_contas_pagar_pdf() {
     $u = new Usuario();
     $u->setLoggedUser();
 
-    $c = new ContaPagar();
+    if($u->hasPermission('relatório')){
 
-    $data['tipo'] = array(
-        '0' => 'Água',
-        '1' => 'Aluguel',
-        '2' => 'Compra',
-        '3' => 'Internet',
-        '4' => 'Telefone',
-        '5' => 'Luz',
-        '6' => 'Outros tipo de conta'
-    );
+        $c = new ContaPagar();
 
-    $data['status'] = array(
-        '0' => 'Pendente',
-        '1' => 'Pago'
-    );
+        $data['tipo'] = array(
+            '0' => 'Água',
+            '1' => 'Aluguel',
+            '2' => 'Compra',
+            '3' => 'Internet',
+            '4' => 'Telefone',
+            '5' => 'Luz',
+            '6' => 'Outros tipo de conta'
+        );
 
-    $nome = addslashes($_GET['nome']);
-    $periodo1 = addslashes($_GET['periodo1']);
-    $periodo2 = addslashes($_GET['periodo2']);
+        $data['status'] = array(
+            '0' => 'Pendente',
+            '1' => 'Pago'
+        );
 
-    if($c->getRelatorio($nome,$periodo1,$periodo2) == null){
-     echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
- }else{
+        $nome = addslashes($_GET['nome']);
+        $periodo1 = addslashes($_GET['periodo1']);
+        $periodo2 = addslashes($_GET['periodo2']);
 
-    $data['conta_pagar_list'] = $c->getRelatorio($nome,$periodo1, $periodo2);
-    $data['filtros'] = $_GET;
+        if($c->getRelatorio($nome,$periodo1,$periodo2) == null){
+         echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
+     }else{
 
-    $this->loadLibrary('mpdf60/mpdf');
+        $data['conta_pagar_list'] = $c->getRelatorio($nome,$periodo1, $periodo2);
+        $data['filtros'] = $_GET;
 
-    ob_start();
-    $this->loadView('relatorio/relatorio_contas_pagar_pdf', $data);
-    $html = ob_get_contents();
+        $this->loadLibrary('mpdf60/mpdf');
+
+        ob_start();
+        $this->loadView('relatorio/relatorio_contas_pagar_pdf', $data);
+        $html = ob_get_contents();
         //$html = utf8_encode($html);
-    ob_clean();
+        ob_clean();
 
-    $m = new mPDF();
-    $m->WriteHTML($html);
-    $m->Output();
+        $m = new mPDF();
+        $m->WriteHTML($html);
+        $m->Output();
+    }
+
+}else{
+    header("Location:".BASE_URL);
+    exit;
 }
 }
 
@@ -723,8 +1206,33 @@ public function relatorio_contas_receber() {
     $data['usuario_nome'] = $u->getNome();
     $data['usuario_foto'] = $u->getFoto();
     $data['notificacao'] = $n->verificarNotificacao($u->getId());
+    $data['balanço'] = $u->hasPermission('balanço');
+    $data['backup'] = $u->hasPermission('backup');
+    $data['cliente'] = $u->hasPermission('cliente');
+    $data['fornecedor'] = $u->hasPermission('fornecedor');
+    $data['função de funcionário'] = $u->hasPermission('função de funcionário');
+    $data['funcionário'] = $u->hasPermission('funcionário');
+    $data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
+    $data['grupo de produto'] = $u->hasPermission('grupo de produto');
+    $data['lote de produto'] = $u->hasPermission('lote de produto');
+    $data['produto'] = $u->hasPermission('produto');
+    $data['usuário'] = $u->hasPermission('usuário');
+    $data['contas a pagar'] = $u->hasPermission('contas a pagar');
+    $data['contas a receber'] = $u->hasPermission('contas a receber');
+    $data['estoque'] = $u->hasPermission('estoque');
+    $data['compra'] = $u->hasPermission('compra');
+    $data['venda'] = $u->hasPermission('venda');
+    $data['perda'] = $u->hasPermission('perda');
+    $data['relatório'] = $u->hasPermission('relatório');
 
-    $this->loadTemplate('relatorio/relatorio_contas_receber', $data);
+    if($u->hasPermission('relatório')){
+
+        $this->loadTemplate('relatorio/relatorio_contas_receber', $data);
+
+    }else{
+        header("Location:".BASE_URL);
+        exit;
+    }
 }
 
 public function relatorio_contas_receber_pdf() {
@@ -732,40 +1240,47 @@ public function relatorio_contas_receber_pdf() {
     $u = new Usuario();
     $u->setLoggedUser();
 
-    $c = new ContaReceber();
+    if($u->hasPermission('relatório')){
 
-    $data['tipo_pag'] = array(
-        '0' => 'Á Vista',
-        '1' => 'A Prazo'
-    );
+        $c = new ContaReceber();
 
-    $data['status'] = array(
-        '0' => 'Pendente',
-        '1' => 'Pago'
-    );
+        $data['tipo_pag'] = array(
+            '0' => 'Á Vista',
+            '1' => 'A Prazo'
+        );
 
-    $nome = addslashes($_GET['nome']);
-    $periodo1 = addslashes($_GET['periodo1']);
-    $periodo2 = addslashes($_GET['periodo2']);
+        $data['status'] = array(
+            '0' => 'Pendente',
+            '1' => 'Pago'
+        );
 
-    if($c->getRelatorio($nome,$periodo1,$periodo2) == null){
-       echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
-   }else{
+        $nome = addslashes($_GET['nome']);
+        $periodo1 = addslashes($_GET['periodo1']);
+        $periodo2 = addslashes($_GET['periodo2']);
 
-    $data['conta_list'] = $c->getRelatorio($nome,$periodo1, $periodo2);
-    $data['filtros'] = $_GET;
+        if($c->getRelatorio($nome,$periodo1,$periodo2) == null){
+           echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
+       }else{
 
-    $this->loadLibrary('mpdf60/mpdf');
+        $data['conta_list'] = $c->getRelatorio($nome,$periodo1, $periodo2);
+        $data['filtros'] = $_GET;
 
-    ob_start();
-    $this->loadView('relatorio/relatorio_contas_receber_pdf', $data);
-    $html = ob_get_contents();
+        $this->loadLibrary('mpdf60/mpdf');
+
+        ob_start();
+        $this->loadView('relatorio/relatorio_contas_receber_pdf', $data);
+        $html = ob_get_contents();
         //$html = utf8_encode($html);
-    ob_clean();
+        ob_clean();
 
-    $m = new mPDF();
-    $m->WriteHTML($html);
-    $m->Output();
+        $m = new mPDF();
+        $m->WriteHTML($html);
+        $m->Output();
+    }
+
+}else{
+    header("Location:".BASE_URL);
+    exit;
 }
 
 }
@@ -778,8 +1293,33 @@ public function relatorio_venda() {
     $data['usuario_nome'] = $u->getNome();
     $data['usuario_foto'] = $u->getFoto();
     $data['notificacao'] = $n->verificarNotificacao($u->getId());
+    $data['balanço'] = $u->hasPermission('balanço');
+    $data['backup'] = $u->hasPermission('backup');
+    $data['cliente'] = $u->hasPermission('cliente');
+    $data['fornecedor'] = $u->hasPermission('fornecedor');
+    $data['função de funcionário'] = $u->hasPermission('função de funcionário');
+    $data['funcionário'] = $u->hasPermission('funcionário');
+    $data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
+    $data['grupo de produto'] = $u->hasPermission('grupo de produto');
+    $data['lote de produto'] = $u->hasPermission('lote de produto');
+    $data['produto'] = $u->hasPermission('produto');
+    $data['usuário'] = $u->hasPermission('usuário');
+    $data['contas a pagar'] = $u->hasPermission('contas a pagar');
+    $data['contas a receber'] = $u->hasPermission('contas a receber');
+    $data['estoque'] = $u->hasPermission('estoque');
+    $data['compra'] = $u->hasPermission('compra');
+    $data['venda'] = $u->hasPermission('venda');
+    $data['perda'] = $u->hasPermission('perda');
+    $data['relatório'] = $u->hasPermission('relatório');
 
-    $this->loadTemplate('relatorio/relatorio_venda', $data);
+    if($u->hasPermission('relatório')){
+
+        $this->loadTemplate('relatorio/relatorio_venda', $data);
+
+    }else{
+        header("Location:".BASE_URL);
+        exit;
+    }
 }
 
 public function relatorio_venda_pdf() {
@@ -787,35 +1327,42 @@ public function relatorio_venda_pdf() {
     $u = new Usuario();
     $u->setLoggedUser();
 
-    $v = new Venda();
+    if($u->hasPermissio('relatório')){
 
-    $data['tipo'] = array(
-        '0' => 'Á Vista',
-        '1' => 'A Prazo');
+        $v = new Venda();
 
-    $nome = addslashes($_GET['nome']);
-    $periodo1 = addslashes($_GET['periodo1']);
-    $periodo2 = addslashes($_GET['periodo2']);
+        $data['tipo'] = array(
+            '0' => 'Á Vista',
+            '1' => 'A Prazo');
 
-    if($v->getRelatorio($nome,$periodo1,$periodo2) == null){
-       echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
-   }else{
+        $nome = addslashes($_GET['nome']);
+        $periodo1 = addslashes($_GET['periodo1']);
+        $periodo2 = addslashes($_GET['periodo2']);
 
-    $data['venda_list'] = $v->getRelatorio($nome,$periodo1, $periodo2);
-    $data['filtros'] = $_GET;
+        if($v->getRelatorio($nome,$periodo1,$periodo2) == null){
+           echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
+       }else{
 
-    $this->loadLibrary('mpdf60/mpdf');
+        $data['venda_list'] = $v->getRelatorio($nome,$periodo1, $periodo2);
+        $data['filtros'] = $_GET;
 
-    ob_start();
-    $this->loadView('relatorio/relatorio_venda_pdf', $data);
-    $html = ob_get_contents();
+        $this->loadLibrary('mpdf60/mpdf');
+
+        ob_start();
+        $this->loadView('relatorio/relatorio_venda_pdf', $data);
+        $html = ob_get_contents();
         //$html = utf8_encode($html);
-    ob_clean();
+        ob_clean();
 
-    $m = new mPDF();
-    $m->WriteHTML($html);
-    $m->Output();
+        $m = new mPDF();
+        $m->WriteHTML($html);
+        $m->Output();
 
+    }
+
+}else{
+    header("Location:".BASE_URL);
+    exit;
 }
 }
 
@@ -827,8 +1374,33 @@ public function relatorio_perda() {
     $data['usuario_nome'] = $u->getNome();
     $data['usuario_foto'] = $u->getFoto();
     $data['notificacao'] = $n->verificarNotificacao($u->getId());
+    $data['balanço'] = $u->hasPermission('balanço');
+    $data['backup'] = $u->hasPermission('backup');
+    $data['cliente'] = $u->hasPermission('cliente');
+    $data['fornecedor'] = $u->hasPermission('fornecedor');
+    $data['função de funcionário'] = $u->hasPermission('função de funcionário');
+    $data['funcionário'] = $u->hasPermission('funcionário');
+    $data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
+    $data['grupo de produto'] = $u->hasPermission('grupo de produto');
+    $data['lote de produto'] = $u->hasPermission('lote de produto');
+    $data['produto'] = $u->hasPermission('produto');
+    $data['usuário'] = $u->hasPermission('usuário');
+    $data['contas a pagar'] = $u->hasPermission('contas a pagar');
+    $data['contas a receber'] = $u->hasPermission('contas a receber');
+    $data['estoque'] = $u->hasPermission('estoque');
+    $data['compra'] = $u->hasPermission('compra');
+    $data['venda'] = $u->hasPermission('venda');
+    $data['perda'] = $u->hasPermission('perda');
+    $data['relatório'] = $u->hasPermission('relatório');
 
-    $this->loadTemplate('relatorio/relatorio_perda', $data);
+    if($u->hasPermission('relatório')){
+
+        $this->loadTemplate('relatorio/relatorio_perda', $data);
+
+    }else{
+        header("Location:".BASE_URL);
+        exit;
+    }
 }
 
 public function relatorio_perda_pdf() {
@@ -836,30 +1408,37 @@ public function relatorio_perda_pdf() {
     $u = new Usuario();
     $u->setLoggedUser();
 
-    $p = new Perda();
+    if($u->hasPermission('relatório')){
 
-    $nome = addslashes($_GET['nome']);
-    $periodo1 = addslashes($_GET['periodo1']);
-    $periodo2 = addslashes($_GET['periodo2']);
+        $p = new Perda();
 
-    if($p->getRelatorio($nome,$periodo1,$periodo2) == null){
-       echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
-   }else{
+        $nome = addslashes($_GET['nome']);
+        $periodo1 = addslashes($_GET['periodo1']);
+        $periodo2 = addslashes($_GET['periodo2']);
 
-    $data['perda_list'] = $p->getRelatorio($nome,$periodo1, $periodo2);
-    $data['filtros'] = $_GET;
+        if($p->getRelatorio($nome,$periodo1,$periodo2) == null){
+           echo '<span style="color:red">Não foi encontrado nenhum registrado.</span>';
+       }else{
 
-    $this->loadLibrary('mpdf60/mpdf');
+        $data['perda_list'] = $p->getRelatorio($nome,$periodo1, $periodo2);
+        $data['filtros'] = $_GET;
 
-    ob_start();
-    $this->loadView('relatorio/relatorio_perda_pdf', $data);
-    $html = ob_get_contents();
+        $this->loadLibrary('mpdf60/mpdf');
+
+        ob_start();
+        $this->loadView('relatorio/relatorio_perda_pdf', $data);
+        $html = ob_get_contents();
         //$html = utf8_encode($html);
-    ob_clean();
+        ob_clean();
 
-    $m = new mPDF();
-    $m->WriteHTML($html);
-    $m->Output();
+        $m = new mPDF();
+        $m->WriteHTML($html);
+        $m->Output();
+    }
+
+}else{
+    header("Location:".BASE_URL);
+    exit;
 }
 }
 

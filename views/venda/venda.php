@@ -63,15 +63,17 @@ if (isset($filtros['searchs']) && !empty($filtros['searchs'])) {
                     <td>
                         <a class="btn btn-primary"
                         href="<?php echo BASE_URL; ?>venda/venda_vizualizar/<?php echo $v['id']; ?>">
-                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-                        <a class="btn btn-danger"
-                        onclick="return confirm('Deseja Mesmo Cancelar A Venda ?');"
-                        href="<?php echo BASE_URL; ?>venda/venda_cancelar/<?php echo $v['id']; ?>"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-                    </td>
-                </tr>
-            </tbody>
-        <?php endforeach; ?>
-    </table>
+                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                    </a>
+                    <a class="btn btn-danger"
+                    onclick="return confirm('Deseja Mesmo Cancelar A Venda ?');"
+                    href="<?php echo BASE_URL; ?>venda/venda_cancelar/<?php echo $v['id']; ?>"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                </a>
+            </td>
+        </tr>
+    </tbody>
+<?php endforeach; ?>
+</table>
 </div>
 
 <ul class="pagination">
@@ -99,4 +101,4 @@ if (isset($filtros['searchs']) && !empty($filtros['searchs'])) {
         <?php if($paginas > 1): ?>
             <li><a href="<?php echo BASE_URL; ?>venda?p=<?php echo $paginas; ?>">Ultima Pagina</a></li>
         <?php endif; ?>
-</ul>
+    </ul>

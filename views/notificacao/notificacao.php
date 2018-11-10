@@ -2,7 +2,7 @@
 
 <br/><br/>
 
-<a class="btn btn-success" href="<?php echo BASE_URL; ?>notificacao/notificacao_add">Adicionar Notificação</a>
+<a class="btn btn-success" href="<?php echo BASE_URL; ?>notificacao/notificacao_add"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Adicionar Notificação</a>
 
 <br/><br/>
 

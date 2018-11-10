@@ -80,27 +80,27 @@ if (isset($filtros['searchs']) && !empty($filtros['searchs'])) {
 <div style="clear:both;"></div>
 
 <ul class="pagination">
-<ul class="pagination">
- <?php if ($paginaAtual != 1): ?>
-    <li><a href="<?php echo BASE_URL; ?>funcionario?p=1">Primeira Pagina</a></li>
-<?php endif; ?>
-<?php if ($paginaAtual != 1): ?>
-    <li><a href="<?php echo BASE_URL; ?>funcionario?p=<?php echo $paginaAtual - 1?>"><span  class="glyphicon glyphicon-backward" aria-hidden="true" style="height: 20px;"></span></a></li>
-<?php endif;?>
-<?php for ($q = 1; $q <= $paginas; $q++): ?>
-    <?php if ($paginaAtual == $q): ?>
-        <li class="active"><a href="<?php echo BASE_URL; ?>funcionario?p=<?php echo $q; ?>"><?php echo $q; ?></a></li>
-        <?php else: ?>
-            <li><a href="<?php echo BASE_URL; ?>funcionario?p=<?php echo $q; ?>"><?php echo $q; ?></a></li>
+    <ul class="pagination">
+     <?php if ($paginaAtual != 1): ?>
+        <li><a href="<?php echo BASE_URL; ?>funcionario?p=1">Primeira Pagina</a></li>
+    <?php endif; ?>
+    <?php if ($paginaAtual != 1): ?>
+        <li><a href="<?php echo BASE_URL; ?>funcionario?p=<?php echo $paginaAtual - 1?>"><span  class="glyphicon glyphicon-backward" aria-hidden="true" style="height: 20px;"></span></a></li>
+    <?php endif;?>
+    <?php for ($q = 1; $q <= $paginas; $q++): ?>
+        <?php if ($paginaAtual == $q): ?>
+            <li class="active"><a href="<?php echo BASE_URL; ?>funcionario?p=<?php echo $q; ?>"><?php echo $q; ?></a></li>
+            <?php else: ?>
+                <li><a href="<?php echo BASE_URL; ?>funcionario?p=<?php echo $q; ?>"><?php echo $q; ?></a></li>
+            <?php endif; ?>
+        <?php endfor; ?>
+        <?php for ($q = $paginaAtual + $max; $q <= $paginaAtual + 1; $q++): ?>
+            <li class="active"><a href="<?php echo BASE_URL; ?>funcionario?p=<?php echo $q; ?>"><?php echo $q; ?></a></li>
+        <?php endfor; ?>
+        <?php if($paginaAtual < $paginas): ?>
+            <li><a href="<?php echo BASE_URL; ?>funcionario?p=<?php echo $paginaAtual + 1?>"><span style="height: 20px;" class="glyphicon glyphicon-forward" aria-hidden="true"></span></a></li>
         <?php endif; ?>
-    <?php endfor; ?>
-    <?php for ($q = $paginaAtual + $max; $q <= $paginaAtual + 1; $q++): ?>
-        <li class="active"><a href="<?php echo BASE_URL; ?>funcionario?p=<?php echo $q; ?>"><?php echo $q; ?></a></li>
-    <?php endfor; ?>
-    <?php if($paginaAtual < $paginas): ?>
-        <li><a href="<?php echo BASE_URL; ?>funcionario?p=<?php echo $paginaAtual + 1?>"><span style="height: 20px;" class="glyphicon glyphicon-forward" aria-hidden="true"></span></a></li>
-    <?php endif; ?>
-    <?php if($paginas > 1): ?>
-        <li><a href="<?php echo BASE_URL; ?>funcionario?p=<?php echo $paginas; ?>">Ultima Pagina</a></li>
-    <?php endif; ?>
-</ul>
+        <?php if($paginas > 1): ?>
+            <li><a href="<?php echo BASE_URL; ?>funcionario?p=<?php echo $paginas; ?>">Ultima Pagina</a></li>
+        <?php endif; ?>
+    </ul>

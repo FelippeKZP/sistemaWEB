@@ -288,7 +288,6 @@ class Usuario extends model {
             $sql->execute();
 
             if ($sql->rowCount() > 0) {
-
                 $this->userInfo = $sql->fetch();
                 $this->permissions = new GrupoPermissao();
                 $this->permissions->setGroup($this->userInfo['id_grupo_permissao']);
@@ -320,8 +319,9 @@ class Usuario extends model {
         }
     }
 
-    public function hasPermission($name) {
-        $this->permissions->hasPermission($name);
+
+    public function hasPermission($nome) {
+        return $this->permissions->hasPermission($nome);
     }
 
     public function getCombo($id) {
@@ -372,6 +372,7 @@ class Usuario extends model {
             $mail->Port       = 465;
             $mail->Username   = 'felippe.s@edu.unipar.br'; 
             $mail->Password   = 'CAMARO123';
+            $mail->CharSet = 'UTF-8';
 
 
             $mail->setFrom('felipekzp0@gmail.com','Felippe');
@@ -379,8 +380,8 @@ class Usuario extends model {
             $mail->AddAddress($email);
 
             $mail->isHTML(true);
-            $link = "http://localhost/fuzafarma/redefinir.php?token=" . $token;
-            $mail->Subject = 'Redefinição De Senha';
+            $link = "http://localhost/farmacia/login/redefinir?token=" . $token;
+            $mail->Subject = 'Redefinição De Senha Do Dia '.date('d/m/Y');
             $mail->Body    = 'Click no link para redefinir sua senha:'. $link;
             
 

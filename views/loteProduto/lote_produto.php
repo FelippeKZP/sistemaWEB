@@ -37,8 +37,6 @@ if (isset($filtros['searchs']) && !empty($filtros['searchs'])) {
 </div>
 <?php endif; ?>
 
-
-
 <div class="table-responsive">
     <table id="tabela" class="table table-hover">
         <thead>
@@ -48,6 +46,7 @@ if (isset($filtros['searchs']) && !empty($filtros['searchs'])) {
                 <th>Fornecedor</th>
                 <th>Quantidade</th>
                 <th>Data de Vencimento</th>
+                <th>Status</th>
                 <th>Ação</th>
             </tr>
         </thead>
@@ -75,15 +74,16 @@ if (isset($filtros['searchs']) && !empty($filtros['searchs'])) {
                     </a>
                     <a class="btn btn-default"
                     href="<?php echo BASE_URL; ?>loteProduto/lote_produto_perda/<?php echo $l['id']; ?>">
-                    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
-                    <a class="btn btn-danger"
-                    onclick="return confirm('Deseja Excluir ?');"
-                    href="<?php echo BASE_URL; ?>loteProduto/lote_produto_deletar/<?php echo $l['id']; ?>">
-                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
                 </a>
-            </td>
-        </tr>
-    </tbody>
+                <a class="btn btn-danger"
+                onclick="return confirm('Deseja Excluir ?');"
+                href="<?php echo BASE_URL; ?>loteProduto/lote_produto_deletar/<?php echo $l['id']; ?>">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            </a>
+        </td>
+    </tr>
+</tbody>
 <?php endforeach; ?>
 </table>
 </div>

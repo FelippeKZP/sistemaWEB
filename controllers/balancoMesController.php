@@ -19,15 +19,43 @@ class balancoMesController extends controller{
         $data['usuario_nome'] = $u->getNome();
         $data['usuario_foto'] = $u->getFoto();
         $data['notificacao'] = $n->verificarNotificacao($u->getId());
-        
-        $b = new BalancoMes();
-        
-        $data['atual_list'] = $b->getAtualList(date('Y-m-01'), date('Y-m-t'));
-        $data['anterior_list'] = $b->getAnteriorList(date('Y-m-01', strtotime('-1 month')), date('Y-m-t', strtotime('-1 month')));
+        $data['usuario_nome'] = $u->getNome();
+        $data['usuario_foto'] = $u->getFoto();
+        $data['notificacao'] = $n->verificarNotificacao($u->getId());
+        $data['balanço'] = $u->hasPermission('balanço');
+        $data['backup'] = $u->hasPermission('backup');
+        $data['cliente'] = $u->hasPermission('cliente');
+        $data['fornecedor'] = $u->hasPermission('fornecedor');
+        $data['função de funcionário'] = $u->hasPermission('função de funcionário');
+        $data['funcionário'] = $u->hasPermission('funcionário');
+        $data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
+        $data['grupo de produto'] = $u->hasPermission('grupo de produto');
+        $data['lote de produto'] = $u->hasPermission('lote de produto');
+        $data['produto'] = $u->hasPermission('produto');
+        $data['usuário'] = $u->hasPermission('usuário');
+        $data['contas a pagar'] = $u->hasPermission('contas a pagar');
+        $data['contas a receber'] = $u->hasPermission('contas a receber');
+        $data['estoque'] = $u->hasPermission('estoque');
+        $data['compra'] = $u->hasPermission('compra');
+        $data['venda'] = $u->hasPermission('venda');
+        $data['perda'] = $u->hasPermission('perda');
+        $data['relatório'] = $u->hasPermission('relatório');
 
-        
-        $this->loadTemplate('balancoMes/balanco_mes', $data);
+        if($u->hasPermission('balanço')){
+
+           $b = new BalancoMes();
+
+           $data['atual_list'] = $b->getAtualList(date('Y-m-01'), date('Y-m-t'));
+           $data['anterior_list'] = $b->getAnteriorList(date('Y-m-01', strtotime('-1 month')), date('Y-m-t', strtotime('-1 month')));
+
+
+           $this->loadTemplate('balancoMes/balanco_mes', $data);
+
+       }else{
+        header("Location:".BASE_URL);
+        exit;
     }
+}
 }
 
 ?>

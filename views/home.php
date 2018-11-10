@@ -8,6 +8,8 @@
 
 <div style="clear: both"></div>
 
+<?php if($dashboard): ?>
+
 <h3 style="margin-left: 10px;">Dados Gerais Nos Últimos 30 Dias</h3>
 
 <div class="col-sm-3" style="margin-top: 10px;">
@@ -80,6 +82,12 @@
         </div>
     </div>
 </div>
+
+<?php else:?>
+
+<img src="<?php echo BASE_URL; ?>assets/imagens/fuzafarma.jpg"  class="img-responsive img-rounded" >
+
+<?php endif; ?>
 
 <script type="text/javascript">
     var  lista_dia = <?php echo json_encode($lista_dia); ?>;

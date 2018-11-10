@@ -49,7 +49,7 @@ class Suporte extends model{
 
 		$mail->setFrom('felippe.s@edu.unipar.br','Felippe');
             //$mail->FromName('Felippe');
-		$mail->AddAddress('felipekzp0@gmail.com');
+		$mail->AddAddress('felippe.s@edu.unipar.br');
 		$mail->AddAddress($email);
 
 		$mail->isHTML(true);
