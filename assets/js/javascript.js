@@ -10,4 +10,4 @@ $(function () {
 });
 
 
-setTimeout("document.location = BASE_URL + 'cliente' ",1000 * 60 * 60 * 24);
+setTimeout("document.location = BASE_URL + 'cliente' ", 1000 * 60 * 60 * 24);

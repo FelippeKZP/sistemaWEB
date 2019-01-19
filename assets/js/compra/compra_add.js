@@ -4,21 +4,21 @@ $(document).ready(function () {
             fornecedor_razao: {
                 required: true
             },
-            numero_nota:{
-                required:true
+            numero_nota: {
+                required: true
             },
-            data_vencimento:{
-                required:true
+            data_vencimento: {
+                required: true
             }
         },
         messages: {
             fornecedor_razao: {
                 required: "A Escolha do Fornecedor é Obrigatório."
             },
-            numero_nota:{
+            numero_nota: {
                 required: "Este campo é Obrigatório."
             },
-            data_vencimento:{
+            data_vencimento: {
                 required: "Este campo é Obrigatório."
             }
         }
@@ -93,11 +93,11 @@ function atualizarSubTotal(obj) {
     atualizarTotal();
 
 }
+
 function delProd(obj) {
     $(obj).closest('tr').remove();
     atualizarTotal();
 }
-
 
 
 function selecionarFornecedor(obj) {
@@ -110,6 +110,7 @@ function selecionarFornecedor(obj) {
 
 function addProdCompra(obj) {
     $('#add_prod_compra').val('');
+    var url = $(obj).attr('data-url');
     var id = $(obj).attr('data-id');
     var preco = $(obj).attr('data-precoCompra');
     var numero = $(obj).attr('data-lote');
@@ -117,8 +118,17 @@ function addProdCompra(obj) {
     var nome = $(obj).html();
     $('.searchcompra').hide();
 
+    var caminho = '';
+
+    if (url.value == '') {
+        caminho = BASE_URL + 'assets/imagens/padrao.jpg';
+    } else {
+        caminho = BASE_URL + 'assets/imagens/produtos/' + url;
+    }
+
     if ($('input [name="quant[' + id + ']"]').length == 0) {
         var tr = '<tr id="itens_compra">\n\
+        <td><img src="'+caminho+'" height="50"></td>\n\
         <td>' + numero + '</td>\n\
         <td>' + nome + '</td>\n\
         <td>\n\
@@ -164,29 +174,29 @@ $('#fornecedor_razao').on('keyup', function () {
     }
 });
 $('#add_prod_compra').on('keyup', function () {
-    var datatype = $(this).attr('data-type');
-    var p = $(this).val();
-    if (datatype != '') {
-        $.ajax({
-            url: BASE_URL + 'ajax/' + datatype,
-            type: 'GET',
-            data: {p: p},
-            dataType: 'json',
-            success: function (json) {
-                if ($('.searchcompra').length == 0) {
-                    $('#add_prod_compra').after('<div class="searchcompra"><div>');
-                }
-                $('.searchcompra').css('left', $('#add_prod_compra').offset().left + 'px');
-                $('.searchcompra').css('top', $('#add_prod_compra').offset().top + $('#add_prod_compra').height() + 3 + 'px');
-                var html = '';
-                for (var i in json) {
-                    html += '<div class="si"><a id="auto" href="javascript:;" onclick="addProdCompra(this)" data-id="' + json[i].id + '" data-precoCompra="' + json[i].preco_compra + '" data-quant="' + json[i].quant + '" data-lote="' + json[i].numero + '">' + json[i].produto + ' ' + 'Lote: ' + json[i].numero + '</a></div>';
-                }
+        var datatype = $(this).attr('data-type');
+        var p = $(this).val();
+        if (datatype != '') {
+            $.ajax({
+                url: BASE_URL + 'ajax/' + datatype,
+                type: 'GET',
+                data: {p: p},
+                dataType: 'json',
+                success: function (json) {
+                    if ($('.searchcompra').length == 0) {
+                        $('#add_prod_compra').after('<div class="searchcompra"><div>');
+                    }
+                    $('.searchcompra').css('left', $('#add_prod_compra').offset().left + 'px');
+                    $('.searchcompra').css('top', $('#add_prod_compra').offset().top + $('#add_prod_compra').height() + 3 + 'px');
+                    var html = '';
+                    for (var i in json) {
+                        html += '<div class="si"><a id="auto" href="javascript:;" onclick="addProdCompra(this)" data-url="'+json[i].url+'" data-id="' + json[i].id + '" data-precoCompra="' + json[i].preco_compra + '" data-quant="' + json[i].quant + '" data-lote="' + json[i].numero + '">' + json[i].produto + ' ' + 'Lote: ' + json[i].numero + '</a></div>';
+                    }
 
-                $('.searchcompra').html(html);
-                $('.searchcompra').show();
-            }
-        });
+                    $('.searchcompra').html(html);
+                    $('.searchcompra').show();
+                }
+            });
+        }
     }
-}
 );

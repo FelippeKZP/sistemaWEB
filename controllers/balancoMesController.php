@@ -1,17 +1,20 @@
 <?php
 
-class balancoMesController extends controller{
+class balancoMesController extends controller
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $u = new Usuario();
-        if($u->isLogged() == false){
-            header("Location:".BASE_URL.'login');
+        if ($u->isLogged() == false) {
+            header("Location:" . BASE_URL . 'login');
             exit;
         }
     }
-    
-    public function index(){
+
+    public function index()
+    {
         $data = array();
         $u = new Usuario();
         $n = new Notificacao();
@@ -41,21 +44,21 @@ class balancoMesController extends controller{
         $data['perda'] = $u->hasPermission('perda');
         $data['relatório'] = $u->hasPermission('relatório');
 
-        if($u->hasPermission('balanço')){
+        if ($u->hasPermission('balanço')) {
 
-           $b = new BalancoMes();
+            $b = new BalancoMes();
 
-           $data['atual_list'] = $b->getAtualList(date('Y-m-01'), date('Y-m-t'));
-           $data['anterior_list'] = $b->getAnteriorList(date('Y-m-01', strtotime('-1 month')), date('Y-m-t', strtotime('-1 month')));
+            $data['atual_list'] = $b->getAtualList(date('Y-m-01'), date('Y-m-t'));
+            $data['anterior_list'] = $b->getAnteriorList(date('Y-m-01', strtotime('-1 month')), date('Y-m-t', strtotime('-1 month')));
 
 
-           $this->loadTemplate('balancoMes/balanco_mes', $data);
+            $this->loadTemplate('balancoMes/balanco_mes', $data);
 
-       }else{
-        header("Location:".BASE_URL);
-        exit;
+        } else {
+            header("Location:" . BASE_URL);
+            exit;
+        }
     }
-}
 }
 
 ?>

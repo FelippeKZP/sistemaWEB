@@ -1,218 +1,223 @@
 <?php
 
-class perdaController extends controller{
-	
-	public function __construct(){
-		parent ::__construct();
-		$u = new Usuario();
-		if($u->isLogged() == false){
-			header("Location:".BASE_URL.'login');
-			exit;
-		}
-	}
+class perdaController extends controller
+{
 
-	public function index(){
-		$data = array();
-		$u = new Usuario();
-		$n = new Notificacao();
-		$u->setLoggedUser();
-		$data['usuario_foto'] = $u->getFoto();
-		$data['usuario_nome'] = $u->getNome();
-		$data['notificacao'] = $n->verificarNotificacao($u->getId());
-		$data['balanço'] = $u->hasPermission('balanço');
-		$data['backup'] = $u->hasPermission('backup');
-		$data['cliente'] = $u->hasPermission('cliente');
-		$data['fornecedor'] = $u->hasPermission('fornecedor');
-		$data['função de funcionário'] = $u->hasPermission('função de funcionário');
-		$data['funcionário'] = $u->hasPermission('funcionário');
-		$data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
-		$data['grupo de produto'] = $u->hasPermission('grupo de produto');
-		$data['lote de produto'] = $u->hasPermission('lote de produto');
-		$data['produto'] = $u->hasPermission('produto');
-		$data['usuário'] = $u->hasPermission('usuário');
-		$data['contas a pagar'] = $u->hasPermission('contas a pagar');
-		$data['contas a receber'] = $u->hasPermission('contas a receber');
-		$data['estoque'] = $u->hasPermission('estoque');
-		$data['compra'] = $u->hasPermission('compra');
-		$data['venda'] = $u->hasPermission('venda');
-		$data['perda'] = $u->hasPermission('perda');
-		$data['relatório'] = $u->hasPermission('relatório');
+    public function __construct()
+    {
+        parent::__construct();
+        $u = new Usuario();
+        if ($u->isLogged() == false) {
+            header("Location:" . BASE_URL . 'login');
+            exit;
+        }
+    }
 
-		if($u->hasPermission('perda')){
+    public function index()
+    {
+        $data = array();
+        $u = new Usuario();
+        $n = new Notificacao();
+        $u->setLoggedUser();
+        $data['usuario_foto'] = $u->getFoto();
+        $data['usuario_nome'] = $u->getNome();
+        $data['notificacao'] = $n->verificarNotificacao($u->getId());
+        $data['balanço'] = $u->hasPermission('balanço');
+        $data['backup'] = $u->hasPermission('backup');
+        $data['cliente'] = $u->hasPermission('cliente');
+        $data['fornecedor'] = $u->hasPermission('fornecedor');
+        $data['função de funcionário'] = $u->hasPermission('função de funcionário');
+        $data['funcionário'] = $u->hasPermission('funcionário');
+        $data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
+        $data['grupo de produto'] = $u->hasPermission('grupo de produto');
+        $data['lote de produto'] = $u->hasPermission('lote de produto');
+        $data['produto'] = $u->hasPermission('produto');
+        $data['usuário'] = $u->hasPermission('usuário');
+        $data['contas a pagar'] = $u->hasPermission('contas a pagar');
+        $data['contas a receber'] = $u->hasPermission('contas a receber');
+        $data['estoque'] = $u->hasPermission('estoque');
+        $data['compra'] = $u->hasPermission('compra');
+        $data['venda'] = $u->hasPermission('venda');
+        $data['perda'] = $u->hasPermission('perda');
+        $data['relatório'] = $u->hasPermission('relatório');
 
-			$p = new Perda();
+        if ($u->hasPermission('perda')) {
 
-			$s = '';
+            $p = new Perda();
 
-			$data['filtros'] = $_GET;
+            $s = '';
 
-			$limit = 10;
+            $data['filtros'] = $_GET;
 
-			$data['limit'] = 10;
+            $limit = 10;
 
-			$total =  $p->getTotal($s);
+            $data['limit'] = 10;
 
-			$data['paginas'] =ceil($total / $limit);
+            $total = $p->getTotal($s);
 
-			$data['paginaAtual'] = 1;
-			if(!empty($_GET['p'])){
-				$data['paginaAtual'] = intval($_GET['p']);
-			}
+            $data['paginas'] = ceil($total / $limit);
 
-			$offset = ($data['paginaAtual'] * $limit) - $limit;
+            $data['paginaAtual'] = 1;
+            if (!empty($_GET['p'])) {
+                $data['paginaAtual'] = intval($_GET['p']);
+            }
 
-			if(!empty($_GET['searchs'])){
-				$s = addslashes($_GET['searchs']);
-			}
+            $offset = ($data['paginaAtual'] * $limit) - $limit;
 
-			$data['perda_list'] = $p->getList($s, $offset,$limit);
+            if (!empty($_GET['searchs'])) {
+                $s = addslashes($_GET['searchs']);
+            }
 
-			$this->loadTemplate('perda/perda',$data);
+            $data['perda_list'] = $p->getList($s, $offset, $limit);
 
-		}else{
-			header("Location:".BASE_URL);
-			exit;
-		}
-	}
+            $this->loadTemplate('perda/perda', $data);
 
-	public function perda_vizualizar($id){
-		$data = array();
-		$u = new Usuario();
-		$n = new Notificacao();
-		$u->setLoggedUser();
-		$data['usuario_nome'] = $u->getNome();
-		$data['usuario_foto'] = $u->getFoto();
-		$data['notificacao'] = $n->verificarNotificacao($u->getId());
-		$data['usuario_nome'] = $u->getNome();
-		$data['usuario_foto'] = $u->getFoto();
-		$data['notificacao'] = $n->verificarNotificacao($u->getId());
-		$data['balanço'] = $u->hasPermission('balanço');
-		$data['backup'] = $u->hasPermission('backup');
-		$data['cliente'] = $u->hasPermission('cliente');
-		$data['fornecedor'] = $u->hasPermission('fornecedor');
-		$data['função de funcionário'] = $u->hasPermission('função de funcionário');
-		$data['funcionário'] = $u->hasPermission('funcionário');
-		$data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
-		$data['grupo de produto'] = $u->hasPermission('grupo de produto');
-		$data['lote de produto'] = $u->hasPermission('lote de produto');
-		$data['produto'] = $u->hasPermission('produto');
-		$data['usuário'] = $u->hasPermission('usuário');
-		$data['contas a pagar'] = $u->hasPermission('contas a pagar');
-		$data['contas a receber'] = $u->hasPermission('contas a receber');
-		$data['estoque'] = $u->hasPermission('estoque');
-		$data['compra'] = $u->hasPermission('compra');
-		$data['venda'] = $u->hasPermission('venda');
-		$data['perda'] = $u->hasPermission('perda');
-		$data['relatório'] = $u->hasPermission('relatório');
+        } else {
+            header("Location:" . BASE_URL);
+            exit;
+        }
+    }
 
-		if($u->hasPermission('perda')){
+    public function perda_vizualizar($id)
+    {
+        $data = array();
+        $u = new Usuario();
+        $n = new Notificacao();
+        $u->setLoggedUser();
+        $data['usuario_nome'] = $u->getNome();
+        $data['usuario_foto'] = $u->getFoto();
+        $data['notificacao'] = $n->verificarNotificacao($u->getId());
+        $data['usuario_nome'] = $u->getNome();
+        $data['usuario_foto'] = $u->getFoto();
+        $data['notificacao'] = $n->verificarNotificacao($u->getId());
+        $data['balanço'] = $u->hasPermission('balanço');
+        $data['backup'] = $u->hasPermission('backup');
+        $data['cliente'] = $u->hasPermission('cliente');
+        $data['fornecedor'] = $u->hasPermission('fornecedor');
+        $data['função de funcionário'] = $u->hasPermission('função de funcionário');
+        $data['funcionário'] = $u->hasPermission('funcionário');
+        $data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
+        $data['grupo de produto'] = $u->hasPermission('grupo de produto');
+        $data['lote de produto'] = $u->hasPermission('lote de produto');
+        $data['produto'] = $u->hasPermission('produto');
+        $data['usuário'] = $u->hasPermission('usuário');
+        $data['contas a pagar'] = $u->hasPermission('contas a pagar');
+        $data['contas a receber'] = $u->hasPermission('contas a receber');
+        $data['estoque'] = $u->hasPermission('estoque');
+        $data['compra'] = $u->hasPermission('compra');
+        $data['venda'] = $u->hasPermission('venda');
+        $data['perda'] = $u->hasPermission('perda');
+        $data['relatório'] = $u->hasPermission('relatório');
 
-			$p = new Perda();
+        if ($u->hasPermission('perda')) {
 
-			if(isset($id) && !empty($id)){
-				if($p->verificarId($id)){
+            $p = new Perda();
 
-				}else{
-					header("Location:".BASE_URL.'perda');
-				}
-			}else{
-				header("Location:".BASE_URL.'perda');
-			}
+            if (isset($id) && !empty($id)) {
+                if ($p->verificarId($id)) {
 
-			$data['perda_vizualizar_list'] = $p->getInfo($id);
+                } else {
+                    header("Location:" . BASE_URL . 'perda');
+                }
+            } else {
+                header("Location:" . BASE_URL . 'perda');
+            }
 
-
-			$this->loadTemplate('perda/perda_vizualizar', $data);
-
-		}else{
-			header("Location:".BASE_URL);
-			exit;
-		}
-	}
-
-	public function perda_deletar($id){
-		$data = array();
-		$u = new Usuario();
-		$n = new Notificacao();
-		$u->setLoggedUser();
-		$data['usuario_nome'] = $u->getNome();
-		$data['usuario_foto'] = $u->getFoto();
-		$data['notificacao'] = $n->verificarNotificacao($u->getId());
-		$data['balanço'] = $u->hasPermission('balanço');
-		$data['backup'] = $u->hasPermission('backup');
-		$data['cliente'] = $u->hasPermission('cliente');
-		$data['fornecedor'] = $u->hasPermission('fornecedor');
-		$data['função de funcionário'] = $u->hasPermission('função de funcionário');
-		$data['funcionário'] = $u->hasPermission('funcionário');
-		$data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
-		$data['grupo de produto'] = $u->hasPermission('grupo de produto');
-		$data['lote de produto'] = $u->hasPermission('lote de produto');
-		$data['produto'] = $u->hasPermission('produto');
-		$data['usuário'] = $u->hasPermission('usuário');
-		$data['contas a pagar'] = $u->hasPermission('contas a pagar');
-		$data['contas a receber'] = $u->hasPermission('contas a receber');
-		$data['estoque'] = $u->hasPermission('estoque');
-		$data['compra'] = $u->hasPermission('compra');
-		$data['venda'] = $u->hasPermission('venda');
-		$data['perda'] = $u->hasPermission('perda');
-		$data['relatório'] = $u->hasPermission('relatório');
-
-		if($u->hasPermission('perda')){
-
-			$p = new Perda();
-
-			if(isset($id) && !empty($id)){
-				if($p->verificarId($id)){
-
-				}else{
-					header("Location:".BASE_URL.'perda');
-				}
-			}else{
-				header("Location:".BASE_URL.'perda');
-			}
-
-			try{
-				$p->perda_deletar($id);
-				$data['msg_sucesso'] = "Sucesso ao excluir a perda";
-			}catch(Exception $e){
-				$data['msg_erro'] = "Esta Função de Funcionário Já Esta Associado.";
-			}
+            $data['perda_vizualizar_list'] = $p->getInfo($id);
 
 
-			$s = '';
+            $this->loadTemplate('perda/perda_vizualizar', $data);
 
-			$data['filtros'] = $_GET;
+        } else {
+            header("Location:" . BASE_URL);
+            exit;
+        }
+    }
 
-			$limit = 10;
+    public function perda_deletar($id)
+    {
+        $data = array();
+        $u = new Usuario();
+        $n = new Notificacao();
+        $u->setLoggedUser();
+        $data['usuario_nome'] = $u->getNome();
+        $data['usuario_foto'] = $u->getFoto();
+        $data['notificacao'] = $n->verificarNotificacao($u->getId());
+        $data['balanço'] = $u->hasPermission('balanço');
+        $data['backup'] = $u->hasPermission('backup');
+        $data['cliente'] = $u->hasPermission('cliente');
+        $data['fornecedor'] = $u->hasPermission('fornecedor');
+        $data['função de funcionário'] = $u->hasPermission('função de funcionário');
+        $data['funcionário'] = $u->hasPermission('funcionário');
+        $data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
+        $data['grupo de produto'] = $u->hasPermission('grupo de produto');
+        $data['lote de produto'] = $u->hasPermission('lote de produto');
+        $data['produto'] = $u->hasPermission('produto');
+        $data['usuário'] = $u->hasPermission('usuário');
+        $data['contas a pagar'] = $u->hasPermission('contas a pagar');
+        $data['contas a receber'] = $u->hasPermission('contas a receber');
+        $data['estoque'] = $u->hasPermission('estoque');
+        $data['compra'] = $u->hasPermission('compra');
+        $data['venda'] = $u->hasPermission('venda');
+        $data['perda'] = $u->hasPermission('perda');
+        $data['relatório'] = $u->hasPermission('relatório');
 
-			$data['limit'] = 10;
+        if ($u->hasPermission('perda')) {
 
-			$total =  $p->getTotal($s);
+            $p = new Perda();
 
-			$data['paginas'] =ceil($total / $limit);
+            if (isset($id) && !empty($id)) {
+                if ($p->verificarId($id)) {
 
-			$data['paginaAtual'] = 1;
-			if(!empty($_GET['p'])){
-				$data['paginaAtual'] = intval($_GET['p']);
-			}
+                } else {
+                    header("Location:" . BASE_URL . 'perda');
+                }
+            } else {
+                header("Location:" . BASE_URL . 'perda');
+            }
 
-			$offset = ($data['paginaAtual'] * $limit) - $limit;
+            try {
+                $p->perda_deletar($id);
+                $data['msg_sucesso'] = "Sucesso ao excluir a perda";
+            } catch (Exception $e) {
+                $data['msg_erro'] = "Esta Função de Funcionário Já Esta Associado.";
+            }
 
 
-			if(!empty($_GET['searchs'])){
-				$s = addslashes($_GET['searchs']);
-			}
+            $s = '';
 
-			$data['perda_list'] = $p->getList($s, $offset,$limit);
+            $data['filtros'] = $_GET;
 
-			$this->loadTemplate('perda/perda',$data);
+            $limit = 10;
 
-		}else{
-			header("Location:".BASE_URL);
-			exit;
-		}
+            $data['limit'] = 10;
 
-	}
+            $total = $p->getTotal($s);
+
+            $data['paginas'] = ceil($total / $limit);
+
+            $data['paginaAtual'] = 1;
+            if (!empty($_GET['p'])) {
+                $data['paginaAtual'] = intval($_GET['p']);
+            }
+
+            $offset = ($data['paginaAtual'] * $limit) - $limit;
+
+
+            if (!empty($_GET['searchs'])) {
+                $s = addslashes($_GET['searchs']);
+            }
+
+            $data['perda_list'] = $p->getList($s, $offset, $limit);
+
+            $this->loadTemplate('perda/perda', $data);
+
+        } else {
+            header("Location:" . BASE_URL);
+            exit;
+        }
+
+    }
 }
 
 ?>

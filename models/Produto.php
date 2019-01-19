@@ -1,8 +1,10 @@
 <?php
 
-class Produto extends model {
+class Produto extends model
+{
 
-    public function getList($s = null,$offset,$limit) {
+    public function getList($s = null, $offset, $limit)
+    {
         $array = array();
 
         if (!empty($s)) {
@@ -23,7 +25,8 @@ class Produto extends model {
         return $array;
     }
 
-    public function getTotal($s) {
+    public function getTotal($s)
+    {
         if (!empty($s)) {
             $sql = $this->db->prepare("SELECT COUNT(*)as c FROM produto WHERE nome LIKE :nome");
             $sql->bindValue(":nome", '%' . $s . '%');
@@ -33,11 +36,12 @@ class Produto extends model {
             $sql->execute();
         }
         $sql = $sql->fetch();
-        
+
         return $sql['c'];
     }
 
-    public function getRelatorio($numero) {
+    public function getRelatorio($numero)
+    {
         $array = array();
 
         if (!empty($numero)) {
@@ -57,7 +61,8 @@ class Produto extends model {
         return $array;
     }
 
-    public function getRelatorioEstoqueBaixo() {
+    public function getRelatorioEstoqueBaixo()
+    {
         $array = array();
 
         $sql = $this->db->prepare("SELECT * FROM produto WHERE quantidade_min > quantidade");
@@ -70,7 +75,8 @@ class Produto extends model {
         return $array;
     }
 
-    public function getRelatorioProdutoMaisVendido($numero, $periodo1, $periodo2) {
+    public function getRelatorioProdutoMaisVendido($numero, $periodo1, $periodo2)
+    {
         $array = array();
 
         if (!empty($numero)) {
@@ -120,14 +126,15 @@ class Produto extends model {
             $sql->execute();
         }
 
-        if($sql->rowCount() > 0){
-            $array =  $sql->fetchAll();
+        if ($sql->rowCount() > 0) {
+            $array = $sql->fetchAll();
         }
 
         return $array;
     }
 
-    public function getInfo($id) {
+    public function getInfo($id)
+    {
         $array = array();
 
         $sql = $this->db->prepare("SELECT * FROM produto WHERE id = :id");
@@ -150,21 +157,23 @@ class Produto extends model {
         return $array;
     }
 
-    public function verificarId($id){
+    public function verificarId($id)
+    {
 
         $sql = $this->db->prepare("SELECT id FROM produto WHERE id = :id");
-        $sql->bindValue(":id",$id);
+        $sql->bindValue(":id", $id);
         $sql->execute();
 
-        if($sql->rowCount() > 0){
+        if ($sql->rowCount() > 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
 
-    public function pesquisarProduto($p) {
+    public function pesquisarProduto($p)
+    {
         $array = array();
 
         $sql = $this->db->prepare("SELECT id,nome,cod_barras,preco,preco_compra,quantidade FROM produto WHERE nome  LIKE :nome");
@@ -178,72 +187,74 @@ class Produto extends model {
         return $array;
     }
 
-    public function produto_add($cod_barras, $nome, $id_grupo_produto, $quantidade_min, $preco, $preco_compra,$lucro_venda,$margem_bruta,$status, $fotos, $id_usuario) {
-            $sql = $this->db->prepare("INSERT INTO produto(cod_barras,nome,id_grupo_produto,quantidade,quantidade_min,preco,preco_compra,lucro_venda,margem_bruta,status)
+    public function produto_add($cod_barras, $nome, $id_grupo_produto, $quantidade_min, $preco, $preco_compra, $lucro_venda, $margem_bruta, $status, $fotos, $id_usuario)
+    {
+        $sql = $this->db->prepare("INSERT INTO produto(cod_barras,nome,id_grupo_produto,quantidade,quantidade_min,preco,preco_compra,lucro_venda,margem_bruta,status)
                 VALUES(:cod_barras,:nome,:id_grupo_produto,0,:quantidade_min,:preco,:preco_compra,:lucro,:margem,:status)");
-            $sql->bindValue(":cod_barras", $cod_barras);
-            $sql->bindValue(":nome", $nome);
-            $sql->bindValue(":id_grupo_produto", $id_grupo_produto);
-            $sql->bindValue(":quantidade_min", $quantidade_min);
-            $sql->bindValue(":preco", $preco);
-            $sql->bindValue(":preco_compra", $preco_compra);
-            $sql->bindValue(":lucro",$lucro_venda);
-            $sql->bindValue(":margem",$margem_bruta);
-            $sql->bindValue(":status", $status);
-            $sql->execute();
+        $sql->bindValue(":cod_barras", $cod_barras);
+        $sql->bindValue(":nome", $nome);
+        $sql->bindValue(":id_grupo_produto", $id_grupo_produto);
+        $sql->bindValue(":quantidade_min", $quantidade_min);
+        $sql->bindValue(":preco", $preco);
+        $sql->bindValue(":preco_compra", $preco_compra);
+        $sql->bindValue(":lucro", $lucro_venda);
+        $sql->bindValue(":margem", $margem_bruta);
+        $sql->bindValue(":status", $status);
+        $sql->execute();
 
-            $id_produto = $this->db->lastInsertId();
+        $id_produto = $this->db->lastInsertId();
 
-            $sql = $this->db->prepare("INSERT INTO historico_estoque(id_produto,id_usuario,acao,data_acao)
+        $sql = $this->db->prepare("INSERT INTO historico_estoque(id_produto,id_usuario,acao,data_acao)
                 VALUES(:id_produto,:id_usuario,:acao,NOW())");
-            $sql->bindValue(":id_produto", $id_produto);
-            $sql->bindValue(":id_usuario", $id_usuario);
-            $sql->bindValue(":acao", "Cadastrar Produto");
-            $sql->execute();
+        $sql->bindValue(":id_produto", $id_produto);
+        $sql->bindValue(":id_usuario", $id_usuario);
+        $sql->bindValue(":acao", "Cadastrar Produto");
+        $sql->execute();
 
-            if (count($fotos) > 0) {
-                for ($q = 0; $q < count($fotos['tmp_name']); $q++) {
-                    $tipo = $fotos['type'][$q];
-                    if (in_array($tipo, array('image/jpeg', 'image/png'))) {
-                        $tmpname = md5(time() . rand(0, 9999)) . '.jpg';
-                        move_uploaded_file($fotos['tmp_name'][$q], 'assets/imagens/produtos/' . $tmpname);
+        if (count($fotos) > 0) {
+            for ($q = 0; $q < count($fotos['tmp_name']); $q++) {
+                $tipo = $fotos['type'][$q];
+                if (in_array($tipo, array('image/jpeg', 'image/png'))) {
+                    $tmpname = md5(time() . rand(0, 9999)) . '.jpg';
+                    move_uploaded_file($fotos['tmp_name'][$q], 'assets/imagens/produtos/' . $tmpname);
 
-                        list($width_orig, $height_orig) = getimagesize('assets/imagens/produtos/' . $tmpname);
+                    list($width_orig, $height_orig) = getimagesize('assets/imagens/produtos/' . $tmpname);
 
-                        $ratio = $width_orig / $height_orig;
+                    $ratio = $width_orig / $height_orig;
 
-                        $width = 500;
-                        $height = 500;
+                    $width = 500;
+                    $height = 500;
 
-                        if ($width / $height > $ratio) {
-                            $width = $height * $ratio;
-                        } else {
-                            $height = $width / $ratio;
-                        }
-
-                        $img = imagecreatetruecolor($width, $height);
-
-                        if ($tipo == 'image/jpeg') {
-                            $origi = imagecreatefromjpeg('assets/imagens/produtos/' . $tmpname);
-                        } elseif ($tipo == 'image/png') {
-                            $origi = imagecreatefrompng('assets/imagens/produtos/' . $tmpname);
-                        }
-
-                        imagecopyresampled($img, $origi, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
-
-                        imagejpeg($img, 'assets/imagens/produtos/' . $tmpname, 80);
-
-                        $sql = $this->db->prepare("INSERT INTO produto_imagem(id_produto,url) VALUES(:id_produto,:url)");
-                        $sql->bindValue(":id_produto", $id_produto);
-                        $sql->bindValue(":url", $tmpname);
-                        $sql->execute();
+                    if ($width / $height > $ratio) {
+                        $width = $height * $ratio;
+                    } else {
+                        $height = $width / $ratio;
                     }
+
+                    $img = imagecreatetruecolor($width, $height);
+
+                    if ($tipo == 'image/jpeg') {
+                        $origi = imagecreatefromjpeg('assets/imagens/produtos/' . $tmpname);
+                    } elseif ($tipo == 'image/png') {
+                        $origi = imagecreatefrompng('assets/imagens/produtos/' . $tmpname);
+                    }
+
+                    imagecopyresampled($img, $origi, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
+
+                    imagejpeg($img, 'assets/imagens/produtos/' . $tmpname, 80);
+
+                    $sql = $this->db->prepare("INSERT INTO produto_imagem(id_produto,url) VALUES(:id_produto,:url)");
+                    $sql->bindValue(":id_produto", $id_produto);
+                    $sql->bindValue(":url", $tmpname);
+                    $sql->execute();
                 }
             }
+        }
 
     }
 
-    public function produto_editar($cod_barras, $nome, $id_grupo_produto, $quantidade_min, $preco, $preco_compra,$lucro_venda,$margem_bruta, $fotos, $id_usuario, $id) {
+    public function produto_editar($cod_barras, $nome, $id_grupo_produto, $quantidade_min, $preco, $preco_compra, $lucro_venda, $margem_bruta, $fotos, $id_usuario, $id)
+    {
         $sql = $this->db->prepare("UPDATE produto SET cod_barras = :cod_barras, nome = :nome, id_grupo_produto = :id_grupo_produto,
             quantidade_min = :quantidade_min, preco = :preco, preco_compra = :preco_compra,lucro_venda = :lucro,margem_bruta = :margem WHERE id = :id");
         $sql->bindValue(":cod_barras", $cod_barras);
@@ -252,8 +263,8 @@ class Produto extends model {
         $sql->bindValue(":quantidade_min", $quantidade_min);
         $sql->bindValue(":preco", $preco);
         $sql->bindValue(":preco_compra", $preco_compra);
-        $sql->bindValue(":lucro",$lucro_venda);
-        $sql->bindValue(":margem",$margem_bruta);
+        $sql->bindValue(":lucro", $lucro_venda);
+        $sql->bindValue(":margem", $margem_bruta);
         $sql->bindValue(":id", $id);
         $sql->execute();
 
@@ -305,7 +316,8 @@ class Produto extends model {
         }
     }
 
-    public function excluir_imagem($id) {
+    public function excluir_imagem($id)
+    {
 
         $id_produto = 0;
 
@@ -325,7 +337,8 @@ class Produto extends model {
         return $id_produto;
     }
 
-    public function produto_deletar($id) {
+    public function produto_deletar($id)
+    {
         $sql = $this->db->prepare("DELETE FROM produto_imagem WHERE id_produto = :id_produto");
         $sql->bindValue(":id_produto", $id);
         $sql->execute();
@@ -335,18 +348,21 @@ class Produto extends model {
         $sql->execute();
     }
 
-    public function aumentoEstoque($id_produto, $quantidade) {
+    public function aumentoEstoque($id_produto, $quantidade)
+    {
         $sql = $this->db->prepare("UPDATE produto SET quantidade = quantidade + $quantidade WHERE id = :id");
         $sql->bindValue(":id", $id_produto);
         $sql->execute();
     }
 
-    public function baixaEstoque($id_produto, $quantidade) {
+    public function baixaEstoque($id_produto, $quantidade)
+    {
         $sql = $this->db->prepare("UPDATE produto SET quantidade = quantidade - $quantidade WHERE id = :id");
         $sql->bindValue(":id", $id_produto);
         $sql->execute();
     }
 
 }
+
 ?>
 

@@ -16,10 +16,10 @@ $(document).ready(function () {
     });
 });
 
-$(document).ready(function(){
- 
- $('#desconto').mask('000.000.000.000.000,00' , { reverse : true,placeholder:"0,00"});
- 
+$(document).ready(function () {
+
+    $('#desconto').mask('000.000.000.000.000,00', {reverse: true, placeholder: "0,00"});
+
 });
 
 $('#condicao_pag').on('change', function () {
@@ -43,7 +43,7 @@ $(function () {
         $('#tabela_parcelas tbody tr').remove();
 
         var total_venda = $("#total_venda").val().replace(',', '.');
-        
+
 
         var qtde_parcelas = $('#n_parcelas').val();
 
@@ -59,7 +59,7 @@ $(function () {
         for (i = 1; i <= qtde_parcelas; i++) {
             var data = vencimento;
 
-            $('#tabela_parcelas tbody').append("<tr id=\"row_nf-" + i + "\" class=\"nf\"><td>" + i + " de " + qtde_parcelas + "</td><td title=\"vencimento\" class=\"text-center\">" + data.toLocaleString("pt-BR") + "</td><td>" + valorParcela.toFixed(2).replace('.',',') + "</td></tr>");
+            $('#tabela_parcelas tbody').append("<tr id=\"row_nf-" + i + "\" class=\"nf\"><td>" + i + " de " + qtde_parcelas + "</td><td title=\"vencimento\" class=\"text-center\">" + data.toLocaleString("pt-BR") + "</td><td>" + valorParcela.toFixed(2).replace('.', ',') + "</td></tr>");
 
             /* Captura o dia do mês e soma mais 30 dias */
             vencimento.setMonth(data.getMonth() + 1);
@@ -83,9 +83,9 @@ function desc() {
 
     } else {
 
-       bootbox.alert("Desconto tem que se menor que o  total da venda");
-       $('#desconto').val('');
-   }
+        bootbox.alert("Desconto tem que se menor que o  total da venda");
+        $('#desconto').val('');
+    }
 }
 
 function validacao() {
@@ -185,7 +185,9 @@ function selecionarCliente(obj) {
 
 function addProd(obj) {
     $('#add_prod').val('');
+    var url = $(obj).attr('data-url');
     var id = $(obj).attr('data-id');
+    var imagem = $(obj).attr('data-imagem');
     var preco = $(obj).attr('data-preco');
     var quant = $(obj).attr('data-quant');
     var numero = $(obj).attr('data-lote');
@@ -193,11 +195,20 @@ function addProd(obj) {
     var nome = $(obj).html();
     $('.searchvenda').hide();
 
+    var caminho = '';
+
+    if (url.value == '') {
+        caminho = BASE_URL + 'assets/imagens/padrao.jpg';
+    } else {
+        caminho = BASE_URL + 'assets/imagens/produtos/' + url;
+    }
+
     if (quant > 0) {
 
         if ($('input[name="quant[' + id + ']"]').length == 0) {
 
             var tr = '<tr id="itens_vendas">\n\
+            <td><img src="'+caminho+'" height="50"></td>\n\
             <td>' + numero + '</td>\n\
             <td>' + nome + '</td>\n\
             <td>\n\
@@ -209,7 +220,6 @@ function addProd(obj) {
             </tr>';
             $('#tabela_produtos').append(tr);
         }
-
 
 
     } else {
@@ -274,7 +284,7 @@ $('#add_prod').on('keyup', function () {
 
                 var html = '';
                 for (var i in json) {
-                    html += '<div class="si"><a id="auto" href="javascript:;" onclick="addProd(this)" data-id="' + json[i].id + '" data-preco="' + json[i].preco + '" data-quant="' + json[i].quant + '" data-lote="' + json[i].numero + '">' + json[i].produto + '  ' + ' Lote: ' + json[i].numero + '</a></div>';
+                    html += '<div class="si"><a id="auto" href="javascript:;" onclick="addProd(this)" data-id="' + json[i].id + '" data-url="' + json[i].url + '" data-preco="' + json[i].preco + '" data-quant="' + json[i].quant + '" data-lote="' + json[i].numero + '">' + json[i].produto + '  ' + ' Lote: ' + json[i].numero + '</a></div>';
                 }
 
                 $('.searchvenda').html(html);

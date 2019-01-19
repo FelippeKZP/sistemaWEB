@@ -1,11 +1,13 @@
 <?php
 
-class Usuario extends model {
+class Usuario extends model
+{
 
     private $permissions;
     private $userInfo;
 
-    public function getList($s = null, $offset, $limit) {
+    public function getList($s = null, $offset, $limit)
+    {
         $array = array();
 
         if (!empty($s)) {
@@ -26,7 +28,8 @@ class Usuario extends model {
         return $array;
     }
 
-    public function getTotal($s) {
+    public function getTotal($s)
+    {
         if (!empty($s)) {
             $sql = $this->db->prepare("SELECT COUNT(*)as c FROM usuario WHERE nome LIKE :nome");
             $sql->bindValue(":nome", '%' . $s . '%');
@@ -39,7 +42,8 @@ class Usuario extends model {
         return $sql['c'];
     }
 
-    public function getRelatorio($email) {
+    public function getRelatorio($email)
+    {
         $array = array();
 
 
@@ -65,27 +69,29 @@ class Usuario extends model {
     }
 
 
-    public function verificarId($id){
+    public function verificarId($id)
+    {
 
         $sql = $this->db->prepare("SELECT id FROM usuario WHERE id = :id");
-        $sql->bindValue(":id",$id);
+        $sql->bindValue(":id", $id);
         $sql->execute();
 
-        if($sql->rowCount() > 0){
+        if ($sql->rowCount() > 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public function verificarUsuarioEmail($p){
-        $array =  array();
-        $sql =  $this->db->prepare("SELECT COUNT(id) as total FROM usuario WHERE email = :email");
+    public function verificarUsuarioEmail($p)
+    {
+        $array = array();
+        $sql = $this->db->prepare("SELECT COUNT(id) as total FROM usuario WHERE email = :email");
         $sql->bindValue(":email", $p);
         $sql->execute();
 
-        if($sql->rowCount() > 0){
-            $array =  $sql->fetchAll();
+        if ($sql->rowCount() > 0) {
+            $array = $sql->fetchAll();
         }
 
         return $array;
@@ -93,7 +99,8 @@ class Usuario extends model {
     }
 
 
-    public function getInfo($id) {
+    public function getInfo($id)
+    {
         $array = array();
 
         $sql = $this->db->prepare("SELECT * FROM usuario WHERE id = :id");
@@ -115,7 +122,8 @@ class Usuario extends model {
         return $array;
     }
 
-    public function usuario_add($nome, $email, $senha, $id_grupo_permissao,$status, $fotos) {
+    public function usuario_add($nome, $email, $senha, $id_grupo_permissao, $status, $fotos)
+    {
 
         $sql = $this->db->prepare("INSERT INTO usuario(nome,email,senha,id_grupo_permissao,status) 
             VALUES(:nome,:email,:senha,:id_grupo_permissao,:status)");
@@ -123,7 +131,7 @@ class Usuario extends model {
         $sql->bindValue(":email", $email);
         $sql->bindValue(":senha", md5($senha));
         $sql->bindValue(":id_grupo_permissao", $id_grupo_permissao);
-        $sql->bindValue(":status",$status);
+        $sql->bindValue(":status", $status);
         $sql->execute();
 
         $id_usuario = $this->db->lastInsertId();
@@ -170,7 +178,8 @@ class Usuario extends model {
 
     }
 
-    public function usuario_editar($nome, $email, $id_grupo_permissao,$status, $fotos, $id) {
+    public function usuario_editar($nome, $email, $id_grupo_permissao, $status, $fotos, $id)
+    {
         $sql = $this->db->prepare("UPDATE usuario SET nome = :nome, email = :email, id_grupo_permissao = :id_grupo_permissao, status = :status WHERE id = :id");
         $sql->bindValue(":nome", $nome);
         $sql->bindValue(":email", $email);
@@ -220,7 +229,8 @@ class Usuario extends model {
         }
     }
 
-    public function usuario_deletar($id) {
+    public function usuario_deletar($id)
+    {
 
         $sql = $this->db->prepare("DELETE FROM usuario_imagem WHERE id_usuario = :id_usuario");
         $sql->bindValue(":id_usuario", $id);
@@ -231,7 +241,8 @@ class Usuario extends model {
         $sql->execute();
     }
 
-    public function excluir_imagem($id) {
+    public function excluir_imagem($id)
+    {
         $id_usuario = 0;
 
         $sql = $this->db->prepare("SELECT id_usuario FROM usuario_imagem WHERE id = :id");
@@ -250,7 +261,8 @@ class Usuario extends model {
         return $id_usuario;
     }
 
-    public function isLogged() {
+    public function isLogged()
+    {
 
         if (isset($_SESSION['ccUser']) && !empty($_SESSION['ccUser'])) {
             return true;
@@ -259,11 +271,13 @@ class Usuario extends model {
         }
     }
 
-    public function sair() {
+    public function sair()
+    {
         unset($_SESSION['ccUser']);
     }
 
-    public function Login($email, $senha) {
+    public function Login($email, $senha)
+    {
         $sql = $this->db->prepare("SELECT * FROM usuario WHERE email = :email AND senha = :senha AND status = 1");
         $sql->bindValue(":email", $email);
         $sql->bindValue(":senha", md5($senha));
@@ -278,7 +292,8 @@ class Usuario extends model {
         }
     }
 
-    public function setLoggedUser() {
+    public function setLoggedUser()
+    {
         if (isset($_SESSION['ccUser']) && !empty($_SESSION['ccUser'])) {
             $id = $_SESSION['ccUser'];
 
@@ -295,7 +310,8 @@ class Usuario extends model {
         }
     }
 
-    public function getNome() {
+    public function getNome()
+    {
         if (isset($this->userInfo['nome'])) {
             return $this->userInfo['nome'];
         } else {
@@ -303,7 +319,8 @@ class Usuario extends model {
         }
     }
 
-    public function getFoto() {
+    public function getFoto()
+    {
         if (isset($this->userInfo['url'])) {
             return $this->userInfo['url'];
         } else {
@@ -311,7 +328,8 @@ class Usuario extends model {
         }
     }
 
-    public function getId() {
+    public function getId()
+    {
         if (isset($this->userInfo['id'])) {
             return $this->userInfo['id'];
         } else {
@@ -320,11 +338,13 @@ class Usuario extends model {
     }
 
 
-    public function hasPermission($nome) {
+    public function hasPermission($nome)
+    {
         return $this->permissions->hasPermission($nome);
     }
 
-    public function getCombo($id) {
+    public function getCombo($id)
+    {
         $array = array();
 
         $sql = $this->db->prepare("SELECT * FROM usuario WHERE id NOT IN(:id)");
@@ -338,7 +358,8 @@ class Usuario extends model {
         return $array;
     }
 
-    public function esqueciSenha($email) {
+    public function esqueciSenha($email)
+    {
 
         $sql = $this->db->prepare("SELECT id FROM usuario WHERE email = :email");
         $sql->bindValue(":email", $email);
@@ -368,33 +389,34 @@ class Usuario extends model {
             $mail->SMTPAuth = true;
             $mail->SMTPSecure = 'ssl';
             $mail->AuthType = 'NTLM';
-            $mail->Host       = 'smtp.gmail.com';
-            $mail->Port       = 465;
-            $mail->Username   = 'felippe.s@edu.unipar.br'; 
-            $mail->Password   = 'CAMARO123';
+            $mail->Host = 'smtp.gmail.com';
+            $mail->Port = 465;
+            $mail->Username = 'felippe.s@edu.unipar.br';
+            $mail->Password = 'CAMARO123';
             $mail->CharSet = 'UTF-8';
 
 
-            $mail->setFrom('felipekzp0@gmail.com','Felippe');
+            $mail->setFrom('felipekzp0@gmail.com', 'Felippe');
             //$mail->FromName('Felippe');
             $mail->AddAddress($email);
 
             $mail->isHTML(true);
-            $link = "http://localhost/farmacia/login/redefinir?token=" . $token;
-            $mail->Subject = 'Redefinição De Senha Do Dia '.date('d/m/Y');
-            $mail->Body    = 'Click no link para redefinir sua senha:'. $link;
-            
+            $link = "http://localhost/sistema/login/redefinir?token=" . $token;
+            $mail->Subject = 'Redefinição De Senha Do Dia ' . date('d/m/Y');
+            $mail->Body = 'Click no link para redefinir sua senha:' . $link;
+
 
             $mail->send();
-            
-            
+
+
             return true;
         } else {
             return false;
         }
     }
 
-    public function verificarToken($token) {
+    public function verificarToken($token)
+    {
         $sql = $this->db->prepare("SELECT * FROM usuario_token WHERE hash = :hash AND status = 0 AND data > NOW()");
         $sql->bindValue(":hash", $token);
         $sql->execute();
@@ -405,24 +427,25 @@ class Usuario extends model {
             return false;
         }
     }
-    
-    public function mudarSenha($senha,$token){
+
+    public function mudarSenha($senha, $token)
+    {
         $sql = $this->db->prepare("SELECT id_usuario FROM usuario_token WHERE hash = :hash");
-        $sql->bindValue(":hash",$token);
+        $sql->bindValue(":hash", $token);
         $sql->execute();
-        
-        if($sql->rowCount() > 0){
+
+        if ($sql->rowCount() > 0) {
             $sql = $sql->fetch();
             $id_usuario = $sql['id_usuario'];
-        } 
-        
+        }
+
         $sql = $this->db->prepare("UPDATE usuario SET senha = :senha WHERE id = :id");
         $sql->bindValue(":senha", md5($senha));
-        $sql->bindValue(":id",$id_usuario);
+        $sql->bindValue(":id", $id_usuario);
         $sql->execute();
-        
+
         $sql = $this->db->prepare("UPDATE usuario_token  SET status = 1 WHERE hash = :hash");
-        $sql->bindValue(":hash",$token);
+        $sql->bindValue(":hash", $token);
         $sql->execute();
     }
 

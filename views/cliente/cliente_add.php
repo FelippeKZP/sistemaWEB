@@ -1,19 +1,17 @@
 <h1>Adicionar Cliente</h1>
 
+<div class="alert alert-info">
+    <strong>Os campo em vermelho é obrigatório.</strong>
+</div>
+
 <br/>
 
 <?php if (isset($msg_erro) && !empty($msg_erro)): ?>
-<div class="alert alert-danger alert-dismissible">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    <strong><?php echo $msg_erro; ?></strong>
-</div>
+        <script>swal("Ocorreu um erro salvar o cliente.", "", "error");</script>
 <?php endif; ?>
 
 <?php if (isset($msg_sucesso) && !empty($msg_sucesso)): ?>
-<div class="alert alert-success alert-dismissible">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    <strong><?php echo $msg_sucesso; ?></strong>
-</div>
+    <script>swal("Sucesso ao salvar o cliente.", "", "success");</script>
 <?php endif; ?>
 
 
@@ -29,39 +27,47 @@
     </div>
 
     <div class="form-group col-sm-5">
-        <label>Nome:</label>
+        <label style="color:red;">Nome:</label>
         <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o Nome."/>
     </div>
 
     <div class="form-group col-sm-4">
-        <label>CPF/CNPJ:</label>
-        <input type="text" class="form-control" id="cpf" name="cpf" placeholder="Digite o CPF ou CNPJ." data-type="verificarClienteCpfCnpj"/>
+        <label style="color:red;">CPF/CNPJ:</label>
+        <input type="text" class="form-control" id="cpf" name="cpf" placeholder="Digite o CPF ou CNPJ."
+               data-type="verificarClienteCpfCnpj"/>
     </div>
 
     <div class="form-group col-sm-3">
         <label>RG/IE:</label>
-        <input type="text" class="form-control" id="rg" name="rg" placeholder="Digite o RG ou IE." data-type="verificarClienteRgIe"/>
+        <input type="text" class="form-control" id="rg" name="rg" placeholder="Digite o RG ou IE."
+               data-type="verificarClienteRgIe"/>
     </div>
 
     <div class="form-group col-sm-3">
-        <label>Telefone:</label>
+        <label style="color:red;">Telefone:</label>
         <input type="text" class="form-control" id="telefone" name="telefone" placeholder="Digite o Telefone."/>
     </div>
 
+    
     <div class="form-group col-sm-3">
         <label>Email:</label>
-        <input type="text" class="form-control" id="email" name="email" placeholder="Digite o Email." data-type="verificarClienteEmail"/>
+        <input type="text" class="form-control" id="email" name="email" placeholder="Digite o Email."
+               data-type="verificarClienteEmail"/>
     </div>
 
     <div class="form-group col-sm-3">
-        <label>Data de Cadastro:</label><br/>
-        <input  type="text" class="form-control" id="data_cadastro" name="data_cadastro" placeholder="Digite a Data de Cadastro."/>
+        <label style="color:red;">Data de Cadastro:</label><br/>
+        <input type="text" class="form-control" id="data_cadastro" name="data_cadastro"
+               placeholder="Digite a Data de Cadastro."/>
     </div>
 
     <div class="form-group col-sm-3">
         <label>Data de Aniversário:</label><br/>
-        <input  type="text" class="form-control" id="data_aniversario" name="data_aniversario" placeholder="Digite a Data de Aniversário."/>
+        <input type="text" class="form-control" id="data_aniversario" name="data_aniversario"
+               placeholder="Digite a Data de Aniversário."/>
     </div>
+
+    <div style="clear: both;"></div>
 
     <br/><br/>
 
@@ -70,7 +76,7 @@
             <legend>Dados de Endereço</legend>
             <div class="form-group col-sm-3">
                 <label>CEP:</label>
-                <input type="text" class="form-control"  id="cep" name="cep" placeholder="Digite o CEP."/>
+                <input type="text" class="form-control" id="cep" name="cep" placeholder="Digite o CEP."/>
             </div>
             <div class="form-group col-sm-4">
                 <label>Bairro:</label>
@@ -84,30 +90,34 @@
                 <label>Número:</label>
                 <input type="text" class="form-control" id="numero" name="numero" placeholder="Digite o Numero"/>
             </div>
+
             <div class="form-group col-sm-3">
-                <label>Cidade:</label>
-                <input type="text" class="form-control" id="cidade" name="cidade"/>
-            </div>
-            <div class="form-group col-sm-3">
-                <label>Estado:</label>
-                <input type="text" class="form-control" id="estado" name="estado"/>
+                <label style="color:red;">Estado:</label>
+                <select id="estado" class="form-control" name="estado" onchange="pegarCidades(this);">
+                    <option value="">Selecione um estado.</option>
+                    <?php foreach ($estado_list as $e): ?>
+                        <option value="<?php echo $e['id']; ?>"><?php echo $e['nome'] . ' - ' . $e['sigla']; ?></option>
+                    <?php endforeach; ?>
+                </select>
             </div>
 
             <div class="form-group col-sm-3">
-                <label>País:</label>
-                <input type="text" class="form-control" id="pais" name="pais"/>
+                <label style="color:red;">Cidade:</label>
+                <select id="cidade" class="form-control" name="cidade">
+                    <option value="">Selecione um estado para selecionar um cidade.</option>
+                </select>
             </div>
+
         </fieldset>
     </div>
 
 
     <div class=" form-group col-sm-12" style="float: right;">
-        <button  class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Salvar</button>
-        <a class="btn btn-warning" href="<?php echo BASE_URL; ?>cliente"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Voltar</a>
+        <button class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Salvar</button>
+        <a class="btn btn-warning" href="<?php echo BASE_URL; ?>cliente"><span class="glyphicon glyphicon-repeat"
+                                                                               aria-hidden="true"></span> Voltar</a>
     </div>
 
 </form>
 
-<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/cliente/script_cliente_add.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/cliente/script_cliente_validacao.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/cliente/script_cliente_mascara.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/cliente/script_cliente.js"></script>

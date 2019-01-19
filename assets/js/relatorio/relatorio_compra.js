@@ -1,11 +1,11 @@
-function openPopup(obj){
-    
-	var data = $(obj).serialize();
+function openPopup(obj) {
 
-	var url = BASE_URL+"relatorio/relatorio_compra_pdf?"+data;
-	window.open(url, "relatorio de compras", "width=700,height=500");
+    var data = $(obj).serialize();
 
-	return false;
+    var url = BASE_URL + "relatorio/relatorio_compra_pdf?" + data;
+    window.open(url, "relatorio de compras", "width=700,height=500");
 
-   
+    return false;
+
+
 }

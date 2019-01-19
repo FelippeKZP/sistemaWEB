@@ -1,10 +1,10 @@
-function openPopup(obj){
-    
-	var data = $(obj).serialize();
+function openPopup(obj) {
 
-	var url = BASE_URL+"relatorio/relatorio_contas_receber_pdf?"+data;
-	window.open(url, "relatorio de contas a receber", "width=700,height=500");
+    var data = $(obj).serialize();
 
-	return false;
+    var url = BASE_URL + "relatorio/relatorio_contas_receber_pdf?" + data;
+    window.open(url, "relatorio de contas a receber", "width=700,height=500");
+
+    return false;
 
 }

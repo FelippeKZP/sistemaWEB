@@ -1,8 +1,10 @@
 <?php
 
-class Venda extends model {
+class Venda extends model
+{
 
-    public function getList($s = null, $offset, $limit) {
+    public function getList($s = null, $offset, $limit)
+    {
         $array = array();
 
         if (!empty($s)) {
@@ -30,7 +32,8 @@ class Venda extends model {
         return $array;
     }
 
-    public function getRelatorio($nome, $periodo1, $periodo2) {
+    public function getRelatorio($nome, $periodo1, $periodo2)
+    {
         $array = array();
 
         if (!empty($nome)) {
@@ -39,7 +42,7 @@ class Venda extends model {
                INNER JOIN funcionario on funcionario.id = venda.id_funcionario
                INNER JOIN cliente on cliente.id = venda.id_cliente
                WHERE cliente.nome LIKE :nome");
-            $sql->bindValue(":nome",'%', $nome.'%');
+            $sql->bindValue(":nome", '%', $nome . '%');
             $sql->execute();
         } elseif (!empty($periodo1 && $periodo2)) {
             $sql = $this->db->prepare("SELECT venda.id,cliente.nome,funcionario.nome as func,cliente.cpfCnpj, venda.data_venda, venda.total_venda,venda.tipo_pag
@@ -56,7 +59,7 @@ class Venda extends model {
                INNER JOIN funcionario on funcionario.id = venda.id_funcionario
                INNER JOIN cliente on cliente.id = venda.id_cliente
                WHERE cliente.nome LIKE :nome venda.data_venda BETWEEN :periodo1 AND :periodo2");
-            $sql->bindValue(":nome",'%'. $nome.'%');
+            $sql->bindValue(":nome", '%' . $nome . '%');
             $sql->bindValue(":periodo1", $periodo1);
             $sql->bindValue(":periodo2", $periodo2);
             $sql->execute();
@@ -75,7 +78,8 @@ class Venda extends model {
         return $array;
     }
 
-    public function getTotal($s) {
+    public function getTotal($s)
+    {
         if (!empty($s)) {
             $sql = $this->db->prepare("SELECT COUNT(venda.id)as c FROM venda 
                 INNER JOIN cliente on cliente.id = venda.id_cliente                    
@@ -90,8 +94,8 @@ class Venda extends model {
         return $sql['c'];
     }
 
-    public function venda_add($id_cliente, $id_funcionario, $quant, $desconto, $tipo_pag, $data_vencimento, $n_parcelas, $id_usuario) {
-
+    public function venda_add($id_cliente, $id_funcionario, $quant, $desconto, $tipo_pag, $data_vencimento, $n_parcelas, $id_usuario)
+    {
         $l = new LoteProduto();
 
         $sql = $this->db->prepare("INSERT INTO venda(id_cliente,id_funcionario,id_usuario,data_venda,total_venda,desconto,tipo_pag)
@@ -171,20 +175,22 @@ class Venda extends model {
         }
     }
 
-    public function verificarId($id){
+    public function verificarId($id)
+    {
 
         $sql = $this->db->prepare("SELECT id FROM venda WHERE id = :id");
-        $sql->bindValue(":id",$id);
+        $sql->bindValue(":id", $id);
         $sql->execute();
 
-        if($sql->rowCount() > 0){
+        if ($sql->rowCount() > 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public function venda_vizualizar($id) {
+    public function venda_vizualizar($id)
+    {
         $array = array();
 
         $sql = $this->db->prepare("SELECT cliente.nome, cliente.cpfCnpj,venda.total_venda,venda.data_venda FROM venda
@@ -212,7 +218,8 @@ class Venda extends model {
         return $array;
     }
 
-    public function venda_cancelar($id) {
+    public function venda_cancelar($id)
+    {
 
         $sql = $this->db->prepare("DELETE FROM contas_receber WHERE id_venda = :id");
         $sql->bindValue(":id", $id);

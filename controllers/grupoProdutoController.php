@@ -1,8 +1,10 @@
 <?php
 
-class grupoProdutoController extends controller {
+class grupoProdutoController extends controller
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $u = new Usuario();
         if ($u->isLogged() == false) {
@@ -11,7 +13,8 @@ class grupoProdutoController extends controller {
         }
     }
 
-    public function index() {
+    public function index()
+    {
         $data = array();
         $u = new Usuario();
         $n = new Notificacao();
@@ -41,7 +44,7 @@ class grupoProdutoController extends controller {
         $data['perda'] = $u->hasPermission('perda');
         $data['relatório'] = $u->hasPermission('relatório');
 
-        if($u->hasPermission('grupo de produto')){
+        if ($u->hasPermission('grupo de produto')) {
 
             $g = new GrupoProduto();
 
@@ -51,7 +54,7 @@ class grupoProdutoController extends controller {
                 $s = $_GET['searchs'];
             }
 
-            $data['filtros'] =  $_GET;
+            $data['filtros'] = $_GET;
 
             $limit = 10;
 
@@ -78,13 +81,14 @@ class grupoProdutoController extends controller {
 
             $this->loadTemplate('grupoProduto/grupo_produto', $data);
 
-        }else{
-            header("Location:".BASE_URL);
+        } else {
+            header("Location:" . BASE_URL);
             exit;
         }
     }
 
-    public function grupo_produto_add() {
+    public function grupo_produto_add()
+    {
         $data = array();
         $u = new Usuario();
         $n = new Notificacao();
@@ -114,30 +118,31 @@ class grupoProdutoController extends controller {
         $data['perda'] = $u->hasPermission('perda');
         $data['relatório'] = $u->hasPermission('relatório');
 
-        if($u->hasPermission('perda')){
+        if ($u->hasPermission('perda')) {
 
             $g = new GrupoProduto();
 
             if (isset($_POST['nome']) && !empty($_POST['nome'])) {
                 $nome = addslashes($_POST['nome']);
 
-                try{
+                try {
                     $g->grupo_produto_add($nome);
-                    $data['msg_sucesso'] = "Grupo de Produto Salvo Com Sucesso.";
-                } catch(Exception $e){
-                    $data['msg_erro'] = "Já Existe Este Grupo de Produto.";
+                    $data['msg_sucesso'] = "sucesso.";
+                } catch (Exception $e) {
+                    $data['msg_erro'] = "erro.";
                 }
             }
             $this->loadTemplate('grupoProduto/grupo_produto_add', $data);
 
-        }else{
-            header("Location:".BASE_URL);
+        } else {
+            header("Location:" . BASE_URL);
             exit;
         }
 
     }
 
-    public function grupo_produto_editar($id) {
+    public function grupo_produto_editar($id)
+    {
         $data = array();
         $u = new Usuario();
         $n = new Notificacao();
@@ -167,18 +172,18 @@ class grupoProdutoController extends controller {
         $data['perda'] = $u->hasPermission('perda');
         $data['relatório'] = $u->hasPermission('relatório');
 
-        if($u->hasPermission('grupo de produto')){
+        if ($u->hasPermission('grupo de produto')) {
 
             $g = new GrupoProduto();
 
-            if(isset($id) && !empty($id)){
-                if($g->verificarId($id)){
+            if (isset($id) && !empty($id)) {
+                if ($g->verificarId($id)) {
 
-                }else{
-                    header("Location:".BASE_URL.'grupoProduto' );
+                } else {
+                    header("Location:" . BASE_URL . 'grupoProduto');
                 }
-            }else{
-                header("Location:".BASE_URL.'grupoProduto' );
+            } else {
+                header("Location:" . BASE_URL . 'grupoProduto');
             }
 
             if (isset($_POST['nome']) && !empty($_POST['nome'])) {
@@ -186,9 +191,9 @@ class grupoProdutoController extends controller {
 
                 try {
                     $g->grupo_produto_editar($nome, $id);
-                    $data['msg_sucesso'] = "Sucesso ao Editar Grupo de Produto.";
+                    $data['msg_sucesso'] = "sucesso.";
                 } catch (Exception $ex) {
-                    $data['msg_erro'] = "Ocorreu um Erro ao Editar Grupo de Produto";
+                    $data['msg_erro'] = "erro.";
                 }
             }
 
@@ -196,14 +201,15 @@ class grupoProdutoController extends controller {
 
             $this->loadTemplate('grupoProduto/grupo_produto_editar', $data);
 
-        }else{
-            header("Location:".BASE_URL);
+        } else {
+            header("Location:" . BASE_URL);
             exit;
         }
 
     }
 
-    public function grupo_produto_deletar($id) {
+    public function grupo_produto_deletar($id)
+    {
         $data = array();
         $u = new Usuario();
         $n = new Notificacao();
@@ -233,66 +239,33 @@ class grupoProdutoController extends controller {
         $data['perda'] = $u->hasPermission('perda');
         $data['relatório'] = $u->hasPermission('relatório');
 
-        if($u->hasPermission('grupo de produto')){
+        if ($u->hasPermission('grupo de produto')) {
 
             $g = new GrupoProduto();
 
-            if(isset($id) && !empty($id)){
-                if($g->verificarId($id)){
+            if (isset($id) && !empty($id)) {
+                if ($g->verificarId($id)) {
 
-                }else{
-                    header("Location:".BASE_URL.'grupoProduto' );
+                } else {
+                    header("Location:" . BASE_URL . 'grupoProduto');
                 }
-            }else{
-                header("Location:".BASE_URL.'grupoProduto' );
+            } else {
+                header("Location:" . BASE_URL . 'grupoProduto');
             }
 
             try {
                 $g->grupo_produto_deletar($id);
-                $data['msg_sucesso'] = "Sucesso ao Excluir Grupo de Produto.";
             } catch (Exception $e) {
-                $data['msg_erro'] = "Este Grupo de Produto Já Esta Associado";
             }
 
-            $s = '';
-            if (!empty($_GET['searchs'])) {
-                $s = $_GET['searchs'];
-            }
-
-            $data['filtros'] =  $_GET;
-
-            $limit = 10;
-
-            $data['limit'] = 1;
-
-            $total = $g->getTotal($s);
-
-            $data['total'] = $g->getTotal($s);
-
-            $data['paginas'] = ceil($total / $limit);
-
-            $data['paginaAtual'] = 1;
-            if (!empty($_GET['p'])) {
-                $data['paginaAtual'] = intval($_GET['p']);
-            }
-
-            $offset = ($data['paginaAtual'] * $limit) - $limit;
-
-            $data['offset'] = ($data['paginaAtual'] * $limit) - $limit;
-
-            $data['max'] = 2;
-
-            $data['grupo_produto_list'] = $g->getList($s, $offset, $limit);
-
-            $this->loadTemplate('grupoProduto/grupo_produto', $data);
-
-        }else{
-            header("Location:".BASE_URL);
+        } else {
+            header("Location:" . BASE_URL);
             exit;
         }
 
     }
 
 }
+
 ?>
 

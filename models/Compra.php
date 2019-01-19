@@ -1,8 +1,10 @@
 <?php
 
-class Compra extends model {
+class Compra extends model
+{
 
-    public function getList($s,$offset,$limit) {
+    public function getList($s, $offset, $limit)
+    {
         $array = array();
 
         if (!empty($s)) {
@@ -26,7 +28,8 @@ class Compra extends model {
         return $array;
     }
 
-    public function getRelatorio($nome, $periodo1, $periodo2) {
+    public function getRelatorio($nome, $periodo1, $periodo2)
+    {
         $array = array();
 
         if (!empty($nome)) {
@@ -34,7 +37,7 @@ class Compra extends model {
                FROM compra
                INNER JOIN fornecedor on fornecedor.id = compra.id_fornecedor
                WHERE fornecedor.razao_social LIKE :razao_social");
-            $sql->bindValue(":nome",'%', $nome.'%');
+            $sql->bindValue(":nome", '%', $nome . '%');
             $sql->execute();
         } elseif (!empty($periodo1 && $periodo2)) {
             $sql = $this->db->prepare("SELECT compra.id,compra.numero_nota,compra.data_compra,compra.total_compra,fornecedor.razao_social
@@ -49,7 +52,7 @@ class Compra extends model {
                FROM compra
                INNER JOIN fornecedor on fornecedor.id = compra.id_fornecedor
                WHERE fornecedor.razao_social LIKE :razao_social AND compra.data_compra BETWEEN :periodo1 AND :periodo2");
-            $sql->bindValue(":nome",'%'. $nome.'%');
+            $sql->bindValue(":nome", '%' . $nome . '%');
             $sql->bindValue(":periodo1", $periodo1);
             $sql->bindValue(":periodo2", $periodo2);
             $sql->execute();
@@ -67,14 +70,15 @@ class Compra extends model {
         return $array;
     }
 
-    public function getTotal($s){
-        if(!empty($s)){
+    public function getTotal($s)
+    {
+        if (!empty($s)) {
             $sql = $this->db->prepare("SELECT COUNT(id) as c FROM compra 
                 INNER JOIN fornecedor on fornecedor.id =  compra.id_fornecedor
                 WHERE fornecedor.razao_social LIKE :nome");
-            $sql->bindValue(":nome", '%'.$s.'%');
+            $sql->bindValue(":nome", '%' . $s . '%');
             $sql->execute();
-        }else{
+        } else {
             $sql = $this->db->prepare("SELECT COUNT(id) as c FROM compra");
             $sql->execute();
         }
@@ -83,21 +87,23 @@ class Compra extends model {
         return $sql['c'];
     }
 
-    public function verificarId($id){
+    public function verificarId($id)
+    {
 
         $sql = $this->db->prepare("SELECT id FROM compra WHERE id = :id");
-        $sql->bindValue(":id",$id);
+        $sql->bindValue(":id", $id);
         $sql->execute();
 
-        if($sql->rowCount() > 0){
+        if ($sql->rowCount() > 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public function venda_vizualizar($id){
-        $array =  array();
+    public function venda_vizualizar($id)
+    {
+        $array = array();
 
         $sql = $this->db->prepare("SELECT fornecedor.razao_social,fornecedor.cnpj,compra.numero_nota,compra.total_compra
             FROM compra
@@ -106,7 +112,7 @@ class Compra extends model {
         $sql->bindValue(":id", $id);
         $sql->execute();
 
-        if($sql->rowCount() > 0){
+        if ($sql->rowCount() > 0) {
             $array['info'] = $sql->fetch();
         }
 
@@ -118,14 +124,15 @@ class Compra extends model {
         $sql->bindValue(":id", $id);
         $sql->execute();
 
-        if($sql->rowCount() > 0){
+        if ($sql->rowCount() > 0) {
             $array['produtos'] = $sql->fetchAll();
         }
 
         return $array;
     }
 
-    public function compra_add($id_fornecedor, $numero_nota,$data_vencimento, $quant, $id_usuario) {
+    public function compra_add($id_fornecedor, $numero_nota, $data_vencimento, $quant, $id_usuario)
+    {
 
         $l = new LoteProduto();
 
@@ -170,12 +177,12 @@ class Compra extends model {
         }
 
         $sql = $this->db->prepare("SELECT razao_social FROM fornecedor WHERE id = :id_fornecedor");
-        $sql->bindValue(":id_fornecedor",$id_fornecedor);
+        $sql->bindValue(":id_fornecedor", $id_fornecedor);
         $sql->execute();
 
-        if($sql->rowCount() > 0){
-            $row =  $sql->fetch();
-            $fornecedor =  $row['razao_social'];
+        if ($sql->rowCount() > 0) {
+            $row = $sql->fetch();
+            $fornecedor = $row['razao_social'];
         }
 
         $sql = $this->db->prepare("UPDATE compra SET total_compra = :total_compra WHERE id = :id");

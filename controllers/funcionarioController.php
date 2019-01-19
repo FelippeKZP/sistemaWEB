@@ -1,8 +1,10 @@
 <?php
 
-class funcionarioController extends controller {
+class funcionarioController extends controller
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $u = new Usuario();
         if ($u->isLogged() == false) {
@@ -10,7 +12,8 @@ class funcionarioController extends controller {
         }
     }
 
-    public function index() {
+    public function index()
+    {
         $data = array();
         $u = new Usuario();
         $n = new Notificacao();
@@ -40,7 +43,7 @@ class funcionarioController extends controller {
         $data['perda'] = $u->hasPermission('perda');
         $data['relatório'] = $u->hasPermission('relatório');
 
-        if($u->hasPermission('funcionário')){
+        if ($u->hasPermission('funcionário')) {
 
             $f = new Funcionario();
 
@@ -50,7 +53,7 @@ class funcionarioController extends controller {
                 $s = $_GET['searchs'];
             }
 
-            $data['filtros'] =  $_GET;
+            $data['filtros'] = $_GET;
 
             $limit = 10;
 
@@ -73,19 +76,20 @@ class funcionarioController extends controller {
 
             $data['max'] = 2;
 
-            $data['funcionario_list'] = $f->getList($s,$offset,$limit);
+            $data['funcionario_list'] = $f->getList($s, $offset, $limit);
 
-            $data['funcionario_list'] = $f->getList($s,$offset,$limit);
+            $data['funcionario_list'] = $f->getList($s, $offset, $limit);
 
             $this->loadTemplate('funcionario/funcionario', $data);
 
-        }else{
-            header("Location:".BASE_URL);
+        } else {
+            header("Location:" . BASE_URL);
             exit;
         }
     }
 
-    public function funcionario_add() {
+    public function funcionario_add()
+    {
         $data = array();
         $u = new Usuario();
         $n = new Notificacao();
@@ -116,7 +120,7 @@ class funcionarioController extends controller {
         $data['perda'] = $u->hasPermission('perda');
         $data['relatório'] = $u->hasPermission('relatório');
 
-        if($u->hasPermission('funcionário')){
+        if ($u->hasPermission('funcionário')) {
 
             $f = new Funcionario();
 
@@ -135,8 +139,6 @@ class funcionarioController extends controller {
                 $rua = addslashes($_POST['rua']);
                 $numero = addslashes($_POST['numero']);
                 $cidade = addslashes($_POST['cidade']);
-                $estado = addslashes($_POST['estado']);
-                $pais = addslashes($_POST['pais']);
 
                 $data_admissao = $data_admissao[2] . '-' . $data_admissao[1] . '-' . $data_admissao[0];
                 $data_aniversario = $data_aniversario[2] . '-' . $data_aniversario[1] . '-' . $data_aniversario[0];
@@ -145,26 +147,32 @@ class funcionarioController extends controller {
                 $salario = str_replace(',', '.', $salario);
 
                 try {
-                    $f->funcionario_add($nome, $cpf, $rg, $telefone, $data_admissao, $data_aniversario, $id_funcao, $carteira_trabalho, $salario, $cep, $bairro, $rua, $numero, $estado, $cidade, $pais);
+                    $f->funcionario_add($nome, $cpf, $rg, $telefone, $data_admissao, $data_aniversario, $id_funcao, $carteira_trabalho, $salario, $cep, $bairro, $rua, $numero, $cidade);
 
-                    $data['msg_sucesso'] = "Sucesso Ao Salvar Funcionário";
+                    $data['msg_sucesso'] = "sucesso.";
                 } catch (Exception $ex) {
-                    $data['msg_erro'] = "Já Existe Este Funcionário";
+                    $data['msg_erro'] = "erro.";
                 }
             }
 
             $funcao = new FuncaoFuncionario();
+
+            $e = new Estado();
+
+            $data['estado_list'] = $e->getCombo();
+
             $data['funcao_list'] = $funcao->getCombo();
 
             $this->loadTemplate('funcionario/funcionario_add', $data);
 
-        }else{
-            header("Location:".BASE_URL);
+        } else {
+            header("Location:" . BASE_URL);
             exit;
         }
     }
 
-    public function funcionario_editar($id) {
+    public function funcionario_editar($id)
+    {
         $data = array();
         $u = new Usuario();
         $n = new Notificacao();
@@ -194,18 +202,18 @@ class funcionarioController extends controller {
         $data['perda'] = $u->hasPermission('perda');
         $data['relatório'] = $u->hasPermission('relatório');
 
-        if($u->hasPermission('funcionário')){
+        if ($u->hasPermission('funcionário')) {
 
             $f = new Funcionario();
 
-            if(isset($id) && !empty($id)){
-                if($f->verificarId($id)){
+            if (isset($id) && !empty($id)) {
+                if ($f->verificarId($id)) {
 
-                }else{
-                    header("Location:".BASE_URL.'funcionario' );
+                } else {
+                    header("Location:" . BASE_URL . 'funcionario');
                 }
-            }else{
-                header("Location:".BASE_URL.'funcionario' );
+            } else {
+                header("Location:" . BASE_URL . 'funcionario');
             }
 
             if (isset($_POST['nome']) && !empty($_POST['nome'])) {
@@ -223,8 +231,6 @@ class funcionarioController extends controller {
                 $rua = addslashes($_POST['rua']);
                 $numero = addslashes($_POST['numero']);
                 $cidade = addslashes($_POST['cidade']);
-                $estado = addslashes($_POST['estado']);
-                $pais = addslashes($_POST['pais']);
 
                 $data_admissao = $data_admissao[2] . '-' . $data_admissao[1] . '-' . $data_admissao[0];
                 $data_aniversario = $data_aniversario[2] . '-' . $data_aniversario[1] . '-' . $data_aniversario[0];
@@ -233,32 +239,41 @@ class funcionarioController extends controller {
                 $salario = str_replace(',', '.', $salario);
 
                 try {
-                    $f->funcionario_editar($nome, $cpf, $rg, $telefone, $data_admissao, $data_aniversario, $id_funcao, $carteira_trabalho, $salario, $cep, $bairro, $rua, $numero, $estado, $cidade, $pais, $id);
+                    $f->funcionario_editar($nome, $cpf, $rg, $telefone, $data_admissao, $data_aniversario, $id_funcao, $carteira_trabalho, $salario, $cep, $bairro, $rua, $numero, $cidade, $id);
 
-                    $data['msg_sucesso'] = "Sucesso Ao Editar Funcionário";
+                    $data['msg_sucesso'] = "sucesso.";
                 } catch (Exception $ex) {
-                    $data['msg_erro'] = "Ocorreu Um Erro Ao Editar Funcionário.";
+                    $data['msg_erro'] = "erro.";
                 }
             }
 
+            $e = new Estado();
+
+            $c = new Cidade();
 
             $funcao = new FuncaoFuncionario();
 
+            $id_estado = $f->getIdEstado($id);
 
-            $data['funcionario_list_edit'] = $f->getInfo($id);
+            $data['estado_list'] = $e->getCombo();
+
+            $data['cidade_list'] = $c->getCombo($id_estado);
 
             $data['funcao_list'] = $funcao->getCombo();
 
+            $data['funcionario_list_edit'] = $f->getInfo($id);
+
             $this->loadTemplate('funcionario/funcionario_editar', $data);
 
-        }else{
-            header("Location:".BASE_URL);
+        } else {
+            header("Location:" . BASE_URL);
             exit;
         }
 
     }
 
-    public function funcionario_deletar($id) {
+    public function funcionario_deletar($id)
+    {
         $data = array();
         $u = new Usuario();
         $n = new Notificacao();
@@ -288,67 +303,28 @@ class funcionarioController extends controller {
         $data['perda'] = $u->hasPermission('perda');
         $data['relatório'] = $u->hasPermission('relatório');
 
-        if($u->hasPermission('funcionário')){
+        if ($u->hasPermission('funcionário')) {
 
             $f = new Funcionario();
 
-            if(isset($id) && !empty($id)){
-                if($f->verificarId($id)){
+            if (isset($id) && !empty($id)) {
+                if ($f->verificarId($id)) {
 
-                }else{
-                    header("Location:".BASE_URL.'funcionario' );
+                } else {
+                    header("Location:" . BASE_URL . 'funcionario');
                 }
-            }else{
-                header("Location:".BASE_URL.'funcionario' );
+            } else {
+                header("Location:" . BASE_URL . 'funcionario');
             }
 
 
             try {
                 $f->funcionario_deletar($id);
-
-                $data['msg_sucesso'] = "Sucesso Ao Excluir Funcionário.";
             } catch (Exception $ex) {
-                $data['msg_erro'] = "Este Funcionário Já Esta Associado.";
             }
 
-            $s = '';
-
-            if (!empty($_GET['searchs'])) {
-                $s = $_GET['searchs'];
-            }
-
-            $data['filtros'] =  $_GET;
-
-            $limit = 10;
-
-            $data['limit'] = 10;
-
-            $total = $f->getTotal($s);
-
-            $data['total'] = $f->getTotal($s);
-
-            $data['paginas'] = ceil($total / $limit);
-
-            $data['paginaAtual'] = 1;
-            if (!empty($_GET['p'])) {
-                $data['paginaAtual'] = intval($_GET['p']);
-            }
-
-            $offset = ($data['paginaAtual'] * $limit) - $limit;
-
-            $data['offset'] = ($data['paginaAtual'] * $limit) - $limit;
-
-            $data['max'] = 2;
-
-            $data['funcionario_list'] = $f->getList($s,$offset,$limit);
-
-
-            $data['funcionario_list'] = $f->getList($s,$offset,$limit);
-
-            $this->loadTemplate('funcionario/funcionario', $data);
-
-        }else{
-            header("Location:".BASE_URL);
+        } else {
+            header("Location:" . BASE_URL);
             exit;
         }
 

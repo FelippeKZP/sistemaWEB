@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Examples using phpmailer</title>
+    <title>Examples using phpmailer</title>
 </head>
 
 <body bgcolor="#FFFFFF">
@@ -10,11 +10,12 @@
 <h3>1. Advanced Example</h3>
 <p>
 
-This demonstrates sending out multiple email messages with binary attachments
-from a MySQL database with multipart/alternative support.<p>
+    This demonstrates sending out multiple email messages with binary attachments
+    from a MySQL database with multipart/alternative support.
+<p>
 <table cellpadding="4" border="1" width="80%">
-<tr>
-<td bgcolor="#CCCCCC">
+    <tr>
+        <td bgcolor="#CCCCCC">
 <pre>
 require("class.phpmailer.php");
 
@@ -27,8 +28,8 @@ $mail->Mailer   = "smtp";
 
 @MYSQL_CONNECT("localhost","root","password");
 @mysql_select_db("my_company");
-$query  = "SELECT full_name, email, photo FROM employee WHERE id=$id";
-$result = @MYSQL_QUERY($query);
+$queryï¿½ =ï¿½"SELECT full_name, email,ï¿½photoï¿½FROM employeeï¿½WHEREï¿½id=$id";
+$resultï¿½=ï¿½@MYSQL_QUERY($query);
 
 while ($row = mysql_fetch_array ($result))
 {
@@ -57,31 +58,31 @@ while ($row = mysql_fetch_array ($result))
     $mail->ClearAttachments();
 }
 </pre>
-</td>
-</tr>
+        </td>
+    </tr>
 </table>
 <p>
 
 <h3>2. Extending phpmailer</h3>
 <p>
 
-Extending classes with inheritance is one of the most
-powerful features of object-oriented
-programming.  It allows you to make changes to the
-original class for your
-own personal use without hacking the original
-classes.  Plus, it is very
-easy to do. I've provided an example:
+    Extending classes with inheritance is one of the most
+    powerful features of object-oriented
+    programming. It allows you to make changes to the
+    original class for your
+    own personal use without hacking the original
+    classes. Plus, it is very
+    easy to do. I've provided an example:
 
 <p>
-Here's a class that extends the phpmailer class and sets the defaults
-for the particular site:<br>
-PHP include file: <b>mail.inc.php</b>
+    Here's a class that extends the phpmailer class and sets the defaults
+    for the particular site:<br>
+    PHP include file: <b>mail.inc.php</b>
 <p>
 
 <table cellpadding="4" border="1" width="80%">
-<tr>
-<td bgcolor="#CCCCCC">
+    <tr>
+        <td bgcolor="#CCCCCC">
 <pre>
 require("class.phpmailer.php");
 
@@ -106,8 +107,8 @@ class my_phpmailer extends phpmailer {
         // Place your new code here
     }
 }
-</td>
-</tr>
+        </td>
+    </tr>
 </table>
 <br>
 
@@ -117,8 +118,8 @@ Normal PHP file: <b>mail_test.php</b>
 <p>
 
 <table cellpadding="4" border="1" width="80%">
-<tr>
-<td bgcolor="#CCCCCC">
+    <tr>
+        <td bgcolor="#CCCCCC">
 <pre>
 require("mail.inc.php");
 
@@ -139,8 +140,8 @@ if(!$mail->Send())
 
 echo "Message was sent successfully";
 </pre>
-</td>
-</tr>
+        </td>
+    </tr>
 </table>
 </p>
 

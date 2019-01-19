@@ -1,8 +1,10 @@
 <?php
 
-class loteProdutoController extends controller {
+class loteProdutoController extends controller
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $u = new Usuario();
         if ($u->isLogged() == false) {
@@ -11,7 +13,8 @@ class loteProdutoController extends controller {
         }
     }
 
-    public function index() {
+    public function index()
+    {
         $data = array();
         $u = new Usuario();
         $n = new Notificacao();
@@ -38,7 +41,7 @@ class loteProdutoController extends controller {
         $data['perda'] = $u->hasPermission('perda');
         $data['relatório'] = $u->hasPermission('relatório');
 
-        if($u->hasPermission('lote de produto')){
+        if ($u->hasPermission('lote de produto')) {
 
             $l = new LoteProduto();
 
@@ -53,7 +56,7 @@ class loteProdutoController extends controller {
                 $s = $_GET['searchs'];
             }
 
-            $data['filtros'] =  $_GET;
+            $data['filtros'] = $_GET;
 
             $limit = 10;
 
@@ -80,14 +83,15 @@ class loteProdutoController extends controller {
 
             $this->loadTemplate('loteProduto/lote_produto', $data);
 
-        }else{
-            header("Location:".BASE_URL);
+        } else {
+            header("Location:" . BASE_URL);
             exit;
         }
 
     }
 
-    public function lote_produto_add() {
+    public function lote_produto_add()
+    {
         $data = array();
         $u = new Usuario();
         $n = new Notificacao();
@@ -95,7 +99,7 @@ class loteProdutoController extends controller {
         $data['usuario_nome'] = $u->getNome();
         $data['usuario_foto'] = $u->getFoto();
         $data['notificacao'] = $n->verificarNotificacao($u->getId());
-       $data['balanço'] = $u->hasPermission('balanço');
+        $data['balanço'] = $u->hasPermission('balanço');
         $data['backup'] = $u->hasPermission('backup');
         $data['cliente'] = $u->hasPermission('cliente');
         $data['fornecedor'] = $u->hasPermission('fornecedor');
@@ -114,7 +118,7 @@ class loteProdutoController extends controller {
         $data['perda'] = $u->hasPermission('perda');
         $data['relatório'] = $u->hasPermission('relatório');
 
-        if($u->hasPermission('lote de produto')){
+        if ($u->hasPermission('lote de produto')) {
 
             $l = new LoteProduto();
 
@@ -130,24 +134,25 @@ class loteProdutoController extends controller {
                 $data_fabricacao = $data_fabricacao[2] . '-' . $data_fabricacao[1] . '-' . $data_fabricacao[0];
                 $data_vencimento = $data_vencimento[2] . '-' . $data_vencimento[1] . '-' . $data_vencimento[0];
 
-                try{
-                    $l->lote_produto_add($numero_lote, $id_produto, $id_fornecedor, $quantidade, $data_fabricacao, $data_vencimento,$status, $u->getId());
-                    $data['msg_sucesso'] = "Lote de Produto Salvo Com Sucesso.";
-                } catch(Exception $e){
-                    $data['msg_erro'] = "Já Existe Este Lote de Produto.";
+                try {
+                    $l->lote_produto_add($numero_lote, $id_produto, $id_fornecedor, $quantidade, $data_fabricacao, $data_vencimento, $status, $u->getId());
+                    $data['msg_sucesso'] = "Sucesso.";
+                } catch (Exception $e) {
+                    $data['msg_erro'] = "Erro.";
                 }
             }
 
             $this->loadTemplate('loteProduto/lote_produto_add', $data);
 
-        }else{
-            header("Location:".BASE_URL);
+        } else {
+            header("Location:" . BASE_URL);
             exit;
         }
 
     }
 
-    public function lote_produto_editar($id) {
+    public function lote_produto_editar($id)
+    {
         $data = array();
         $u = new Usuario();
         $n = new Notificacao();
@@ -174,18 +179,18 @@ class loteProdutoController extends controller {
         $data['perda'] = $u->hasPermission('perda');
         $data['relatório'] = $u->hasPermission('relatório');
 
-        if($u->hasPermission('lote de produto')){
+        if ($u->hasPermission('lote de produto')) {
 
             $l = new LoteProduto();
 
-            if(isset($id) && !empty($id)){
-                if($l->verificarId($id)){
+            if (isset($id) && !empty($id)) {
+                if ($l->verificarId($id)) {
 
-                }else{
-                    header("Location:".BASE_URL.'loteProduto' );
+                } else {
+                    header("Location:" . BASE_URL . 'loteProduto');
                 }
-            }else{
-                header("Location:".BASE_URL.'loteProduto' );
+            } else {
+                header("Location:" . BASE_URL . 'loteProduto');
             }
 
             if (isset($_POST['numero_lote']) && !empty($_POST['numero_lote'])) {
@@ -200,10 +205,10 @@ class loteProdutoController extends controller {
                 $data_vencimento = $data_vencimento[2] . '-' . $data_vencimento[1] . '-' . $data_vencimento[0];
 
                 try {
-                    $l->lote_produto_editar($numero_lote, $id_produto, $id_fornecedor, $data_fabricacao, $data_vencimento,$status, $id);
-                    $data['msg_sucesso'] = "Sucesso ao Editar o Lote de Produto.";
+                    $l->lote_produto_editar($numero_lote, $id_produto, $id_fornecedor, $data_fabricacao, $data_vencimento, $status, $id);
+                    $data['msg_sucesso'] = "Sucesso.";
                 } catch (Exception $ex) {
-                    $data['msg_erro'] = "Ocorreu um Erro ao Editar o Lote de Produto";
+                    $data['msg_erro'] = "Erro.";
                 }
             }
 
@@ -211,14 +216,15 @@ class loteProdutoController extends controller {
 
             $this->loadTemplate('loteProduto/lote_produto_editar', $data);
 
-        }else{
-            header("Location:".BASE_URL);
+        } else {
+            header("Location:" . BASE_URL);
             exit;
         }
 
     }
 
-    public function lote_produto_deletar($id) {
+    public function lote_produto_deletar($id)
+    {
         $data = array();
         $u = new Usuario();
         $n = new Notificacao();
@@ -245,139 +251,107 @@ class loteProdutoController extends controller {
         $data['perda'] = $u->hasPermission('perda');
         $data['relatório'] = $u->hasPermission('relatório');
 
-        if($u->hasPermission('lote de produto')){
+        if ($u->hasPermission('lote de produto')) {
 
             $l = new LoteProduto();
 
-                $data['status'] = array(
-                    '0' => 'Indisponivel',
-                    '1' => 'Dísponivel'
-                );
+            $data['status'] = array(
+                '0' => 'Indisponivel',
+                '1' => 'Dísponivel'
+            );
 
-                if(isset($id) && !empty($id)){
-                    if($l->verificarId($id)){
+            if (isset($id) && !empty($id)) {
+                if ($l->verificarId($id)) {
 
-                    }else{
-                        header("Location:".BASE_URL.'loteProduto' );
-                    }
-                }else{
-                    header("Location:".BASE_URL.'loteProduto' );
+                } else {
+                    header("Location:" . BASE_URL . 'loteProduto');
                 }
+            } else {
+                header("Location:" . BASE_URL . 'loteProduto');
+            }
+
+            try {
+                $l->lote_produto_deletar($id);
+                $data['msg_sucesso'] = "sucesso.";
+            } catch (Exception $e) {
+                $data['msg_erro'] = "erro.";
+            }
+
+        } else {
+            header("Location:" . BASE_URL);
+            exit;
+        }
+    }
+
+    public function lote_produto_perda($id)
+    {
+        $data = array();
+        $u = new Usuario();
+        $n = new Notificacao();
+        $u->setLoggedUser();
+        $data['usuario_nome'] = $u->getNome();
+        $data['usuario_foto'] = $u->getFoto();
+        $data['notificacao'] = $n->verificarNotificacao($u->getId());
+        $data['balanço'] = $u->hasPermission('balanço');
+        $data['backup'] = $u->hasPermission('backup');
+        $data['cliente'] = $u->hasPermission('cliente');
+        $data['fornecedor'] = $u->hasPermission('fornecedor');
+        $data['função de funcionário'] = $u->hasPermission('função de funcionário');
+        $data['funcionário'] = $u->hasPermission('funcionário');
+        $data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
+        $data['grupo de produto'] = $u->hasPermission('grupo de produto');
+        $data['lote de produto'] = $u->hasPermission('lote de produto');
+        $data['produto'] = $u->hasPermission('produto');
+        $data['usuário'] = $u->hasPermission('usuário');
+        $data['contas a pagar'] = $u->hasPermission('contas a pagar');
+        $data['contas a receber'] = $u->hasPermission('contas a receber');
+        $data['estoque'] = $u->hasPermission('estoque');
+        $data['compra'] = $u->hasPermission('compra');
+        $data['venda'] = $u->hasPermission('venda');
+        $data['perda'] = $u->hasPermission('perda');
+        $data['relatório'] = $u->hasPermission('relatório');
+
+        if ($u->hasPermission('lote de produto')) {
+
+            $l = new LoteProduto();
+
+            if (isset($id) && !empty($id)) {
+                if ($l->verificarId($id)) {
+
+                } else {
+                    header("Location:" . BASE_URL . 'loteProduto');
+                }
+            } else {
+                header("Location:" . BASE_URL . 'loteProduto');
+            }
+
+            if (isset($_POST['quantidade_perda']) && !empty($_POST['quantidade_perda'])) {
+                $quantidade_perda = addslashes($_POST['quantidade_perda']);
+                $motivo = addslashes($_POST['motivo']);
+                $preco = addslashes($_POST['preco']);
+
+                $preco = str_replace(',', '.', $preco);
 
                 try {
-                    $l->lote_produto_deletar($id);
-                    $data['msg_sucesso'] = "Sucesso ao Excluir o Lote de Produto.";
+                    $l->lote_produto_perda($quantidade_perda, $motivo, $preco, $id, $u->getId());
+                    $data['msg_sucesso'] = "Sucesso.";
+
                 } catch (Exception $e) {
-                    $data['msg_erro'] = "Este Lote de Produto Já Esta Associado.";
+                    $data['msg_erro'] = "Erro.";
                 }
-
-                $s = '';
-                if (!empty($_GET['searchs'])) {
-                    $s = $_GET['searchs'];
-                }
-
-                $data['filtros'] =  $_GET;
-
-                $limit = 10;
-
-                $data['limit'] = 1;
-
-                $total = $l->getTotal($s);
-
-                $data['total'] = $l->getTotal($s);
-
-                $data['paginas'] = ceil($total / $limit);
-
-                $data['paginaAtual'] = 1;
-                if (!empty($_GET['p'])) {
-                    $data['paginaAtual'] = intval($_GET['p']);
-                }
-
-                $offset = ($data['paginaAtual'] * $limit) - $limit;
-
-                $data['offset'] = ($data['paginaAtual'] * $limit) - $limit;
-
-                $data['max'] = 2;
-
-                $data['lote_produto_list'] = $l->getList($s, $offset, $limit);
-
-
-                $this->loadTemplate('loteProduto/lote_produto', $data);
-
-            }else{
-                header("Location:".BASE_URL);
-                exit;
-            }
-        }
-
-        public function lote_produto_perda($id){
-            $data = array();
-            $u = new Usuario();
-            $n = new Notificacao();
-            $u->setLoggedUser();
-            $data['usuario_nome'] = $u->getNome();
-            $data['usuario_foto'] = $u->getFoto();
-            $data['notificacao'] = $n->verificarNotificacao($u->getId());
-            $data['balanço'] = $u->hasPermission('balanço');
-            $data['backup'] = $u->hasPermission('backup');
-            $data['cliente'] = $u->hasPermission('cliente');
-            $data['fornecedor'] = $u->hasPermission('fornecedor');
-            $data['função de funcionário'] = $u->hasPermission('função de funcionário');
-            $data['funcionário'] = $u->hasPermission('funcionário');
-            $data['grupo de permissão'] = $u->hasPermission('grupo de permissão');
-            $data['grupo de produto'] = $u->hasPermission('grupo de produto');
-            $data['lote de produto'] = $u->hasPermission('lote de produto');
-            $data['produto'] = $u->hasPermission('produto');
-            $data['usuário'] = $u->hasPermission('usuário');
-            $data['contas a pagar'] = $u->hasPermission('contas a pagar');
-            $data['contas a receber'] = $u->hasPermission('contas a receber');
-            $data['estoque'] = $u->hasPermission('estoque');
-            $data['compra'] = $u->hasPermission('compra');
-            $data['venda'] = $u->hasPermission('venda');
-            $data['perda'] = $u->hasPermission('perda');
-            $data['relatório'] = $u->hasPermission('relatório');
-
-            if($u->hasPermission('lote de produto')){
-
-                $l = new LoteProduto();
-
-                if(isset($id) && !empty($id)){
-                    if($l->verificarId($id)){
-
-                    }else{
-                        header("Location:".BASE_URL.'loteProduto' );
-                    }
-                }else{
-                    header("Location:".BASE_URL.'loteProduto' );
-                }
-
-                if(isset($_POST['quantidade_perda']) && !empty($_POST['quantidade_perda'])){
-                    $quantidade_perda = addslashes($_POST['quantidade_perda']);
-                    $motivo = addslashes($_POST['motivo']);
-                    $preco = addslashes($_POST['preco']);
-
-                    $preco = str_replace(',','.',$preco);
-
-                    try{
-                        $l->lote_produto_perda($quantidade_perda,$motivo,$preco,$id,$u->getId());
-                        $data['msg_sucesso'] = "Sucesso ao realizar perda do lote";
-
-                    }catch(Exception $e){
-                        $data['msg_erro'] = "Ocorreu um erro ao realizar a perda";
-                    }
-                }
-
-                $data['lote_produto_editar_list'] = $l->getInfo($id);
-
-                $this->loadTemplate('loteProduto/lote_produto_perda', $data);
-
-            }else{
-                header("Location:".BASE_URL);
-                exit;
             }
 
+            $data['lote_produto_editar_list'] = $l->getInfo($id);
+
+            $this->loadTemplate('loteProduto/lote_produto_perda', $data);
+
+        } else {
+            header("Location:" . BASE_URL);
+            exit;
         }
 
     }
 
-    ?>
+}
+
+?>

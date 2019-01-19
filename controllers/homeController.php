@@ -1,10 +1,12 @@
 <?php
 
-class homeController extends controller {
+class homeController extends controller
+{
 
     private $user;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
 
         $u = new Usuario();
@@ -14,7 +16,8 @@ class homeController extends controller {
         }
     }
 
-    public function index() {
+    public function index()
+    {
         $data = array();
         $u = new Usuario();
         $n = new Notificacao();
@@ -60,8 +63,8 @@ class homeController extends controller {
         $data['despesas'] = $h->despesas(date('Y-m-d', strtotime('-30 days')), date('Y-m-d'));
 
         $data['lista_dia'] = array();
-        for($q=30;$q>0;$q--){
-            $data['lista_dia'][] = date('d/m',strtotime('-'.$q.'days'));
+        for ($q = 30; $q > 0; $q--) {
+            $data['lista_dia'][] = date('d/m', strtotime('-' . $q . 'days'));
         }
 
         $data['grafico_list'] = $h->getGrafico(date('Y-m-d', strtotime('-30 days')), date('Y-m-d'));
@@ -76,7 +79,8 @@ class homeController extends controller {
         $this->loadTemplate('home', $data);
     }
 
-    public function sair() {
+    public function sair()
+    {
         $u = new Usuario();
         $u->sair();
         header("Location:" . BASE_URL);

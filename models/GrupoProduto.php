@@ -1,8 +1,10 @@
 <?php
 
-class GrupoProduto extends model {
+class GrupoProduto extends model
+{
 
-    public function getList($s = null, $offset, $limit) {
+    public function getList($s = null, $offset, $limit)
+    {
         $array = array();
 
         if (!empty($s)) {
@@ -21,7 +23,8 @@ class GrupoProduto extends model {
         return $array;
     }
 
-    public function getGrupoProduto() {
+    public function getGrupoProduto()
+    {
         $array = array();
 
         $sql = $this->db->prepare("SELECT * FROM grupo_produto");
@@ -34,7 +37,8 @@ class GrupoProduto extends model {
         return $array;
     }
 
-    public function getTotal($s) {
+    public function getTotal($s)
+    {
         if (!empty($s)) {
             $sql = $this->db->prepare("SELECT COUNT(*)as c FROM grupo_produto WHERE nome LIKE :nome");
             $sql->bindValue(":nome", '%' . $s . '%');
@@ -48,7 +52,8 @@ class GrupoProduto extends model {
         return $sql['c'];
     }
 
-    public function getRelatorio($nome) {
+    public function getRelatorio($nome)
+    {
         $array = array();
 
         if (!empty($nome)) {
@@ -67,36 +72,40 @@ class GrupoProduto extends model {
         return $array;
     }
 
-    public function grupo_produto_add($nome) {
+    public function grupo_produto_add($nome)
+    {
 
         $sql = $this->db->prepare("INSERT INTO grupo_produto(nome) VALUES(:nome)");
         $sql->bindValue(":nome", $nome);
         $sql->execute();
-        
+
     }
 
 
-    public function verificarId($id){
+    public function verificarId($id)
+    {
 
         $sql = $this->db->prepare("SELECT id FROM grupo_produto WHERE id = :id");
-        $sql->bindValue(":id",$id);
+        $sql->bindValue(":id", $id);
         $sql->execute();
 
-        if($sql->rowCount() > 0){
+        if ($sql->rowCount() > 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public function grupo_produto_editar($nome, $id) {
+    public function grupo_produto_editar($nome, $id)
+    {
         $sql = $this->db->prepare("UPDATE grupo_produto SET nome = :nome WHERE id = :id");
         $sql->bindValue(":nome", $nome);
         $sql->bindValue(":id", $id);
         $sql->execute();
     }
 
-    public function getInfo($id) {
+    public function getInfo($id)
+    {
         $array = array();
 
         $sql = $this->db->prepare("SELECT * FROM grupo_produto WHERE id = :id");
@@ -110,7 +119,8 @@ class GrupoProduto extends model {
         return $array;
     }
 
-    public function grupo_produto_deletar($id) {
+    public function grupo_produto_deletar($id)
+    {
         $sql = $this->db->prepare("DELETE FROM grupo_produto WHERE id = :id");
         $sql->bindValue(":id", $id);
         $sql->execute();

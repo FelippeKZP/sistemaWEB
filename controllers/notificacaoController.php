@@ -1,8 +1,10 @@
 <?php
 
-class notificacaoController extends controller {
+class notificacaoController extends controller
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $u = new Usuario();
         if ($u->isLogged() == false) {
@@ -11,7 +13,8 @@ class notificacaoController extends controller {
         }
     }
 
-    public function index() {
+    public function index()
+    {
         $data = array();
         $u = new Usuario();
         $n = new Notificacao();
@@ -51,7 +54,8 @@ class notificacaoController extends controller {
         $this->loadTemplate('notificacao/notificacao', $data);
     }
 
-    public function notificacao_add() {
+    public function notificacao_add()
+    {
         $data = array();
         $u = new Usuario();
         $n = new Notificacao();
@@ -85,7 +89,7 @@ class notificacaoController extends controller {
             $notificacao = addslashes($_POST['notificacao']);
 
             try {
-                $n->notificacao_add($usuarios,$tipo_notificacao,$notificacao,$u->getId());
+                $n->notificacao_add($usuarios, $tipo_notificacao, $notificacao, $u->getId());
                 $data['msg_sucesso'] = "Sucesso Ao Salvar A Notificação";
             } catch (Exception $ex) {
                 $data['msg_erro'] = "Ocorreu Um Erro Ao Salvar A Notificação.";

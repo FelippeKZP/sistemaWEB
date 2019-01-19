@@ -3,12 +3,12 @@ var rel1 = new Chart(document.getElementById("rel1"), {
     data: {
         labels: lista_dia,
         datasets: [{
-                label: 'Vendas',
-                data: grafico_list,
-                fill: false,
-                backgroundColor: '#0000FF',
-                borderColor: '#0000FF'
-            },
+            label: 'Vendas',
+            data: grafico_list,
+            fill: false,
+            backgroundColor: '#0000FF',
+            borderColor: '#0000FF'
+        },
             {
                 label: 'Compras',
                 data: grafico_compra_list,
@@ -25,8 +25,8 @@ var rel2 = new Chart(document.getElementById("rel2"), {
     data: {
         labels: status_nome_list,
         datasets: [{
-                data: status_list,
-                backgroundColor: ['#D91E18','#27ae60']
+            data: status_list,
+            backgroundColor: ['#D91E18', '#27ae60']
         }]
     }
 

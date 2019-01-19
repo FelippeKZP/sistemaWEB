@@ -37,46 +37,54 @@
     * {
         font-family: arial;
     }
-    .quadrado{
+
+    .quadrado {
         width: 100%;
         height: 100%;
         margin: auto;
         border: 2px solid #CCC;
 
     }
-    .container-aviso{
+
+    .container-aviso {
 
         height: 13%;
-        background-color: rgb(235,111,0);
+        background-color: rgb(235, 111, 0);
         padding-left: 20px;
     }
-    .container-aviso h2{
+
+    .container-aviso h2 {
         color: #FFFFFF !important;
     }
-    .container-aviso h4{
-        color: #FFFFFF ;
+
+    .container-aviso h4 {
+        color: #FFFFFF;
         margin-top: 20px;
     }
-    .container-form{
+
+    .container-form {
         font-size: 13px;
-        color:#999999;
+        color: #999999;
         padding-left: 20px;
         padding-right: 20px;
     }
-    .container-email{
+
+    .container-email {
         font-size: 15px;
-        color:#000000;
+        color: #000000;
         padding-left: 20px;
     }
-    .container-email #email{
+
+    .container-email #email {
         height: 5%;
         width: 50%;
         border-radius: 3px;
         border: 1px solid #CCC;
     }
-    .container-email #bt{
+
+    .container-email #bt {
         border: 0px;
-        background-color:#5cb85c ;
+        background-color: #5cb85c;
         height: 30px;
         color: #FFF;
         line-height: 30px;
@@ -90,9 +98,9 @@
         text-decoration: none;
     }
 
-    .container-email #btVoltar{
+    .container-email #btVoltar {
         border: 0px;
-        background-color:#d58512 ;
+        background-color: #d58512;
         height: 30px;
         color: #FFF;
         line-height: 30px;
@@ -106,7 +114,7 @@
         text-decoration: none;
     }
 
-    .container-email .error{
+    .container-email .error {
         border: 2px solid #FFF;
         padding: 10px;
         background-color: #ff0000;
@@ -115,13 +123,13 @@
         margin-top: 10px;
         width: 73%;
         margin-bottom: 20px;
-        
+
     }
 
-    .container-email .sucesso{
+    .container-email .sucesso {
         border: 2px solid #FFF;
         padding: 10px;
-        background-color:#6699ff;
+        background-color: #6699ff;
         border-radius: 5px;
         color: #FFF;
         margin-top: 10px;

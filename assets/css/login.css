@@ -1,6 +1,7 @@
 * {
     font-family: arial;
 }
+
 body {
     background: url(http://www.designbolts.com/wp-content/uploads/2014/03/Blue-Blur-Background1.jpg);
     background-repeat: no-repeat;
@@ -27,7 +28,7 @@ body {
 }
 
 .login form .form-group {
-    margin-left:  30px;
+    margin-left: 30px;
 }
 
 .login form .form-control {
@@ -69,7 +70,7 @@ body {
     background-color: #8258FA;
 }
 
-.msg{
+.msg {
     border: 2px solid #FFF;
     padding: 10px;
     background-color: #ff0000;
@@ -81,7 +82,7 @@ body {
     margin-left: 35px;
 }
 
- .esqueci:hover{
+.esqueci:hover {
     color: #23527c !important;
     text-decoration: underline;
 }

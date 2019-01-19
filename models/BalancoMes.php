@@ -1,10 +1,12 @@
 <?php
 
-class BalancoMes extends model {
+class BalancoMes extends model
+{
 
-  public function getAtualList($periodo1, $periodo2) {
+    public function getAtualList($periodo1, $periodo2)
+    {
 
-    $sql = $this->db->prepare("SELECT SUM(contas_receber.valor) as venda,
+        $sql = $this->db->prepare("SELECT SUM(contas_receber.valor) as venda,
      (select SUM(contas_pagar.total) FROM contas_pagar 
      WHERE contas_pagar.tipo = 2 and contas_pagar.status = 1 AND contas_pagar.data_pagamento BETWEEN :periodo1 AND :periodo2 ) as compra,
      (select SUM(perda.total) FROM perda WHERE perda.data_perda BETWEEN :periodo1 AND :periodo2) as perda,
@@ -12,20 +14,20 @@ class BalancoMes extends model {
      AND contas_pagar.status = 1 AND contas_pagar.data_pagamento BETWEEN :periodo1 AND :periodo2) as outras
      FROM contas_receber
      WHERE contas_receber.status = 1 AND contas_receber.data_recebimento BETWEEN :periodo1 AND :periodo2");
-    $sql->bindValue(":periodo1", $periodo1);
-    $sql->bindValue(":periodo2", $periodo2);
-    $sql->execute();
+        $sql->bindValue(":periodo1", $periodo1);
+        $sql->bindValue(":periodo2", $periodo2);
+        $sql->execute();
 
-    $row = $sql->fetch();
+        $row = $sql->fetch();
 
-    return $row;
-  }
+        return $row;
+    }
 
 
+    public function getAnteriorList($periodo1, $periodo2)
+    {
 
-  public function getAnteriorList($periodo1, $periodo2) {
-
-   $sql = $this->db->prepare("SELECT SUM(contas_receber.valor) as venda,
+        $sql = $this->db->prepare("SELECT SUM(contas_receber.valor) as venda,
      (select SUM(contas_pagar.total) FROM contas_pagar 
      WHERE contas_pagar.tipo = 2 and contas_pagar.status = 1 AND contas_pagar.data_pagamento BETWEEN :periodo1 AND :periodo2 ) as compra,
      (select SUM(perda.total) FROM perda WHERE perda.data_perda BETWEEN :periodo1 AND :periodo2) as perda,
@@ -33,15 +35,14 @@ class BalancoMes extends model {
      AND contas_pagar.status = 1 AND contas_pagar.data_pagamento BETWEEN :periodo1 AND :periodo2) as outras
      FROM contas_receber
      WHERE contas_receber.status = 1 AND contas_receber.data_recebimento BETWEEN :periodo1 AND :periodo2");
-   $sql->bindValue(":periodo1", $periodo1);
-   $sql->bindValue(":periodo2", $periodo2);
-   $sql->execute();
+        $sql->bindValue(":periodo1", $periodo1);
+        $sql->bindValue(":periodo2", $periodo2);
+        $sql->execute();
 
-   $row = $sql->fetch();
+        $row = $sql->fetch();
 
-   return $row;
- }
-
+        return $row;
+    }
 
 
 }

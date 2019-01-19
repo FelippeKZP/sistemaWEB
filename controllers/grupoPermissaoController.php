@@ -1,8 +1,10 @@
 <?php
 
-class grupoPermissaoController extends controller {
+class grupoPermissaoController extends controller
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $u = new Usuario();
         if ($u->isLogged() == false) {
@@ -11,7 +13,8 @@ class grupoPermissaoController extends controller {
         }
     }
 
-    public function index() {
+    public function index()
+    {
         $data = array();
         $u = new Usuario();
         $n = new Notificacao();
@@ -41,7 +44,7 @@ class grupoPermissaoController extends controller {
         $data['perda'] = $u->hasPermission('perda');
         $data['relatório'] = $u->hasPermission('relatório');
 
-        if($u->hasPermission('grupo de permissão')){
+        if ($u->hasPermission('grupo de permissão')) {
 
             $p = new GrupoPermissao();
 
@@ -51,7 +54,7 @@ class grupoPermissaoController extends controller {
                 $s = $_GET['searchs'];
             }
 
-            $data['filtros'] =  $_GET;
+            $data['filtros'] = $_GET;
 
             $limit = 10;
 
@@ -78,14 +81,15 @@ class grupoPermissaoController extends controller {
 
             $this->loadTemplate('grupoPermissao/grupo_permissao', $data);
 
-        }else{
-            header("Location:".BASE_URL);
+        } else {
+            header("Location:" . BASE_URL);
             exit;
         }
 
     }
 
-    public function grupo_permissao_add() {
+    public function grupo_permissao_add()
+    {
         $data = array();
         $u = new Usuario();
         $n = new Notificacao();
@@ -115,7 +119,7 @@ class grupoPermissaoController extends controller {
         $data['perda'] = $u->hasPermission('perda');
         $data['relatório'] = $u->hasPermission('relatório');
 
-        if($u->hasPermission('grupo de permissão')){
+        if ($u->hasPermission('grupo de permissão')) {
 
             $p = new grupoPermissao();
 
@@ -125,10 +129,10 @@ class grupoPermissaoController extends controller {
                 $nome = addslashes($_POST['nome']);
                 $id_permissao = $_POST['permissao'];
 
-                try{
+                try {
                     $p->grupo_permissao_add($nome, $id_permissao);
                     $data['msg_sucesso'] = "Grupo de Permissão Salvo Com Sucesso.";
-                }catch(Exception $e){
+                } catch (Exception $e) {
                     $data['msg_erro'] = "Já Existe Este Grupo De Permissão.";
                 }
 
@@ -136,13 +140,14 @@ class grupoPermissaoController extends controller {
             $data['permissao_lista'] = $permissao->getInfo();
             $this->loadTemplate('grupoPermissao/grupo_permissao_add', $data);
 
-        }else{
-            header("Location:".BASE_URL);
+        } else {
+            header("Location:" . BASE_URL);
             exit;
         }
     }
 
-    public function grupo_permissao_editar($id) {
+    public function grupo_permissao_editar($id)
+    {
         $data = array();
         $u = new Usuario();
         $n = new Notificacao();
@@ -172,21 +177,21 @@ class grupoPermissaoController extends controller {
         $data['perda'] = $u->hasPermission('perda');
         $data['relatório'] = $u->hasPermission('relatório');
 
-        if($u->hasPermission('grupo de permissão')){
+        if ($u->hasPermission('grupo de permissão')) {
 
             $p = new GrupoPermissao();
 
             $permissao = new Permissao();
 
 
-            if(isset($id) && !empty($id)){
-                if($p->verificarId($id)){
+            if (isset($id) && !empty($id)) {
+                if ($p->verificarId($id)) {
 
-                }else{
-                    header("Location:".BASE_URL.'grupoPermissao' );
+                } else {
+                    header("Location:" . BASE_URL . 'grupoPermissao');
                 }
-            }else{
-                header("Location:".BASE_URL.'grupoPermissao' );
+            } else {
+                header("Location:" . BASE_URL . 'grupoPermissao');
             }
 
 
@@ -207,14 +212,15 @@ class grupoPermissaoController extends controller {
 
             $this->loadTemplate('grupoPermissao/grupo_permissao_editar', $data);
 
-        }else{
-            header("Location:".BASE_URL);
+        } else {
+            header("Location:" . BASE_URL);
             exit;
         }
 
     }
 
-    public function grupo_permissao_deletar($id) {
+    public function grupo_permissao_deletar($id)
+    {
         $data = array();
         $u = new Usuario();
         $n = new Notificacao();
@@ -244,18 +250,18 @@ class grupoPermissaoController extends controller {
         $data['perda'] = $u->hasPermission('perda');
         $data['relatório'] = $u->hasPermission('relatório');
 
-        if($u->hasPermission('grupo de permissão')){
+        if ($u->hasPermission('grupo de permissão')) {
 
             $p = new GrupoPermissao();
 
-            if(isset($id) && !empty($id)){
-                if($p->verificarId($id)){
+            if (isset($id) && !empty($id)) {
+                if ($p->verificarId($id)) {
 
-                }else{
-                    header("Location:".BASE_URL.'grupoPermissao' );
+                } else {
+                    header("Location:" . BASE_URL . 'grupoPermissao');
                 }
-            }else{
-                header("Location:".BASE_URL.'grupoPermissao' );
+            } else {
+                header("Location:" . BASE_URL . 'grupoPermissao');
             }
 
             try {
@@ -273,7 +279,7 @@ class grupoPermissaoController extends controller {
 
             $limit = 10;
 
-            $data['filtros'] =  $_GET;
+            $data['filtros'] = $_GET;
 
             $total = $p->getTotal($s);
 
@@ -296,8 +302,8 @@ class grupoPermissaoController extends controller {
 
             $this->loadTemplate('grupoPermissao/grupo_permissao', $data);
 
-        }else{
-            header("Location:".BASE_URL);
+        } else {
+            header("Location:" . BASE_URL);
             exit;
         }
 

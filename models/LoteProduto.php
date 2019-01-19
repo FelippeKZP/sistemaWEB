@@ -1,8 +1,10 @@
 <?php
 
-class LoteProduto extends model {
+class LoteProduto extends model
+{
 
-    public function getList($s = null) {
+    public function getList($s = null)
+    {
 
         $array = array();
 
@@ -27,7 +29,8 @@ class LoteProduto extends model {
         return $array;
     }
 
-    public function getTotal($s) {
+    public function getTotal($s)
+    {
         if (!empty($s)) {
             $sql = $this->db->prepare("SELECT COUNT(lote_produto.id)as c FROM lote_produto
                INNER JOIN produto on produto.id = lote_produto.id_produto
@@ -42,7 +45,8 @@ class LoteProduto extends model {
         return $sql['c'];
     }
 
-    public function getRelatorio($numero, $periodo1, $periodo2) {
+    public function getRelatorio($numero, $periodo1, $periodo2)
+    {
         $array = array();
 
         if (!empty($numero)) {
@@ -87,7 +91,8 @@ class LoteProduto extends model {
         return $array;
     }
 
-    public function getInfo($id) {
+    public function getInfo($id)
+    {
         $array = array();
 
         $sql = $this->db->prepare("SELECT lote_produto.id, lote_produto.numero_lote,lote_produto.id_produto,lote_produto.id_fornecedor,
@@ -107,23 +112,26 @@ class LoteProduto extends model {
     }
 
 
-    public function verificarId($id){
+    public function verificarId($id)
+    {
 
         $sql = $this->db->prepare("SELECT id FROM lote_produto WHERE id = :id");
-        $sql->bindValue(":id",$id);
+        $sql->bindValue(":id", $id);
         $sql->execute();
 
-        if($sql->rowCount() > 0){
+        if ($sql->rowCount() > 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public function pesquisarLoteProdutos($p) {
+    public function pesquisarLoteProdutos($p)
+    {
         $array = array();
 
-        $sql = $this->db->prepare("SELECT lote_produto.id,produto.nome,produto.preco,produto.preco_compra,lote_produto.quantidade, lote_produto.numero_lote
+        $sql = $this->db->prepare("SELECT (select produto_imagem.url from produto_imagem where produto_imagem.id_produto = produto.id limit 1) as url,
+          lote_produto.id,produto.nome,produto.preco,produto.preco_compra,lote_produto.quantidade, lote_produto.numero_lote
           FROM lote_produto
           INNER JOIN produto on produto.id = lote_produto.id_produto
           WHERE produto.nome LIKE :nome OR lote_produto.numero_lote LIKE :nome
@@ -138,7 +146,8 @@ class LoteProduto extends model {
         return $array;
     }
 
-    public function lote_produto_add($numero_lote, $id_produto, $id_fornecedor, $quantidade, $data_fabricacao, $data_vencimento,$status, $id_usuario) {
+    public function lote_produto_add($numero_lote, $id_produto, $id_fornecedor, $quantidade, $data_fabricacao, $data_vencimento, $status, $id_usuario)
+    {
 
         $sql = $this->db->prepare("INSERT INTO lote_produto(numero_lote,id_produto,id_fornecedor,quantidade,data_fabricacao,data_vencimento,status)
             VALUES(:numero_lote,:id_produto,:id_fornecedor,:quantidade,:data_fabricacao,:data_vencimento,:status)");
@@ -163,7 +172,8 @@ class LoteProduto extends model {
         $p->aumentoEstoque($id_produto, $quantidade);
     }
 
-    public function lote_produto_editar($numero_lote, $id_produto, $id_fornecedor, $data_fabricacao, $data_vencimento, $status, $id) {
+    public function lote_produto_editar($numero_lote, $id_produto, $id_fornecedor, $data_fabricacao, $data_vencimento, $status, $id)
+    {
         $sql = $this->db->prepare("UPDATE lote_produto SET numero_lote = :numero_lote, id_produto = :id_produto, id_fornecedor = :id_fornecedor, data_fabricacao = :data_fabricacao, data_vencimento = :data_vencimento, status = :status WHERE id = :id");
         $sql->bindValue(":numero_lote", $numero_lote);
         $sql->bindValue(":id_produto", $id_produto);
@@ -175,7 +185,8 @@ class LoteProduto extends model {
         $sql->execute();
     }
 
-    public function lote_produto_deletar($id) {
+    public function lote_produto_deletar($id)
+    {
         $sql = $this->db->prepare("SELECT id_produto, quantidade FROM lote_produto WHERE id = :id");
         $sql->bindValue(":id", $id);
         $sql->execute();
@@ -194,7 +205,8 @@ class LoteProduto extends model {
         $sql->execute();
     }
 
-    public function totalDelete($id) {
+    public function totalDelete($id)
+    {
 
         $sql = $this->db->prepare("SELECT COUNT(*) as c FROM lote_produto WHERE id_produto = :id_produto");
         $sql->bindValue(":id_produto", $id);
@@ -208,7 +220,8 @@ class LoteProduto extends model {
         }
     }
 
-    public function lote_produto_perda($quantidade_perda,$motivo,$preco,$id,$id_usuario){
+    public function lote_produto_perda($quantidade_perda, $motivo, $preco, $id, $id_usuario)
+    {
 
         $total = 0;
         $total = $quantidade_perda * $preco;
@@ -216,17 +229,18 @@ class LoteProduto extends model {
         $sql = $this->db->prepare("INSERT INTO perda(id_lote_produto,id_usuario,data_perda,motivo,quantidade,total)
             VALUES(:id_lote_produto,:id_usuario,NOW(),:motivo,:quantidade,:total)");
         $sql->bindValue(":id_lote_produto", $id);
-        $sql->bindValue(":id_usuario",$id_usuario);
+        $sql->bindValue(":id_usuario", $id_usuario);
         $sql->bindValue(":motivo", $motivo);
         $sql->bindValue(":quantidade", $quantidade_perda);
         $sql->bindValue(":total", $total);
         $sql->execute();
 
-        $this->baixarEstoque($id,$quantidade_perda);
-        
+        $this->baixarEstoque($id, $quantidade_perda);
+
     }
 
-    public function baixarEstoque($id_lote, $quant_prod) {
+    public function baixarEstoque($id_lote, $quant_prod)
+    {
 
         $sql = $this->db->prepare("SELECT produto.id FROM lote_produto INNER JOIN produto on produto.id = lote_produto.id_produto WHERE lote_produto.id = :id");
         $sql->bindValue(":id", $id_lote);
@@ -246,7 +260,8 @@ class LoteProduto extends model {
         }
     }
 
-    public function aumentarEstoque($quantidade, $id_lote_produto) {
+    public function aumentarEstoque($quantidade, $id_lote_produto)
+    {
         $sql = $this->db->prepare("SELECT produto.id FROM lote_produto INNER JOIN produto on produto.id =  lote_produto.id_produto WHERE lote_produto.id = :id");
         $sql->bindValue(":id", $id_lote_produto);
         $sql->execute();

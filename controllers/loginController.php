@@ -1,8 +1,10 @@
 <?php
 
-class loginController extends controller {
+class loginController extends controller
+{
 
-    public function index() {
+    public function index()
+    {
         $data = array();
 
         if (isset($_POST['email']) && !empty($_POST['email'])) {
@@ -21,7 +23,8 @@ class loginController extends controller {
         $this->loadView('login', $data);
     }
 
-    public function esqueci_senha() {
+    public function esqueci_senha()
+    {
         $data = array();
         $u = new Usuario();
 
@@ -38,7 +41,8 @@ class loginController extends controller {
         $this->loadView('esqueci_senha', $data);
     }
 
-    public function redefinir() {
+    public function redefinir()
+    {
         $data = array();
         $u = new Usuario();
 
@@ -56,16 +60,17 @@ class loginController extends controller {
             $senha = addslashes($_POST['senha']);
             try {
                 $u->mudarSenha($senha, $token);
-             $data['msg_sucesso'] = "Sucesso ao trocar a senha, Volte para tela de login";
-           } catch (Exception $ex) {
-               $data['msg_erro'] = "Ocorreu um erro ao trocar a senha";
-          }
+                $data['msg_sucesso'] = "Sucesso ao trocar a senha, Volte para tela de login";
+            } catch (Exception $ex) {
+                $data['msg_erro'] = "Ocorreu um erro ao trocar a senha";
+            }
         }
 
         $this->loadView('redefinir', $data);
     }
 
-    public function sair() {
+    public function sair()
+    {
         $u = new Usuario();
         $u->sair();
         header("Location:" . BASE_URL);

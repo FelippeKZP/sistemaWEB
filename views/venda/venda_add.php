@@ -3,17 +3,17 @@
 <br/>
 
 <?php if (isset($msg_erro) && !empty($msg_erro)): ?>
-<div class="alert alert-danger alert-dismissible">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    <strong><?php echo $msg_erro; ?></strong>
-</div>
+    <div class="alert alert-danger alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong><?php echo $msg_erro; ?></strong>
+    </div>
 <?php endif; ?>
 
 <?php if (isset($msg_sucesso) && !empty($msg_sucesso)): ?>
-<div class="alert alert-success alert-dismissible">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    <strong><?php echo $msg_sucesso; ?></strong>
-</div>
+    <div class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong><?php echo $msg_sucesso; ?></strong>
+    </div>
 <?php endif; ?>
 
 
@@ -21,8 +21,9 @@
 
     <label>Cliente:</label><br/>
     <input type="hidden" name="id_cliente"/>
-    <input type="text" class="form-control" id="cliente_nome" name="cliente_nome" autocomplete="off" data-type="pesquisar_clientes"/>
-    
+    <input type="text" class="form-control" id="cliente_nome" name="cliente_nome" autocomplete="off"
+           data-type="pesquisar_clientes"/>
+
 
     <div style="clear:both"></div>
 
@@ -39,7 +40,8 @@
 
     <div class="form-group col-sm-2">
         <label>Desconto:</label>
-        <input type="text" class="form-control" id="desconto" onblur="desc();" name="desconto" value="0,00"  placeholder="0,00"/>
+        <input type="text" class="form-control" id="desconto" onblur="desc();" name="desconto" value="0,00"
+               placeholder="0,00"/>
     </div>
 
     <div style="clear: both"></div>
@@ -60,9 +62,9 @@
         </select>
     </div>
 
-    <div  id="data_venc" class="form-group col-sm-3">
+    <div id="data_venc" class="form-group col-sm-3">
         <label>Data de Vencimento:</label>
-        <input type="date" class="form-control" id="data_vencimento" name="data_vencimento" required="true" />
+        <input type="date" class="form-control" id="data_vencimento" name="data_vencimento" required="true"/>
     </div>
 
     <div id="parcelas" class="form-group col-sm-2" style="display: none;">
@@ -71,7 +73,9 @@
     </div>
 
     <div id="btGerar" style="display: none; padding-top: 25px;" class="form-group col-sm-2">
-        <button  class="btn btn-primary"  id="btnGerar"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Gerar Parcelas</button>
+        <button class="btn btn-primary" id="btnGerar"><span class="glyphicon glyphicon-plus-sign"
+                                                            aria-hidden="true"></span> Gerar Parcelas
+        </button>
     </div>
 
     <br/><br/>
@@ -82,11 +86,11 @@
         <div class="table-responsive">
             <table id="tabela_parcelas" class="table table-hover">
                 <thead>
-                    <tr>
-                        <th>Parcela</th>
-                        <th class="text-center">Vencimento</th>
-                        <th>Valor</th>
-                    </tr>
+                <tr>
+                    <th>Parcela</th>
+                    <th class="text-center">Vencimento</th>
+                    <th>Valor</th>
+                </tr>
                 </thead>
                 <tbody>
 
@@ -99,13 +103,15 @@
 
     <h4>Produtos</h4>
 
-    <input type="text" class="form-control" id="add_prod"  name="add_prod" autocomplete="off" data-type="pesquisar_loteProdutos"/>
+    <input type="text" class="form-control" id="add_prod" name="add_prod" autocomplete="off"
+           data-type="pesquisar_loteProdutos"/>
 
     <br/><br/><br/><br/>
 
     <div class="table-responsive">
         <table id="tabela_produtos" class="table">
             <tr>
+                <th>Imagem</th>
                 <th>Lote</th>
                 <th>Produto</th>
                 <th>Quant.</th>
@@ -118,8 +124,9 @@
     <hr style="border: 1px solid #CCC;"/>
 
     <div class="form-group col-sm-12" style="margin-left: -15px;">
-        <button  class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Salvar</button>
-        <a class="btn btn-warning" href="<?php echo BASE_URL; ?>venda"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Voltar</a>
+        <button class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Salvar</button>
+        <a class="btn btn-warning" href="<?php echo BASE_URL; ?>venda"><span class="glyphicon glyphicon-repeat"
+                                                                             aria-hidden="true"></span> Voltar</a>
     </div>
 
 </form>

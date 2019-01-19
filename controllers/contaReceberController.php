@@ -1,8 +1,10 @@
 <?php
 
-class contaReceberController extends controller {
+class contaReceberController extends controller
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $u = new Usuario();
         if ($u->isLogged() == false) {
@@ -10,7 +12,8 @@ class contaReceberController extends controller {
         }
     }
 
-    public function index() {
+    public function index()
+    {
         $data = array();
         $u = new Usuario();
         $n = new Notificacao();
@@ -40,7 +43,7 @@ class contaReceberController extends controller {
         $data['perda'] = $u->hasPermission('perda');
         $data['relatório'] = $u->hasPermission('relatório');
 
-        if($u->hasPermission('contas a receber')){
+        if ($u->hasPermission('contas a receber')) {
 
             $c = new ContaReceber();
 
@@ -62,7 +65,7 @@ class contaReceberController extends controller {
                 $s = $_GET['searchs'];
             }
 
-            $data['filtros'] =  $_GET;
+            $data['filtros'] = $_GET;
 
             $limit = 10;
 
@@ -91,14 +94,15 @@ class contaReceberController extends controller {
 
             $this->loadTemplate('contaReceber/conta_receber', $data);
 
-        }else{
-            header("Location:".BASE_URL);
+        } else {
+            header("Location:" . BASE_URL);
             exit;
         }
 
     }
 
-    public function receber($id) {
+    public function receber($id)
+    {
         $data = array();
         $u = new Usuario();
         $n = new Notificacao();
@@ -128,18 +132,18 @@ class contaReceberController extends controller {
         $data['perda'] = $u->hasPermission('perda');
         $data['relatório'] = $u->hasPermission('relatório');
 
-        if($u->hasPermission('contas a receber')){
+        if ($u->hasPermission('contas a receber')) {
 
             $c = new ContaReceber();
 
-            if(isset($id) && !empty($id)){
-                if($c->verificarId($id)){
+            if (isset($id) && !empty($id)) {
+                if ($c->verificarId($id)) {
 
-                }else{
-                    header("Location:".BASE_URL.'contaReceber' );
+                } else {
+                    header("Location:" . BASE_URL . 'contaReceber');
                 }
-            }else{
-                header("Location:".BASE_URL.'contaReceber' );
+            } else {
+                header("Location:" . BASE_URL . 'contaReceber');
             }
 
 
@@ -169,12 +173,13 @@ class contaReceberController extends controller {
 
             $this->loadTemplate('contaReceber/receber', $data);
 
-        }else{
-            header("Location:".BASE_URL);
+        } else {
+            header("Location:" . BASE_URL);
             exit;
         }
 
     }
 }
+
 ?>
 

@@ -1,8 +1,10 @@
 <?php
 
-class ajaxController extends controller {
+class ajaxController extends controller
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
 
         $u = new Usuario();
@@ -13,11 +15,13 @@ class ajaxController extends controller {
         }
     }
 
-    public function index() {
+    public function index()
+    {
 
     }
 
-    public function pesquisar_produtos() {
+    public function pesquisar_produtos()
+    {
         $data = array();
         $u = new Usuario();
         $u->setLoggedUser();
@@ -44,7 +48,8 @@ class ajaxController extends controller {
         echo json_encode($data);
     }
 
-    public function pesquisar_fornecedores() {
+    public function pesquisar_fornecedores()
+    {
         $data = array();
         $u = new Usuario();
         $u->setLoggedUser();
@@ -69,7 +74,8 @@ class ajaxController extends controller {
         echo json_encode($data);
     }
 
-    public function pesquisar_clientes() {
+    public function pesquisar_clientes()
+    {
         $data = array();
         $u = new Usuario();
         $u->setLoggedUser();
@@ -93,7 +99,8 @@ class ajaxController extends controller {
         echo json_encode($data);
     }
 
-    public function pesquisar_loteProdutos() {
+    public function pesquisar_loteProdutos()
+    {
         $data = array();
         $u = new Usuario();
         $u->setLoggedUser();
@@ -109,6 +116,7 @@ class ajaxController extends controller {
         foreach ($lotes as $sitem) {
             $data[] = array(
                 'id' => $sitem['id'],
+                'url'=> $sitem['url'],
                 'preco' => $sitem['preco'],
                 'preco_compra' => $sitem['preco_compra'],
                 'quant' => $sitem['quantidade'],
@@ -121,7 +129,8 @@ class ajaxController extends controller {
         echo json_encode($data);
     }
 
-    public function verificarCPF() {
+    public function verificarCPF()
+    {
         $data = array();
         $u = new Usuario();
         $u->setLoggedUser();
@@ -131,191 +140,224 @@ class ajaxController extends controller {
         if (isset($_GET['p']) && !empty($_GET['p'])) {
             $p = addslashes($_GET['p']);
         }
-        
+
         $total = $f->verificarCPF($p);
-        
-        foreach ($total as $t){
-         $data[] = array(
-           'total' => $t['total']  
-       );
-     }
 
-     echo json_encode($data);
- }
+        foreach ($total as $t) {
+            $data[] = array(
+                'total' => $t['total']
+            );
+        }
 
- public function verificarRG(){
-    $data = array();
-    $u = new Usuario();
-    $u->setLoggedUser();
-
-    $f = new Funcionario();
-
-    if(isset($_GET['p']) && !empty($_GET['p'])){
-        $p = addslashes($_GET['p']);
+        echo json_encode($data);
     }
 
-    $total = $f->verificarRG($p);
+    public function verificarRG()
+    {
+        $data = array();
+        $u = new Usuario();
+        $u->setLoggedUser();
 
-    foreach ($total as $t){
-        $data[] = array(
-          'total' => $t['total']  
-      );
+        $f = new Funcionario();
+
+        if (isset($_GET['p']) && !empty($_GET['p'])) {
+            $p = addslashes($_GET['p']);
+        }
+
+        $total = $f->verificarRG($p);
+
+        foreach ($total as $t) {
+            $data[] = array(
+                'total' => $t['total']
+            );
+        }
+
+        echo json_encode($data);
+
     }
 
-    echo json_encode($data);
+    public function verificarCarteira()
+    {
+        $data = array();
+        $u = new Usuario();
+        $u->setLoggedUser();
 
-}
+        $f = new Funcionario();
 
-public function verificarCarteira(){
-    $data = array();
-    $u = new Usuario();
-    $u->setLoggedUser();
+        if (isset($_GET['p']) && !empty($_GET['p'])) {
+            $p = addslashes($_GET['p']);
+        }
 
-    $f = new Funcionario();
+        $total = $f->verificarCarteira($p);
 
-    if(isset($_GET['p']) && !empty($_GET['p'])){
-        $p = addslashes($_GET['p']);
+        foreach ($total as $t) {
+            $data[] = array(
+                'total' => $t['total']
+            );
+        }
+
+        echo json_encode($data);
     }
 
-    $total = $f->verificarCarteira($p);
+    public function verificarClienteCpfCnpj()
+    {
+        $data = array();
+        $u = new Usuario();
+        $u->setLoggedUser();
 
-    foreach ($total as $t){
-        $data[] = array(
-            'total' => $t['total']
-        );
+        $c = new Cliente();
+
+        if (isset($_GET['p']) && !empty($_GET['p'])) {
+            $p = addslashes($_GET['p']);
+        }
+
+        $total = $c->verificarClienteCpfCnpj($p);
+
+        foreach ($total as $t) {
+            $data[] = array(
+                'total' => $t['total']
+            );
+
+        }
+        echo json_encode($data);
     }
 
-    echo json_encode($data);
-}
+    public function verificarClienteRgIe()
+    {
+        $data = array();
+        $u = new Usuario();
+        $u->setLoggedUser();
 
-public function verificarClienteCpfCnpj(){
-   $data = array();
-   $u = new Usuario();
-   $u->setLoggedUser();
+        $c = new Cliente();
 
-   $c = new Cliente();
+        if (isset($_GET['p']) && !empty($_GET['p'])) {
+            $p = addslashes($_GET['p']);
+        }
 
-   if (isset($_GET['p']) && !empty($_GET['p'])) {
-       $p = addslashes($_GET['p']);
-   }
+        $total = $c->verificarClienteRgIe($p);
 
-   $total =  $c->verificarClienteCpfCnpj($p);
+        foreach ($total as $t) {
+            $data[] = array(
+                'total' => $t['total']
+            );
 
-   foreach($total as $t){
-    $data[] = array(
-        'total' => $t['total']
-    );
-
-}
-echo json_encode($data);
-}
-
-public function verificarClienteRgIe(){
-   $data = array();
-   $u = new Usuario();
-   $u->setLoggedUser();
-
-   $c = new Cliente();
-
-   if (isset($_GET['p']) && !empty($_GET['p'])) {
-       $p = addslashes($_GET['p']);
-   }
-
-   $total =  $c->verificarClienteRgIe($p);
-
-   foreach($total as $t){
-    $data[] = array(
-        'total' => $t['total']
-    );
-
-}
-echo json_encode($data);
-}
-
-public function verificarClienteEmail(){
-   $data = array();
-   $u = new Usuario();
-   $u->setLoggedUser();
-
-   $c = new Cliente();
-
-   if (isset($_GET['p']) && !empty($_GET['p'])) {
-       $p = addslashes($_GET['p']);
-   }
-
-   $total =  $c->verificarClienteEmail($p);
-
-   foreach($total as $t){
-    $data[] = array(
-        'total' => $t['total']
-    );
-
-}
-echo json_encode($data);
-}
-
-public function verificarFornecedorCnpj(){
-    $data = array();
-    $u = new Usuario();
-    $u->setLoggedUser();
-
-    $f = new Fornecedor();
-
-    if (isset($_GET['p']) && !empty($_GET['p'])) {
-       $p = addslashes($_GET['p']);
-   }
-
-   $total =  $f->verificarFornecedorCnpj($p);
-
-   foreach($total as $t){
-    $data[] = array(
-        'total' => $t['total']
-    );
-
-}
-echo json_encode($data);
-}
-
-public function verificarFornecedorIe(){
-    $data = array();
-    $u = new Usuario();
-    $u->setLoggedUser();
-
-    $f = new Fornecedor();
-
-    if (isset($_GET['p']) && !empty($_GET['p'])) {
-       $p = addslashes($_GET['p']);
-   }
-
-   $total =  $f->verificarFornecedorIe($p);
-
-   foreach($total as $t){
-    $data[] = array(
-        'total' => $t['total']
-    );
-
-}
-echo json_encode($data);
-}
-
-public function verificarUsuarioEmail(){
-    $data = array();
-    $u = new Usuario();
-    $u->setLoggedUser();
-
-    if(isset($_GET['p']) && !empty($_GET['p'])){
-        $p = addslashes($_GET['p']);
+        }
+        echo json_encode($data);
     }
 
-    $total = $u->verificarUsuarioEmail($p);
+    public function verificarClienteEmail()
+    {
+        $data = array();
+        $u = new Usuario();
+        $u->setLoggedUser();
 
-    foreach ($total as $t) {
-        $data[] = array(
-            'total' => $t['total']
-        );
+        $c = new Cliente();
+
+        if (isset($_GET['p']) && !empty($_GET['p'])) {
+            $p = addslashes($_GET['p']);
+        }
+
+        $total = $c->verificarClienteEmail($p);
+
+        foreach ($total as $t) {
+            $data[] = array(
+                'total' => $t['total']
+            );
+
+        }
+        echo json_encode($data);
     }
-    echo json_encode($data);
-}
+
+    public function verificarFornecedorCnpj()
+    {
+        $data = array();
+        $u = new Usuario();
+        $u->setLoggedUser();
+
+        $f = new Fornecedor();
+
+        if (isset($_GET['p']) && !empty($_GET['p'])) {
+            $p = addslashes($_GET['p']);
+        }
+
+        $total = $f->verificarFornecedorCnpj($p);
+
+        foreach ($total as $t) {
+            $data[] = array(
+                'total' => $t['total']
+            );
+
+        }
+        echo json_encode($data);
+    }
+
+    public function verificarFornecedorIe()
+    {
+        $data = array();
+        $u = new Usuario();
+        $u->setLoggedUser();
+
+        $f = new Fornecedor();
+
+        if (isset($_GET['p']) && !empty($_GET['p'])) {
+            $p = addslashes($_GET['p']);
+        }
+
+        $total = $f->verificarFornecedorIe($p);
+
+        foreach ($total as $t) {
+            $data[] = array(
+                'total' => $t['total']
+            );
+
+        }
+        echo json_encode($data);
+    }
+
+    public function verificarUsuarioEmail()
+    {
+        $data = array();
+        $u = new Usuario();
+        $u->setLoggedUser();
+
+        if (isset($_GET['p']) && !empty($_GET['p'])) {
+            $p = addslashes($_GET['p']);
+        }
+
+        $total = $u->verificarUsuarioEmail($p);
+
+        foreach ($total as $t) {
+            $data[] = array(
+                'total' => $t['total']
+            );
+        }
+        echo json_encode($data);
+    }
+
+    public function pegar_cidades()
+    {
+        $data = array();
+        $u = new Usuario();
+        $u->setLoggedUser();
+
+        if (isset($_POST['estado'])) {
+            $id_estado = $_POST['estado'];
+
+            $c = new Cidade();
+
+            $cidades = $c->pegar_cidades($id_estado);
+
+            foreach ($cidades as $c) {
+                $data[] = array(
+                    'id' => $c['id'],
+                    'nome' => $c['nome']
+                );
+            }
+
+        }
+
+        echo json_encode($data);
+    }
 
 }
 

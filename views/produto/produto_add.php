@@ -3,25 +3,19 @@
 <br/>
 
 <?php if (isset($msg_erro) && !empty($msg_erro)): ?>
-<div class="alert alert-danger alert-dismissible">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    <strong><?php echo $msg_erro; ?></strong>
-</div>
+    <script>swal("Ocorreu um erro salvar o produto.", "", "error");</script>
 <?php endif; ?>
 
 <?php if (isset($msg_sucesso) && !empty($msg_sucesso)): ?>
-<div class="alert alert-success alert-dismissible">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    <strong><?php echo $msg_sucesso; ?></strong>
-</div>
+    <script>swal("Sucesso ao salvar o produto.", "", "success");</script>
 <?php endif; ?>
-
 
 <form method="POST" enctype="multipart/form-data" id="form">
 
     <div class="form-group  col-sm-3">
         <label>Cód. Barras:</label>
-        <input type="text" class="form-control" id="cod_barras" name="cod_barras" placeholder="Digite o Cód. de Barras;"/>
+        <input type="text" class="form-control" id="cod_barras" name="cod_barras"
+               placeholder="Digite o Cód. de Barras;"/>
     </div>
 
     <div class="form-group col-sm-5">
@@ -42,7 +36,8 @@
 
     <div class="form-group col-sm-3">
         <label>Quantidade Mínima:</label>
-        <input type="text" class="form-control" id="quantidade_min" name="quantidade_min" placeholder="Digite a Quantidade Mínima."/>
+        <input type="text" class="form-control" id="quantidade_min" name="quantidade_min"
+               placeholder="Digite a Quantidade Mínima."/>
     </div>
 
     <div class="form-group col-sm-3">
@@ -52,19 +47,21 @@
 
     <div class="form-group col-sm-3">
         <label>Preço de Compra:</label>
-        <input type="text" class="form-control" id="preco_compra" name="preco_compra" onblur="lucro();" placeholder="Digite o Preço de Compra."/>
+        <input type="text" class="form-control" id="preco_compra" name="preco_compra" onblur="lucro();"
+               placeholder="Digite o Preço de Compra."/>
     </div>
 
     <div class="form-group col-sm-3">
         <label>Lucro da Venda:</label>
-        <input type="text" class="form-control" id="lucro_venda" name="lucro_venda" placeholder="0,00" readonly="true" />
+        <input type="text" class="form-control" id="lucro_venda" name="lucro_venda" placeholder="0,00" readonly="true"/>
     </div>
 
     <div style="clear: both;"></div>
-    
+
     <div class="form-group col-sm-3">
         <label>Margem Bruta:</label>
-        <input type="text" class="form-control" id="margem_bruta" name="margem_bruta" placeholder="0.00%" readonly="true"/>
+        <input type="text" class="form-control" id="margem_bruta" name="margem_bruta" placeholder="0.00%"
+               readonly="true"/>
     </div>
 
     <div class="form-group col-sm-3">
@@ -76,21 +73,19 @@
     </div>
 
     <div class="form-group col-sm-3">
-        <label>Fotos:  (suporta apenas foto em png.)</label>
+        <label>Fotos: (suporta apenas foto em png.)</label>
         <div class="fileUpload btn btn-primary">
             <span><span class="glyphicon glyphicon-picture" aria-hidden="true"></span> Upload</span>
-            <input type="file" id="fotos" name="fotos[]" class="upload"  multiple/>
+            <input type="file" id="fotos" name="fotos[]" class="upload" multiple/>
         </div>
     </div>
 
     <div class=" form-group col-sm-12" style="float: right;">
-        <button  class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Salvar</button>
-        <a class="btn btn-warning" href="<?php echo BASE_URL; ?>produto"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Voltar</a>
+        <button class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Salvar</button>
+        <a class="btn btn-warning" href="<?php echo BASE_URL; ?>produto"><span class="glyphicon glyphicon-repeat"
+                                                                               aria-hidden="true"></span> Voltar</a>
     </div>
 
 </form>
 
-<script type="text/javascript" src="<?php echo BASE_URL;?>assets/js/produto/script_produto_add.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/produto/script_produto_validacao.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/produto/script_produto_mascara.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/produto/script_produto_maskMoney.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/produto/script_produto.js"></script>
